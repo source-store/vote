@@ -3,13 +3,16 @@ package ru.yakubov.vote.web;
 import org.slf4j.Logger;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.util.StringUtils;
 import ru.yakubov.vote.model.Restaurants;
+import ru.yakubov.vote.to.RestaurantTo;
 import ru.yakubov.vote.web.Restaurant.RestaurantController;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -37,8 +40,17 @@ public class RestaurantServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int userId = Integer.parseInt(request.getParameter("restaurantId"));
-        SecurityUtil.setAuthUserId(userId);
+        request.setCharacterEncoding("UTF-8");
+        String action = request.getParameter("action");
+
+        Restaurants restaurants = new Restaurants(null, request.getParameter("name"), request.getParameter("address"));
+
+        if (StringUtils.hasLength(request.getParameter("id"))) {
+            restaurantController.update(restaurants, getId(request));
+        } else {
+            restaurantController.create(restaurants);
+        }
+
         response.sendRedirect("restaurants");
     }
 
@@ -47,19 +59,16 @@ public class RestaurantServlet extends HttpServlet {
         log.debug("forward to restaurants");
         String action = request.getParameter("action");
 
+
         switch (action == null ? "all" : action) {
             case "delete" -> {
                 int id = getId(request);
                 restaurantController.delete(id);
                 response.sendRedirect("restaurants");
             }
-            case "menu" -> {
-                request.getRequestDispatcher("/menu.jsp").forward(request, response);
-                break;
-            }
             case "create", "update" -> {
-                final Restaurants restaurants = "create".equals(action) ? new Restaurants( null, "name", "address")
-                                                                        : restaurantController.get(getId(request));
+                final RestaurantTo restaurants = "create".equals(action) ? new RestaurantTo( null, "name", "address")
+                                                                        : restaurantController.getTo(getId(request));
                 request.setAttribute("restaurants", restaurants);
                 request.getRequestDispatcher("/restaurantForm.jsp").forward(request, response);
             }
@@ -72,7 +81,7 @@ public class RestaurantServlet extends HttpServlet {
 //                request.getRequestDispatcher("/meals.jsp").forward(request, response);
 //            }
             default -> {
-                request.setAttribute("restaurants", restaurantController.getAll());
+                request.setAttribute("restaurants", restaurantController.getAllTo());
                 request.getRequestDispatcher("/restaurants.jsp").forward(request, response);
                 break;
             }

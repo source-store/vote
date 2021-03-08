@@ -38,4 +38,5 @@ public class Restaurants extends AbstractNamedEntity{
     public String getAddress() {
         return address;
     }
+
 }

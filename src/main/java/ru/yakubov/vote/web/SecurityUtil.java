@@ -6,6 +6,8 @@ public class SecurityUtil {
 
     private static int id = AbstractBaseEntity.START_SEQ;
 
+    private static int restaurantId;
+
     private SecurityUtil() {
     }
 
@@ -17,4 +19,11 @@ public class SecurityUtil {
         SecurityUtil.id = id;
     }
 
+    public static int getRestaurantId() {
+        return restaurantId;
+    }
+
+    public static void setRestaurantId(int restaurantId) {
+        SecurityUtil.restaurantId = restaurantId;
+    }
 }

@@ -18,10 +18,10 @@ public interface CrudRestaurantRepository extends JpaRepository<Restaurants, Int
     int delete(@Param("id") int id);
 
     @Transactional
-    @Modifying
     @Query("SELECT m FROM Restaurants m ORDER BY m.name DESC")
     List<Restaurants> findAll();
 
-
-
+    @Transactional
+    @Query("SELECT m FROM Restaurants m WHERE m.id=:id")
+    Restaurants getOne(@Param("id") int id);
 }

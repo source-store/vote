@@ -25,11 +25,11 @@ public class VoteUtils {
                 .map(restaurant -> createTo(restaurant))
                 .collect(Collectors.toList());
     }
-    private static RestaurantTo createTo(Restaurants restaurants) {
+    public static RestaurantTo createTo(Restaurants restaurants) {
         return new RestaurantTo(restaurants.getId(), restaurants.getName(), restaurants.getAddress());
     }
 
-    private static MenuTo createTo(Menu menu) {
+    public static MenuTo createTo(Menu menu) {
         return new MenuTo(menu.getId(), menu.getDate(), menu.getDecription(), menu.getPrice(), createTo(menu.getRestaurant()));
     }
 

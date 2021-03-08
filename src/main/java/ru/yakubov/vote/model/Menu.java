@@ -97,4 +97,15 @@ public class Menu extends AbstractBaseEntity {
     public Long getPrice() {
         return price;
     }
+
+    @Override
+    public String toString() {
+        return "Menu{" +
+                "id=" + id +
+                ", date=" + date +
+                ", decription=" + decription +
+                ", price=" + price +
+//                ", restaurant=" + restaurant +
+                '}';
+    }
 }

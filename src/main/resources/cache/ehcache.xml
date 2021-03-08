@@ -23,4 +23,5 @@
 
     <cache alias="users" uses-template="singleNonExpiryCache"/>
     <cache alias="restaurants" uses-template="singleNonExpiryCache"/>
+    <cache alias="menu" uses-template="singleNonExpiryCache"/>
 </config>

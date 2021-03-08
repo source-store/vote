@@ -57,7 +57,7 @@
             <tr>
                 <td>${restaurant.name}</td>
                 <td>${restaurant.address}</td>
-                <td><a href="menu?action=menu&id=${restaurant.id}">Menu</a></td>
+                <td><a href="menu?action=all&id=${restaurant.id}">Menu</a></td>
                 <td><a href="restaurants?action=update&id=${restaurant.id}">Update</a></td>
                 <td><a href="restaurants?action=delete&id=${restaurant.id}">Delete</a></td>
             </tr>

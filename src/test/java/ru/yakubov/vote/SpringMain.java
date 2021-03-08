@@ -22,7 +22,7 @@ public class SpringMain {
 
             RestaurantController restaurantController = appCtx.getBean(RestaurantController.class);
             List<RestaurantTo> filteredMealsWithExcess =
-                    restaurantController.getAll();
+                    restaurantController.getAllTo();
             filteredMealsWithExcess.forEach(System.out::println);
             System.out.println();
         }

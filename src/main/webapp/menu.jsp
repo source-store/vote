@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.List" %>
+<%@ page import="ru.yakubov.vote.to.MenuTo" %><%--
   Created by IntelliJ IDEA.
   User: Alexandr.Yakubov
   Date: 06.03.2021
@@ -32,7 +33,9 @@
         <button type="submit">Filter</button>
     </form>
     <hr/>
-    <a href="menu?action=create">Add Restaurant</a>
+    <a href="menu?action=create&id=<%
+    out.print(request.getParameter("id"));
+    %>">Add Menu</a>
     <br><br>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>

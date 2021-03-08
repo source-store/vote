@@ -7,6 +7,7 @@ import ru.yakubov.vote.model.Menu;
 import ru.yakubov.vote.service.MenuService;
 import ru.yakubov.vote.to.MenuTo;
 import ru.yakubov.vote.util.VoteUtils;
+import ru.yakubov.vote.web.SecurityUtil;
 
 import java.util.List;
 
@@ -25,8 +26,13 @@ public class MenuController {
         this.service = service;
     }
 
-    public List<MenuTo> getAll() {
+    public List<Menu> getAll() {
         log.info("getAll");
+        return service.getAll();
+    }
+
+    public List<MenuTo> getAllTo() {
+        log.info("getAllTo");
         return VoteUtils.getMenuTos(service.getAll());
     }
 
@@ -37,6 +43,11 @@ public class MenuController {
     public Menu get(int id) {
         log.info("get {}", id);
         return service.get(id);
+    }
+
+    public MenuTo getTo(int id) {
+        log.info("getTo {}", id);
+        return VoteUtils.createTo(service.get(id));
     }
 
     public Menu create(Menu menu) {
@@ -59,6 +70,10 @@ public class MenuController {
     public Integer getIdRestaurant(int id) {
         log.info("getIdRestaurant {} with id={}", id);
         return service.getIdRestaurant(id);
+    }
+
+    public int getRestaurantId(){
+        return SecurityUtil.getRestaurantId();
     }
 
 }
