@@ -7,6 +7,7 @@ import ru.yakubov.vote.repository.MenuVoteRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -22,7 +23,6 @@ public class DataJpaMenuRepository implements MenuVoteRepository {
     }
 
     @Override
-    @Transactional
     public Menu save(Menu menu) {
         if (!menu.isNew() && get(menu.getId()) == null) {
             return null;
@@ -32,25 +32,23 @@ public class DataJpaMenuRepository implements MenuVoteRepository {
     }
 
     @Override
-    @Transactional
     public boolean delete(int id) {
         return crudMenuRepository.delete(id) != 0;
     }
 
     @Override
-    @Transactional
     public Menu get(int id) {
-        return crudMenuRepository.getOne(id);
+//        return crudMenuRepository.getOne(id);
+        return crudMenuRepository.findById(id).orElse(null);
+
     }
 
     @Override
-    @Transactional
     public List<Menu> getAll() {
         return crudMenuRepository.findAll();
     }
 
     @Override
-    @Transactional
     public List<Menu> getAllByRestaurantId(int restaurantId) {
         return crudMenuRepository.getAllByRestaurantId(restaurantId);
     }
@@ -59,4 +57,15 @@ public class DataJpaMenuRepository implements MenuVoteRepository {
     public Integer getIdRestaurant(int id) {
         return crudMenuRepository.getOne(id).getRestaurant().getId();
     }
+
+    @Override
+    public List<Menu> GetAllByDate(LocalDate beginDate, LocalDate endDate) {
+        return crudMenuRepository.GetAllByDate(beginDate, endDate);
+    }
+
+    @Override
+    public List<Menu> GetAllByRestaurantIdAndDate(int id, LocalDate beginDate, LocalDate endDate) {
+        return crudMenuRepository.GetAllByRestaurantIdAndDate(id, beginDate, endDate);
+    }
+
 }

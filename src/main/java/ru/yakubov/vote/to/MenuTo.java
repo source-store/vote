@@ -13,11 +13,11 @@ public class MenuTo {
 
     private final String decription;
 
-    private final Long price;
+    private final Integer price;
 
     private final RestaurantTo restaurant;
 
-    public MenuTo(Integer id, LocalDate date, String decription, Long price, RestaurantTo restaurant) {
+    public MenuTo(Integer id, LocalDate date, String decription, Integer price, RestaurantTo restaurant) {
         this.id = id;
         this.date = date;
         this.decription = decription;
@@ -37,7 +37,7 @@ public class MenuTo {
         return decription;
     }
 
-    public Long getPrice() {
+    public Integer getPrice() {
         return price;
     }
 

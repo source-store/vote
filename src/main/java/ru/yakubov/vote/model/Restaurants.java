@@ -1,9 +1,12 @@
 package ru.yakubov.vote.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @NamedQueries({
         @NamedQuery(name = Restaurants.ALL_SORTED, query = "SELECT m FROM Restaurants m WHERE m.id=:restorauntId ORDER BY m.name DESC"),
@@ -19,6 +22,16 @@ public class Restaurants extends AbstractNamedEntity{
     @Size(min = 1, max = 100)
     private String address;
 
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    @OrderBy("date DESC")
+    private List<Votes> votes;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OrderBy("date DESC")
+    private List<Menu> menu;
+
+
     public Restaurants() {
     }
 
@@ -31,6 +44,22 @@ public class Restaurants extends AbstractNamedEntity{
         this.address = address;
     }
 
+    public void setMenu(List<Menu> menu) {
+        this.menu = menu;
+    }
+
+    public void setVotes(List<Votes> votes) {
+        this.votes = votes;
+    }
+
+    public List<Menu> getMenu() {
+        return menu;
+    }
+
+    public List<Votes> getVotes() {
+        return votes;
+    }
+
     public void setAddress(String address) {
         this.address = address;
     }
@@ -39,4 +68,12 @@ public class Restaurants extends AbstractNamedEntity{
         return address;
     }
 
+    @Override
+    public String toString() {
+        return "Restaurants{" +
+                "id=" + id +
+                ", name=" + name +
+                ", address=" + address +
+                '}';
+    }
 }

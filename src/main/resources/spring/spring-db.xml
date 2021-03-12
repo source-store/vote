@@ -11,9 +11,9 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
-<!--    <context:component-scan base-package="ru.javawebinar.**.repository.jpa"/>-->
+<!--    <context:component-scan base-package="ru.yakubov.**.repository.jpa"/>-->
 
-<!--    <context:component-scan base-package="ru.javawebinar.**.repository.jdbc"/>-->
+<!--    <context:component-scan base-package="ru.yakubov.**.repository.jdbc"/>-->
 
     <jdbc:initialize-database data-source="dataSource" enabled="${database.init}">
         <jdbc:script location="${jdbc.initLocation}"/>

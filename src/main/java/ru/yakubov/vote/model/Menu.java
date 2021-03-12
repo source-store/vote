@@ -32,7 +32,6 @@ public class Menu extends AbstractBaseEntity {
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurants restaurant;
 
-
     @NotNull
     @Column(name = "date", nullable = false)
     private LocalDate date = LocalDate.of(Calendar.getInstance().get(Calendar.YEAR),
@@ -48,20 +47,19 @@ public class Menu extends AbstractBaseEntity {
 
     @NotNull
     @Column(name = "price", nullable = false)
-    private Long price;
+    private Integer price;
 
     public Menu() {
     }
 
     public Menu(Menu menu) {
-        this(menu.getId(), menu.getDecription(), menu.getDate(), menu.getRestaurant(), menu.getPrice());
+        this(menu.getId(), menu.getDecription(), menu.getDate(), menu.getPrice());
     }
 
-    public Menu(Integer id, String decription, LocalDate date, Restaurants restaurant, Long price) {
+    public Menu(Integer id, String decription, LocalDate date, Integer price) {
         super(id);
         this.decription = decription;
         this.date = date;
-        this.restaurant = restaurant;
         this.price = price;
     }
 
@@ -78,7 +76,7 @@ public class Menu extends AbstractBaseEntity {
         this.restaurant = restaurant;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
@@ -94,7 +92,7 @@ public class Menu extends AbstractBaseEntity {
         return decription;
     }
 
-    public Long getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
@@ -105,7 +103,6 @@ public class Menu extends AbstractBaseEntity {
                 ", date=" + date +
                 ", decription=" + decription +
                 ", price=" + price +
-//                ", restaurant=" + restaurant +
                 '}';
     }
 }

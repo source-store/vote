@@ -4,6 +4,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import ru.yakubov.vote.model.Role;
 import ru.yakubov.vote.model.UserVote;
 import ru.yakubov.vote.repository.UserVoteRepository;
 
@@ -51,6 +52,11 @@ public class UserVoteService {
         Assert.notNull(userVote, "user must not be null");
         checkNotFoundWithId(repository.save(userVote), userVote.id());
     }
+
+    public List<UserVote> getByRoles (Role role){
+        return repository.getByRoles(role);
+    }
+
 
 
 }

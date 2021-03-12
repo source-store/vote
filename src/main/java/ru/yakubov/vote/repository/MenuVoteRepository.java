@@ -1,7 +1,9 @@
 package ru.yakubov.vote.repository;
 
+import org.springframework.data.repository.query.Param;
 import ru.yakubov.vote.model.Menu;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface MenuVoteRepository {
@@ -20,4 +22,7 @@ public interface MenuVoteRepository {
 
     Integer getIdRestaurant(int id);
 
+    List<Menu> GetAllByDate (LocalDate beginDate, LocalDate endDate);
+
+    List<Menu> GetAllByRestaurantIdAndDate (int id, LocalDate beginDate, LocalDate endDate);
 }

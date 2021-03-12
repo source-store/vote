@@ -6,33 +6,34 @@
 
     <display-name>vote</display-name>
 
-    <servlet>
-        <servlet-name>userVoteServlet</servlet-name>
-        <servlet-class>ru.yakubov.vote.web.UserVoteServlet</servlet-class>
-        <load-on-startup>0</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>userVoteServlet</servlet-name>
-        <url-pattern>/users</url-pattern>
-    </servlet-mapping>
+    <context-param>
+        <param-name>spring.profiles.default</param-name>
+        <param-value>postgres,datajpa</param-value>
+    </context-param>
 
-    <servlet>
-        <servlet-name>restaurantServlet</servlet-name>
-        <servlet-class>ru.yakubov.vote.web.RestaurantServlet</servlet-class>
-        <load-on-startup>0</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>restaurantServlet</servlet-name>
-        <url-pattern>/restaurants</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>menuVoteServlet</servlet-name>
-        <servlet-class>ru.yakubov.vote.web.MenuVoteServlet</servlet-class>
-        <load-on-startup>0</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>menuVoteServlet</servlet-name>
-        <url-pattern>/menu</url-pattern>
-    </servlet-mapping>
+    <context-param>
+        <param-name>contextC onfigLocation</param-name>
+        <param-value>
+            classpath:spring/spring-app.xml
+            classpath:spring/spring-db.xml
+        </param-value>
+    </context-param>
 
+    <!-- Spring MVC -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>mvc-dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring/spring-mvc.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>mvc-dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 </web-app>

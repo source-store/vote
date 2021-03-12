@@ -41,7 +41,7 @@ CREATE TABLE MENU
 (
     id            INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     restaurant_id INTEGER NOT NULL,
-    date          DATE    NOT NULL,
+    date          DATE    DEFAULT now() NOT NULL,
     decription	VARCHAR(255) NOT NULL,
     price BIGINT       NOT NULL,
     CONSTRAINT menu_unique_date_decription_restaurant_idx UNIQUE (date, decription, restaurant_id),
@@ -52,7 +52,7 @@ CREATE INDEX menu_date_idx ON MENU (date);
 CREATE TABLE VOTES
 (
     id            INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-    date          DATE NOT NULL,
+    date          DATE DEFAULT now() NOT NULL,
     user_id       INTEGER NOT NULL,
     restaurant_id INTEGER NOT NULL,
     FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE,

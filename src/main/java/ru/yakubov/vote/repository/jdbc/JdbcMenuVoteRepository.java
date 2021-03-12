@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import ru.yakubov.vote.model.Menu;
 import ru.yakubov.vote.repository.MenuVoteRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -76,6 +77,16 @@ public class JdbcMenuVoteRepository implements MenuVoteRepository {
     public Integer getIdRestaurant(int id) {
         List<Menu> menu = jdbcTemplate.query("SELECT * FROM menu WHERE id=?", ROW_MAPPER, id);
         return DataAccessUtils.singleResult(menu).getRestaurant().getId();
+    }
+
+    @Override
+    public List<Menu> GetAllByDate(LocalDate beginDate, LocalDate endDate) {
+        return null;
+    }
+
+    @Override
+    public List<Menu> GetAllByRestaurantIdAndDate(int id, LocalDate beginDate, LocalDate endDate) {
+        return null;
     }
 
 }

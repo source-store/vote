@@ -1,5 +1,6 @@
 package ru.yakubov.vote.repository;
 
+import ru.yakubov.vote.model.Role;
 import ru.yakubov.vote.model.UserVote;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface UserVoteRepository {
     UserVote getByEmail(String email);
 
     List<UserVote> getAll();
+
+    public List<UserVote> getByRoles (Role role);
 }

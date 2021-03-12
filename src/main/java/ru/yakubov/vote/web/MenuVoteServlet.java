@@ -47,7 +47,9 @@ public class MenuVoteServlet extends HttpServlet {
             int menuid = getId(request, "menuid");
             int id = menuController.getTo(menuid).getRestaurant().getId();
             Menu menu = new Menu(null, request.getParameter("description"), LocalDate.parse(request.getParameter("date")),
-                    new Restaurants(), Long.parseLong(request.getParameter("price")));
+                    Integer.parseInt(request.getParameter("price")));
+
+            menu.setRestaurant(new Restaurants());
             menu.getRestaurant().setId(id);
             menuController.update(menu, menuid);
             request.setAttribute("menus", menuController.getAllByRestaurantId(id));
@@ -73,7 +75,7 @@ public class MenuVoteServlet extends HttpServlet {
                 final LocalDate localDate = LocalDate.of(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH),
                         Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
 
-                final MenuTo menu = new MenuTo(null, localDate, "menu", 0L, null);
+                final MenuTo menu = new MenuTo(null, localDate, "menu", 0, null);
                 request.setAttribute("id", menu);
                 request.setAttribute("menu", menu);
                 request.getRequestDispatcher("/menuForm.jsp").forward(request, response);

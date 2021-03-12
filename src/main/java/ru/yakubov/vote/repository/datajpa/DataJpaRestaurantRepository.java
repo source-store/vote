@@ -19,13 +19,13 @@ public class DataJpaRestaurantRepository implements RestaurantRepository {
 
 
     @Override
-    @Transactional
+//    @Transactional
     public Restaurants save(Restaurants restaurants) {
         return crudRestaurantRepository.save(restaurants);
     }
 
     @Override
-    @Transactional
+//    @Transactional
     public boolean delete(int id) {
         return crudRestaurantRepository.delete(id) != 0;
     }
@@ -41,7 +41,7 @@ public class DataJpaRestaurantRepository implements RestaurantRepository {
     }
 
     @Override
-    @Transactional
+//    @Transactional
     public Integer createId() {
         return null;
     }

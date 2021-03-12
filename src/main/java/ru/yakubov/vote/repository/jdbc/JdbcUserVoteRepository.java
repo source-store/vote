@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import ru.yakubov.vote.model.Role;
 import ru.yakubov.vote.model.UserVote;
 import ru.yakubov.vote.repository.UserVoteRepository;
 
@@ -65,5 +66,10 @@ public class JdbcUserVoteRepository implements UserVoteRepository {
     @Override
     public List<UserVote> getAll() {
         return jdbcTemplate.query("SELECT * FROM users ORDER BY name, email", ROW_MAPPER);
+    }
+
+    @Override
+    public List<UserVote> getByRoles(Role role) {
+        return null;
     }
 }
