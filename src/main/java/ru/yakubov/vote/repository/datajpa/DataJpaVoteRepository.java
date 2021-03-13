@@ -47,7 +47,7 @@ public class DataJpaVoteRepository implements VoteRepository {
     }
 
     @Override
-    public List<Votes> getByUserDate(int id, LocalDate beginDate, LocalDate endDate) {
+    public Votes getByUserDate(int id, LocalDate beginDate, LocalDate endDate) {
         return crudRepository.getByUserDate(id, beginDate, endDate);
     }
 

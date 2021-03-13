@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import ru.yakubov.vote.model.Restaurants;
 import ru.yakubov.vote.service.RestaurantService;
 import ru.yakubov.vote.to.RestaurantTo;
-import ru.yakubov.vote.util.VoteUtils;
+import ru.yakubov.vote.util.VoteUtilsTo;
 import ru.yakubov.vote.web.SecurityUtil;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class RestaurantController {
 
     public List<RestaurantTo> getAllTo() {
         log.info("getAllTo");
-        return VoteUtils.getRestaurantTos(service.getAll());
+        return VoteUtilsTo.getRestaurantTos(service.getAll());
     }
 
     public List<Restaurants> getAll() {
@@ -42,7 +42,7 @@ public class RestaurantController {
 
     public RestaurantTo getTo(int id) {
         log.info("getTo {}", id);
-        return VoteUtils.createTo(service.get(id));
+        return VoteUtilsTo.createTo(service.get(id));
     }
 
     public Restaurants create(Restaurants restaurant) {

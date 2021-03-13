@@ -34,7 +34,7 @@ public interface CrudVoteRepository extends JpaRepository<Votes, Integer> {
 
 
     @Query("SELECT m FROM Votes m JOIN FETCH m.userVote WHERE m.userVote.id=:id and m.date between :beginDate and :endDate ORDER BY m.date, m.restaurant.id")
-    List<Votes> getByUserDate(@Param("id") int id, @Param("beginDate") LocalDate beginDate, @Param("endDate") LocalDate endDate);
+    Votes getByUserDate(@Param("id") int id, @Param("beginDate") LocalDate beginDate, @Param("endDate") LocalDate endDate);
 
     @Query("SELECT m FROM Votes m JOIN FETCH m.userVote WHERE m.userVote.id=:id ORDER BY m.date, m.restaurant.id")
     List<Votes> getByUser(@Param("id") int id);

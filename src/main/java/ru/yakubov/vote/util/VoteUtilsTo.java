@@ -9,9 +9,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class VoteUtils {
+public class VoteUtilsTo {
 
-    private VoteUtils() {
+    private VoteUtilsTo() {
     }
 
     public static List<MenuTo> getMenuTos(Collection<Menu> menu) {

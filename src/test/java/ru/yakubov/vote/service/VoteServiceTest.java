@@ -63,7 +63,7 @@ public class VoteServiceTest extends AbstractTest {
     public void getByUserDate() {
         LocalDate startDate = LocalDate.of(2021, 3, 8);
         LocalDate endDate = LocalDate.of(2021, 3, 9);
-        VOTE_MATCHER.assertMatch(service.getByUserDate(UserTestData.USER_ID3, startDate, endDate), List.of(VoteTestData.VOTE3));
+        VOTE_MATCHER.assertMatch(service.getByUserDate(UserTestData.USER_ID3, startDate, endDate), VoteTestData.VOTE3);
     }
 
     @Test

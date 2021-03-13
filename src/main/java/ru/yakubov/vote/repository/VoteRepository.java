@@ -23,7 +23,7 @@ public interface VoteRepository {
 
     List<Votes> getByRestaurantDate(int id, LocalDate beginDate, LocalDate endDate);
 
-    List<Votes> getByUserDate(int id, LocalDate beginDate, LocalDate endDate);
+    Votes getByUserDate(int id, LocalDate beginDate, LocalDate endDate);
 
     List<Votes> getByUser(int id);
 

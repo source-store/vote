@@ -55,10 +55,11 @@ public class InMemoryVoteRepository extends InMemoryBaseRepository<Votes> implem
     }
 
     @Override
-    public List<Votes> getByUserDate(int id, LocalDate beginDate, LocalDate endDate) {
+    public Votes getByUserDate(int id, LocalDate beginDate, LocalDate endDate) {
         return getCollection().stream()
                 .filter(vote -> Util.isBetweenHalfOpen(vote.getDate(), beginDate, endDate) && (vote.getUserVote().getId() == id))
-                .collect(Collectors.toList());
+                .findFirst().orElse(null);
+//                .collect(Collectors.toList()).f;
     }
 
     @Override
