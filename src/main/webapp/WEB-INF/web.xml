@@ -12,7 +12,7 @@
     </context-param>
 
     <context-param>
-        <param-name>contextC onfigLocation</param-name>
+        <param-name>contextConfigLocation</param-name>
         <param-value>
             classpath:spring/spring-app.xml
             classpath:spring/spring-db.xml
