@@ -16,7 +16,7 @@
 </head>
 <body>
 <section>
-    <h3><a href="index.html">Home</a></h3>
+    <h3><a href="../../index.html">Home</a></h3>
     <hr>
     <h2>${param.action == 'create' ? 'Create menu' : 'Edit menu'}</h2>
     <jsp:useBean id="menu" type="ru.yakubov.vote.to.MenuTo" scope="request"/>

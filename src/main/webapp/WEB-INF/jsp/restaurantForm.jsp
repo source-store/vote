@@ -12,7 +12,7 @@
 </head>
 <body>
 <section>
-    <h3><a href="index.html">Home</a></h3>
+    <h3><a href="../../index.html">Home</a></h3>
     <hr>
     <h2>${param.action == 'create' ? 'Create restaurant' : 'Edit restaurant'}</h2>
     <jsp:useBean id="restaurants" type="ru.yakubov.vote.to.RestaurantTo" scope="request"/>

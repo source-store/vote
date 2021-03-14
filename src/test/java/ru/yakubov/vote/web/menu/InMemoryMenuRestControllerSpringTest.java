@@ -22,7 +22,7 @@ import static ru.yakubov.vote.MenuTestData.*;
 public class InMemoryMenuRestControllerSpringTest {
 
     @Autowired
-    private MenuController controller;
+    private MenuRestController controller;
 
     @Autowired
     private InMemoryMenuRepository repository;

@@ -57,8 +57,13 @@ public class VoteService {
     }
 
     @Transactional
-    public Votes getByUserDate(int id, LocalDate beginDate, LocalDate endDate) {
+    public List<Votes> getByUserDate(int id, LocalDate beginDate, LocalDate endDate) {
         return repository.getByUserDate(id, beginDate, endDate);
+    }
+
+    @Transactional
+    public Votes getByUserOneDate(int id, LocalDate setDate) {
+        return repository.getByUserOneDate(id, setDate);
     }
 
     @Transactional
@@ -72,8 +77,13 @@ public class VoteService {
     }
 
     @Transactional
+    public List<Votes> getByOneDate(LocalDate setDate) {
+        return repository.getByDate(setDate, setDate);
+    }
+
+    @Transactional
     public void vote(int userId, int restaurantId) {
-        Votes vote = repository.getByUserDate(userId, LocalDate.now(), LocalDate.now());
+        Votes vote = repository.getByUserOneDate(userId, LocalDate.now());
 
         Restaurants restaurants = restaurantRepository.get(restaurantId);
         if (vote == null) {

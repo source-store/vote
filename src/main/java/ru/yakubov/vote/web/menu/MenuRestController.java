@@ -2,7 +2,11 @@ package ru.yakubov.vote.web.menu;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.yakubov.vote.model.Menu;
 import ru.yakubov.vote.service.MenuService;
 import ru.yakubov.vote.to.MenuTo;
@@ -15,14 +19,19 @@ import static ru.yakubov.vote.util.ValidationUtil.assureIdConsistent;
 import static ru.yakubov.vote.util.ValidationUtil.checkNew;
 
 
-@Controller
-public class MenuController {
+//@Controller
+//Отдаем сообщения в формате json (produces = MediaType.APPLICATION_JSON_VALUE)
+@RestController
+@RequestMapping(value = MenuRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class MenuRestController {
+    public static final String REST_URL = "/menu";
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
+    @Autowired
     private final MenuService service;
 
-    public MenuController(MenuService service) {
+    public MenuRestController(MenuService service) {
         this.service = service;
     }
 
@@ -31,6 +40,7 @@ public class MenuController {
         return service.getAll();
     }
 
+//    @GetMapping
     public List<MenuTo> getAllTo() {
         log.info("getAllTo");
         return VoteUtilsTo.getMenuTos(service.getAll());
