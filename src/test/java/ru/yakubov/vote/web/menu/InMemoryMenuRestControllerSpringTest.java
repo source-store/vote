@@ -1,12 +1,10 @@
 package ru.yakubov.vote.web.menu;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import ru.yakubov.vote.AbstractInmemoryTest;
 import ru.yakubov.vote.MenuTestData;
 import ru.yakubov.vote.model.Menu;
 import ru.yakubov.vote.repository.inmemory.InMemoryMenuRepository;
@@ -15,11 +13,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static ru.yakubov.vote.MenuTestData.*;
 
-@ContextConfiguration({"classpath:spring/inmemory.xml"})
-@RunWith(SpringRunner.class)
-public class InMemoryMenuRestControllerSpringTest {
+public class InMemoryMenuRestControllerSpringTest extends AbstractInmemoryTest {
 
     @Autowired
     private MenuRestController controller;
@@ -27,7 +24,7 @@ public class InMemoryMenuRestControllerSpringTest {
     @Autowired
     private InMemoryMenuRepository repository;
 
-    @Before
+    @BeforeEach
     public void setup() {
         repository.init();
     }
@@ -35,12 +32,12 @@ public class InMemoryMenuRestControllerSpringTest {
     @Test
     public void delete() {
         controller.delete(MenuTestData.MENU1.getId());
-        Assert.assertNull(repository.get(MenuTestData.MENU1.getId()));
+        assertNull(repository.get(MenuTestData.MENU1.getId()));
     }
 
     @Test
     public void getAll() {
-        Assert.assertNotNull(controller.getAll());
+        assertNotNull(controller.getAll());
     }
 
     @Test
@@ -53,7 +50,7 @@ public class InMemoryMenuRestControllerSpringTest {
 
     @Test
     public void getIdRestaurant() {
-        Assert.assertEquals(repository.getIdRestaurant(MENU1.getId()), MENU1.getRestaurant().getId());
+        assertEquals(repository.getIdRestaurant(MENU1.getId()), MENU1.getRestaurant().getId());
     }
 
 }

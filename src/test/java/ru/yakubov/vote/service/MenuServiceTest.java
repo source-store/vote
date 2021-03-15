@@ -1,6 +1,6 @@
 package ru.yakubov.vote.service;
 
-import org.junit.*;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.yakubov.vote.AbstractTest;
 import ru.yakubov.vote.MenuTestData;
@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static ru.yakubov.vote.MenuTestData.MENU_MATCHER;
 
 
@@ -45,12 +45,12 @@ public class MenuServiceTest extends AbstractTest {
         updatedMenu.setDecription("UpdateNote");
         service.create(updatedMenu);
         Menu menu = service.get(updatedMenu.getId());
-        Assert.assertEquals(menu.getDecription(), "UpdateNote");
+        assertEquals(menu.getDecription(), "UpdateNote");
     }
 
     @Test
     public void getAll() {
-        Assert.assertNotNull(service.getAll());
+        assertNotNull(service.getAll());
     }
 
     @Test
@@ -68,7 +68,7 @@ public class MenuServiceTest extends AbstractTest {
 
     @Test
     public void delete() {
-        Assert.assertNotNull(service.get(MenuTestData.MENU1.getId()));
+        assertNotNull(service.get(MenuTestData.MENU1.getId()));
         service.delete(MenuTestData.MENU1.getId());
         assertThrows(NotFoundException.class, () -> service.get(MenuTestData.MENU1.getId()));
     }

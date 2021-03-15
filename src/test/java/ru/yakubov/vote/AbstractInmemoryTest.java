@@ -9,14 +9,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-@ContextConfiguration({
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-db.xml"
-})
+
+@ContextConfiguration({"classpath:spring/inmemory.xml"})
 @ExtendWith(SpringExtension.class)
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 @ExtendWith(TimingExtention.class)
-public abstract class AbstractTest {
+public abstract class AbstractInmemoryTest {
     private static final Logger log = getLogger("result");
     private static final StringBuilder results = new StringBuilder();
 

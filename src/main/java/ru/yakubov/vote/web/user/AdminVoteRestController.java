@@ -25,7 +25,7 @@ public class AdminVoteRestController extends AbstractUserVoteController{
 
     //http://localhost:8080/vote/admin/profiles
     @Override
-    @GetMapping//однохуственно @RequestMapping(method = RequestMethod.GET)
+    @GetMapping//тоже самое @RequestMapping(method = RequestMethod.GET)
     public List<UserVote> getAll() {
         return super.getAll();
     }
@@ -33,6 +33,7 @@ public class AdminVoteRestController extends AbstractUserVoteController{
     //http://localhost:8080/vote/admin/profiles/50003
     @Override
     @GetMapping("/{id}")
+    //в @PathVariable("id") "id" можно нее указывать, но пока делаю так.
     public UserVote get(@PathVariable("id") int id) {
         return super.get(id);
     }
@@ -49,6 +50,7 @@ public class AdminVoteRestController extends AbstractUserVoteController{
         return ResponseEntity.created(uriOfNewUserVote).body(userVoteCreate);
     }
 
+    //http://localhost:8080/vote/admin/profiles/50003
     @Override
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -56,7 +58,7 @@ public class AdminVoteRestController extends AbstractUserVoteController{
         super.delete(id);
     }
 
-
+    //http://localhost:8080/vote/admin/profiles/50003
     //Пример json
     //{ "name": "User222", "email": "user222@yandex.ru", "password": "password", "enabled": true, "registered": 1615732656452, "roles": ["USER"]}
     @Override
@@ -65,8 +67,6 @@ public class AdminVoteRestController extends AbstractUserVoteController{
     public void update(@RequestBody UserVote userVote, @PathVariable("id") int id) {
         super.update(userVote, id);
     }
-
-
 
     //http://localhost:8080/vote/admin/profiles/in?email=user2@yandex.ru
     @Override
@@ -78,17 +78,17 @@ public class AdminVoteRestController extends AbstractUserVoteController{
     //http://localhost:8080/vote/admin/profiles/50004/vote/by?date=2021-03-08
     @GetMapping("/{id}" + VOTE_URL + "/by")
     public Votes getUserVoteByOneDate(@PathVariable int id, @RequestParam String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate dateFormat = LocalDate.parse(date, formatter);
-        return super.getUserVoteByOneDate(id, dateFormat);
+        return super.getUserVoteByOneDate(id, makeDateFromString(date));
     }
 
     //http://localhost:8080/vote/admin/profiles/50004/vote/in?date1=2021-03-08&date2=2021-03-10
     @GetMapping("/{id}" + VOTE_URL + "/in")
     public List<Votes> getUserVoteByDate(@PathVariable int id, @RequestParam("date1") String date1, @RequestParam("date2") String date2) {
+        return super.getByUserDate(id, makeDateFromString(date1), makeDateFromString(date2));
+    }
+
+    private LocalDate makeDateFromString(String dateTemplate){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate beginDate = LocalDate.parse(date1, formatter);
-        LocalDate endDate = LocalDate.parse(date2, formatter);
-        return super.getByUserDate(id, beginDate, endDate);
+        return LocalDate.parse(dateTemplate, formatter);
     }
 }

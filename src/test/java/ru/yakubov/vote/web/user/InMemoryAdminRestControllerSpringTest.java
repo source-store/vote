@@ -1,29 +1,27 @@
 package ru.yakubov.vote.web.user;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import ru.yakubov.vote.AbstractInmemoryTest;
 import ru.yakubov.vote.UserTestData;
 import ru.yakubov.vote.model.UserVote;
 import ru.yakubov.vote.repository.inmemory.InMemoryUserRepository;
 import ru.yakubov.vote.util.exception.NotFoundException;
 
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.yakubov.vote.UserTestData.USER_MATCHER;
 
-@ContextConfiguration({"classpath:spring/inmemory.xml"})
-@RunWith(SpringRunner.class)
-public class InMemoryAdminRestControllerSpringTest {
+public class InMemoryAdminRestControllerSpringTest  extends AbstractInmemoryTest {
     @Autowired
     private AdminVoteRestController controller;
 
     @Autowired
     private InMemoryUserRepository repository;
 
-    @Before
+    @BeforeEach
     public void setup() {
         repository.init();
     }
@@ -31,12 +29,12 @@ public class InMemoryAdminRestControllerSpringTest {
     @Test
     public void delete() {
         controller.delete(UserTestData.USER_ID1);
-        Assert.assertNull(repository.get(UserTestData.USER_ID1));
+        assertNull(repository.get(UserTestData.USER_ID1));
     }
 
     @Test
     public void deleteNotFound() {
-        Assert.assertThrows(NotFoundException.class, () -> controller.delete(UserTestData.ADMIN_ID1));
+        assertThrows(NotFoundException.class, () -> controller.delete(UserTestData.ADMIN_ID1));
     }
 
     @Test

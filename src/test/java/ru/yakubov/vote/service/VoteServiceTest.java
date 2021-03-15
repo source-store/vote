@@ -1,13 +1,11 @@
 package ru.yakubov.vote.service;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.yakubov.vote.AbstractTest;
 import ru.yakubov.vote.RestaurantTestData;
 import ru.yakubov.vote.UserTestData;
 import ru.yakubov.vote.VoteTestData;
-import ru.yakubov.vote.model.Restaurants;
 import ru.yakubov.vote.model.Votes;
 import ru.yakubov.vote.util.exception.NotFoundException;
 
@@ -16,7 +14,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.yakubov.vote.VoteTestData.VOTE_MATCHER;
 
 public class VoteServiceTest extends AbstractTest {
@@ -31,7 +30,7 @@ public class VoteServiceTest extends AbstractTest {
 
     @Test
     public void delete() {
-        Assert.assertNotNull(service.get(VoteTestData.VOTE_ID1));
+        assertNotNull(service.get(VoteTestData.VOTE_ID1));
         service.delete(VoteTestData.VOTE_ID1);
         assertThrows(NotFoundException.class, () -> service.get(VoteTestData.VOTE_ID1));
     }

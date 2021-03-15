@@ -1,7 +1,6 @@
 package ru.yakubov.vote.service;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import ru.yakubov.vote.AbstractTest;
@@ -10,7 +9,7 @@ import ru.yakubov.vote.model.Role;
 import ru.yakubov.vote.model.UserVote;
 import ru.yakubov.vote.util.exception.NotFoundException;
 
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static ru.yakubov.vote.UserTestData.USER_MATCHER;
 
 @ActiveProfiles("datajpa")
@@ -21,12 +20,12 @@ public class UserVoteServiceTest extends AbstractTest {
 
     @Test
     public void getAll() {
-        Assert.assertNotNull(service.getAll());
+        assertNotNull(service.getAll());
     }
 
     @Test
     public void getByRoles() {
-        Assert.assertNotNull(service.getByRoles(Role.USER));
+        assertNotNull(service.getByRoles(Role.USER));
     }
 
 
@@ -49,12 +48,12 @@ public class UserVoteServiceTest extends AbstractTest {
         int id = updateUser.getId();
         updateUser.setEmail("update@mail.ru");
         service.create(updateUser);
-        Assert.assertEquals(service.get(id).getEmail(), "update@mail.ru");
+        assertEquals(service.get(id).getEmail(), "update@mail.ru");
     }
 
     @Test
     public void delete() {
-        Assert.assertNotNull(service.get(UserTestData.USER_ID1));
+        assertNotNull(service.get(UserTestData.USER_ID1));
         service.delete(UserTestData.USER_ID1);
         assertThrows(NotFoundException.class, () -> service.get(UserTestData.USER_ID1));
     }
