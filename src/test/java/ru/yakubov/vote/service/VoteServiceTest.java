@@ -23,6 +23,9 @@ public class VoteServiceTest extends AbstractTest {
     @Autowired
     protected VoteService service;
 
+    private static LocalDate startDate = LocalDate.of(2021, 3, 8);
+    private static LocalDate endDate = LocalDate.of(2021, 3, 9);
+
     @Test
     public void get() {
         VOTE_MATCHER.assertMatch(service.get(VoteTestData.VOTE_ID1), VoteTestData.VOTE1);
@@ -52,16 +55,12 @@ public class VoteServiceTest extends AbstractTest {
 
     @Test
     public void getByRestaurantDate() {
-        LocalDate startDate = LocalDate.of(2021, 3, 8);
-        LocalDate endDate = LocalDate.of(2021, 3, 9);
         VOTE_MATCHER.assertMatch(service.getByRestaurantDate(RestaurantTestData.RESTAURANT_ID2, startDate, endDate), List.of(VoteTestData.VOTE3));
 
     }
 
     @Test
     public void getByUserDate() {
-        LocalDate startDate = LocalDate.of(2021, 3, 8);
-        LocalDate endDate = LocalDate.of(2021, 3, 9);
         VOTE_MATCHER.assertMatch(service.getByUserDate(UserTestData.USER_ID3, startDate, endDate), VoteTestData.VOTE3);
     }
 
@@ -74,9 +73,7 @@ public class VoteServiceTest extends AbstractTest {
 
     @Test
     public void getByDate() {
-        LocalDate startDate = LocalDate.of(2021, 3, 8);
-        LocalDate endDate = LocalDate.of(2021, 3, 8);
-        Set<Votes> votes = new HashSet<Votes>(service.getByDate(startDate, endDate));
+        Set<Votes> votes = new HashSet<Votes>(service.getByDate(startDate, startDate));
         Set<Votes> votesTest = new HashSet<Votes>(List.of(VoteTestData.VOTE1, VoteTestData.VOTE2, VoteTestData.VOTE3));
         VOTE_MATCHER.assertMatch(votes, votesTest);
     }

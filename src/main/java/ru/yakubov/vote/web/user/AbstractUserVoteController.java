@@ -19,7 +19,6 @@ public abstract class AbstractUserVoteController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-//    @Lazy  проверить
     private VoteService voteService;
 
     @Autowired

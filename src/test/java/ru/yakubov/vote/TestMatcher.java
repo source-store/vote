@@ -1,5 +1,9 @@
 package ru.yakubov.vote;
 
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
+import ru.yakubov.vote.model.UserVote;
+
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,4 +30,5 @@ public class TestMatcher<T> {
     public void assertMatch(Iterable<T> actual, Iterable<T> expected) {
         assertThat(actual).usingElementComparatorIgnoringFields(fieldsToIgnore).isEqualTo(expected);
     }
+
 }

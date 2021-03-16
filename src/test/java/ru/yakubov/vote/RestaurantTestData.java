@@ -11,6 +11,7 @@ import static ru.yakubov.vote.model.AbstractBaseEntity.START_SEQ;
 
 public class RestaurantTestData {
     public static TestMatcher<Restaurants> RESTAURANT_MATCHER = TestMatcher.usingIgnoringFieldsComparator("votes", "menu");
+//    public static TestMatcher<Restaurants> RESTAURANT_MATCHER = TestMatcher.usingFieldsWithIgnoringAssertions(Restaurants.class, "menu", "votes");
 
     public static final int RESTAURANT_TEST_SEQ = USER_ID3;
 

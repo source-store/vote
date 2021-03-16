@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.yakubov.vote.model.UserVote;
 import ru.yakubov.vote.model.Votes;
+import ru.yakubov.vote.web.SecurityUtil;
 
 import java.net.URI;
 import java.time.LocalDate;
@@ -27,6 +28,7 @@ public class AdminVoteRestController extends AbstractUserVoteController{
     @Override
     @GetMapping//тоже самое @RequestMapping(method = RequestMethod.GET)
     public List<UserVote> getAll() {
+//        SecurityUtil.safeGet();
         return super.getAll();
     }
 

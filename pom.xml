@@ -18,7 +18,10 @@
 
         <spring.version>5.4.3</spring.version>
         <spring-data-jpa.version>2.4.5</spring-data-jpa.version>
+        <spring-security.version>5.1.5.RELEASE</spring-security.version>
+
         <tomcat.version>9.0.43</tomcat.version>
+        <jackson-json.version>2.12.0</jackson-json.version>
 
         <!-- Logging -->
         <logback.version>1.2.3</logback.version>
@@ -27,17 +30,15 @@
         <!--DB-->
         <postgresql.version>42.2.18</postgresql.version>
         <!--    Tests  -->
-<!--        <junit.version>4.13.2</junit.version>-->
         <assertj.version>3.19.0</assertj.version>
         <junit.jupiter.version>5.7.0</junit.jupiter.version>
         <junit.platform.version>1.2.0</junit.platform.version>
+        <jsonassert.version>1.5.0</jsonassert.version>
 
         <!-- Hibernate -->
         <hibernate.version>5.4.28.Final</hibernate.version>
         <hibernate-validator.version>6.2.0.Final</hibernate-validator.version>
         <javax-el.version>3.0.1-b06</javax-el.version>
-
-        <jackson-json.version>2.12.0</jackson-json.version>
 
         <!--Cache-->
         <ehcache.version>3.9.2</ehcache.version>
@@ -110,16 +111,21 @@
         </dependency>
 
         <!--security-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.security</groupId>-->
-<!--            <artifactId>spring-security-web</artifactId>-->
-<!--            <version>${spring.version}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.security</groupId>-->
-<!--            <artifactId>spring-security-config</artifactId>-->
-<!--            <version>${spring.version}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring-security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring-security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <version>${spring-security.version}</version>
+        </dependency>
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.security</groupId>-->
 <!--            <artifactId>spring-security-taglibs</artifactId>-->
@@ -177,6 +183,8 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson-json.version}</version>
         </dependency>
+
+        <!--для исключения ошибки LazyInitializationException-->
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-hibernate5</artifactId>
@@ -264,6 +272,15 @@
             <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.skyscreamer</groupId>
+            <artifactId>jsonassert</artifactId>
+            <version>${jsonassert.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+
+
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>

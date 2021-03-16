@@ -25,7 +25,7 @@ public interface CrudMenuRepository extends JpaRepository<Menu, Integer> {
     Menu getOne(@Param("id") int id);
 
     @Override
-    @Query("SELECT u FROM Menu u JOIN FETCH u.restaurant ORDER BY u.date, u.decription")
+    @Query("SELECT u FROM Menu u JOIN FETCH u.restaurant ORDER BY u.date, u.restaurant.name, u.decription")
     List<Menu> findAll();
 
     @Query("SELECT u FROM Menu u JOIN FETCH u.restaurant WHERE u.restaurant.id=:id and u.date between :beginDate and :endDate ORDER BY u.date, u.restaurant.id, u.decription")

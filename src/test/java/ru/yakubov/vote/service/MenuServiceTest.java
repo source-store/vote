@@ -19,6 +19,10 @@ import static ru.yakubov.vote.MenuTestData.MENU_MATCHER;
 
 public class MenuServiceTest extends AbstractTest {
 
+    private static LocalDate startDate = LocalDate.of(2021, 1, 1);
+    private static LocalDate endDate10 = LocalDate.of(2021, 1, 10);
+    private static LocalDate endDate11 = LocalDate.of(2021, 1, 11);
+
     @Autowired
     protected MenuService service;
 
@@ -44,8 +48,7 @@ public class MenuServiceTest extends AbstractTest {
         Menu updatedMenu = service.get(MenuTestData.MENU2.getId());
         updatedMenu.setDecription("UpdateNote");
         service.create(updatedMenu);
-        Menu menu = service.get(updatedMenu.getId());
-        assertEquals(menu.getDecription(), "UpdateNote");
+        assertEquals(service.get(updatedMenu.getId()).getDecription(), "UpdateNote");
     }
 
     @Test
@@ -85,8 +88,7 @@ public class MenuServiceTest extends AbstractTest {
         menu1.add(service.create(MenuTestData.NEW_MENU));
         menu1.add(service.create(MenuTestData.NEW_MENU1));
 
-        Set<Menu> menu2 = new HashSet<Menu>(service.GetAllByDate(LocalDate.of(2021, 1, 1),
-                                                                 LocalDate.of(2021, 1, 10)));
+        Set<Menu> menu2 = new HashSet<Menu>(service.GetAllByDate(startDate, endDate10));
         MENU_MATCHER.assertMatch(menu1, menu2);
     }
 
@@ -102,8 +104,7 @@ public class MenuServiceTest extends AbstractTest {
         menu1.add(service.create(MenuTestData.NEW_MENU));
         menu1.add(service.create(MenuTestData.NEW_MENU1));
 
-        Set<Menu> menu2 = new HashSet<Menu>(service.GetAllByRestaurantIdAndDate(idRestaurant, LocalDate.of(2021, 1, 1),
-                                                                                              LocalDate.of(2021, 1, 11)));
+        Set<Menu> menu2 = new HashSet<Menu>(service.GetAllByRestaurantIdAndDate(idRestaurant, startDate, endDate11));
         MENU_MATCHER.assertMatch(menu1, menu2);
     }
 

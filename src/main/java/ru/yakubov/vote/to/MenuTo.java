@@ -1,13 +1,12 @@
 package ru.yakubov.vote.to;
 
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 
 
-public class MenuTo {
-    private final Integer id;
-
+public class MenuTo extends BaseTo implements Serializable {
 
     private final LocalDate date;
 
@@ -18,15 +17,11 @@ public class MenuTo {
     private final RestaurantTo restaurant;
 
     public MenuTo(Integer id, LocalDate date, String decription, Integer price, RestaurantTo restaurant) {
-        this.id = id;
+        super(id);
         this.date = date;
         this.decription = decription;
         this.price = price;
         this.restaurant = restaurant;
-    }
-
-    public Integer getId() {
-        return id;
     }
 
     public LocalDate getDate() {

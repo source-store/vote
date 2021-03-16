@@ -2,33 +2,22 @@ package ru.yakubov.vote.web.Restaurant;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.yakubov.vote.model.Restaurants;
 import ru.yakubov.vote.service.RestaurantService;
 import ru.yakubov.vote.to.RestaurantTo;
 import ru.yakubov.vote.util.VoteUtilsTo;
-import ru.yakubov.vote.web.SecurityUtil;
 
 import java.util.List;
 
 import static ru.yakubov.vote.util.ValidationUtil.assureIdConsistent;
 import static ru.yakubov.vote.util.ValidationUtil.checkNew;
 
-@RestController
-@RequestMapping(value = RestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class RestaurantController {
-    public static final String REST_URL = "/restaurant";
+public abstract class AbstractRestaurantRestController {
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
-    protected final Logger log = LoggerFactory.getLogger(getClass());
-
-    private final RestaurantService service;
-
-    public RestaurantController(RestaurantService service) {
-        this.service = service;
-    }
+    @Autowired
+    protected RestaurantService service;
 
 
     public List<RestaurantTo> getAllTo() {
@@ -36,11 +25,12 @@ public class RestaurantController {
         return VoteUtilsTo.getRestaurantTos(service.getAll());
     }
 
-    @GetMapping//однохуственно @RequestMapping(method = RequestMethod.GET)
+
     public List<Restaurants> getAll() {
         log.info("getAll");
         return service.getAll();
     }
+
 
     public Restaurants get(int id) {
         log.info("get {}", id);
@@ -51,6 +41,7 @@ public class RestaurantController {
         log.info("getTo {}", id);
         return VoteUtilsTo.createTo(service.get(id));
     }
+
 
     public Restaurants create(Restaurants restaurant) {
         log.info("create {}", restaurant);
@@ -69,11 +60,5 @@ public class RestaurantController {
         service.update(restaurant);
     }
 
-//    public int getRestaurantId(){
-//        return SecurityUtil.getRestaurantId();
-//    }
-//
-//    public void setRestaurantId(int id){
-//        SecurityUtil.setRestaurantId(id);
-//    }
+
 }
