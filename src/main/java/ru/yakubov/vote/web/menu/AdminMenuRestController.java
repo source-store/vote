@@ -15,13 +15,13 @@ import java.util.List;
 import static ru.yakubov.vote.util.DateTimeUtil.makeDateFromString;
 
 /*
-*   GET    /admin/menu/all/in?date1={date1}&date2={date2}       получить меню по всем ресторанам за период
-*   GET    /admin/menu/{id}/in?date1={date1}&date2={date2}      получить все меню по ресторану
-*   GET    /admin/menu/{id}                                     получить все меню по ресторану
-*   GET    /admin/menu/one/{id}                                 получить конкретный пункт меню
-*   POST   /admin/menu/new                                      создать новый пункт меню
-*   DELETE /admin/menu/one/{id}                                 удалить пункт меню
-*   PUT    /admin/menu/one/{id}                                 обновить пункт меню
+*   GET    /admin/menu/all/in?date1={date1}&date2={date2}       get menu for all restaurants for the period
+*   GET    /admin/menu/{id}/in?date1={date1}&date2={date2}      get all menu items of restaurant from date
+*   GET    /admin/menu/{id}                                     get all menu items of restaurant
+*   GET    /admin/menu/one/{id}                                 get menu item
+*   POST   /admin/menu/                                         create menu item
+*   DELETE /admin/menu/{id}                                     delete menu item
+*   PUT    /admin/menu/{id}                                     update menu item
 */
 
 @RestController
@@ -57,7 +57,8 @@ public class AdminMenuRestController extends AbstractMenuRestController{
 
 
     //{ "restaurant":{"id":50005,"name":"Ресторан1","address":"адрес1"},"date":[2021,3,18],"decription":"menu11", "price":50 }
-    @PostMapping(value = "/new", consumes=MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.CREATED)
     public ResponseEntity<Menu> createWithLocations(@RequestBody Menu menu){
         Menu newMenu = super.create(menu);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath().path(REST_URL+"/{Id}")
@@ -65,17 +66,17 @@ public class AdminMenuRestController extends AbstractMenuRestController{
         return ResponseEntity.created(uriOfNewResource).body(newMenu);
     }
 
-    @DeleteMapping("/one/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id){
         super.delete(id);
     }
 
     //{ "id": 100000, "restaurant": { "id": 50006 },"date": [2021, 3, 18],"decription": "m443enu11", "price": 50 }
-    @PutMapping("/one/{Id}")
+    @PutMapping("/{Id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@RequestBody Menu menu){
-        super.create(menu);
+        super.update(menu);
     }
 
 }

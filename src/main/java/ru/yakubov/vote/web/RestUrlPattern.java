@@ -1,7 +1,7 @@
 package ru.yakubov.vote.web;
 
 public abstract class RestUrlPattern {
-    public static final String ROOT_REST_URL = "";
+    public static final String ROOT_REST_URL = "/rest";
 
     public static final String ADMIN_REST_URL = "/admin";
 

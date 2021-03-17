@@ -38,7 +38,6 @@ public class DataJpaMenuRepository implements MenuVoteRepository {
 
     @Override
     public Menu get(int id) {
-//        return crudMenuRepository.getOne(id);
         return crudMenuRepository.findById(id).orElse(null);
 
     }

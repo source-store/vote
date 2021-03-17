@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+import ru.yakubov.vote.model.Menu;
 import ru.yakubov.vote.model.Votes;
 
 import java.time.LocalDate;
@@ -16,9 +17,12 @@ import java.util.List;
 public interface CrudVoteRepository extends JpaRepository<Votes, Integer> {
 
     @Modifying
+    @Query("UPDATE Votes v SET v.date=:date, v.restaurant.id=:restaurantId, v.userVote.id=:userId WHERE v.id=:id")
+    Votes update(@Param("id") int id, @Param("date")  LocalDate date, @Param("restaurantId") int restaurantId, @Param("userId") int userId);
+
+    @Modifying
     @Query("DELETE FROM Votes u WHERE u.id=:id")
     int delete(@Param("id") int id);
-
 
 //    @EntityGraph(attributePaths = {"restaurant"})
     @Query("SELECT u FROM Votes u " +

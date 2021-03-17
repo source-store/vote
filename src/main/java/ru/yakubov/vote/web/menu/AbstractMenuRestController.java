@@ -35,7 +35,7 @@ public class AbstractMenuRestController extends RestUrlPattern {
         service.delete(id);
     }
 
-    public void update(@RequestBody Menu menu){
+    public void update(Menu menu){
         log.info("update menu {}",menu);
         service.create(menu);
     }

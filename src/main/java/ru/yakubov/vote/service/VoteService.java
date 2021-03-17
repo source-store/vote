@@ -9,6 +9,8 @@ import ru.yakubov.vote.model.Votes;
 import ru.yakubov.vote.repository.RestaurantRepository;
 import ru.yakubov.vote.repository.UserVoteRepository;
 import ru.yakubov.vote.repository.VoteRepository;
+import ru.yakubov.vote.to.VoteTo;
+import ru.yakubov.vote.util.VoteUtilsTo;
 import ru.yakubov.vote.util.exception.FailVoteException;
 
 import java.time.LocalDate;
@@ -16,7 +18,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 import static ru.yakubov.vote.model.Votes.VOTE_DEADLINE;
-import static ru.yakubov.vote.util.ValidationUtil.checkNotFoundWithId;
+import static ru.yakubov.vote.util.ValidationUtil.*;
 
 @Service
 public class VoteService {
@@ -32,9 +34,9 @@ public class VoteService {
     }
 
     @Transactional
-    public Votes create(Votes vote) {
+    public VoteTo create(Votes vote) {
         Assert.notNull(vote, "vote must not be null");
-        return repository.save(vote);
+        return VoteUtilsTo.createTo(repository.save(vote));
     }
 
     @Transactional
@@ -89,23 +91,22 @@ public class VoteService {
         return repository.getByDate(setDate, setDate);
     }
 
-    @Transactional
-    public void vote(int userId, int restaurantId) {
-        Votes vote = repository.getByUserOneDate(userId, LocalDate.now());
+    public VoteTo vote(int userId, int restaurantId) {
+        Votes vote = getByUserOneDate(userId, LocalDate.now());
 
         Restaurants restaurants = restaurantRepository.get(restaurantId);
         if (vote == null) {
             UserVote user = userRepository.get(userId);
-            Votes newVote = new Votes();
+            Votes newVote = new Votes(LocalDate.now());
             newVote.setUserVote(user);
             newVote.setRestaurant(restaurants);
-            create(newVote);
+            return create(newVote);
         } else {
             if (LocalTime.now().isAfter(VOTE_DEADLINE)) {
                 throw new FailVoteException("Too late change vote");
             }
             vote.setRestaurant(restaurants);
-            create(vote);
+            return create(vote);
         }
     }
 

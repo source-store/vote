@@ -7,6 +7,7 @@ import ru.yakubov.vote.RestaurantTestData;
 import ru.yakubov.vote.UserTestData;
 import ru.yakubov.vote.VoteTestData;
 import ru.yakubov.vote.model.Votes;
+import ru.yakubov.vote.to.VoteTo;
 import ru.yakubov.vote.util.exception.NotFoundException;
 
 import java.time.LocalDate;
@@ -42,7 +43,7 @@ public class VoteServiceTest extends AbstractTest {
     public void create() {
         VoteTestData.NEW_VOTE.setUserVote(UserTestData.user1);
         VoteTestData.NEW_VOTE.setRestaurant(RestaurantTestData.restaurant1);
-        Votes created = service.create(VoteTestData.NEW_VOTE);
+        VoteTo created = service.create(VoteTestData.NEW_VOTE);
         int id = created.getId();
         VoteTestData.NEW_VOTE.setId(id);
         VOTE_MATCHER.assertMatch(service.get(id), VoteTestData.NEW_VOTE);

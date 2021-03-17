@@ -9,7 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.yakubov.vote.model.UserVote;
+import ru.yakubov.vote.model.Votes;
+import ru.yakubov.vote.to.BaseTo;
+import ru.yakubov.vote.to.RestaurantTo;
 import ru.yakubov.vote.to.UserVoteTo;
+import ru.yakubov.vote.to.VoteTo;
 
 import javax.validation.Valid;
 
@@ -32,10 +36,10 @@ public class ProfileVoteRestController extends AbstractUserVoteController{
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
-    public ResponseEntity<UserVote> register(@Valid @RequestBody UserVoteTo userTo) {
+    public ResponseEntity<UserVote> register(@RequestBody UserVoteTo userTo) {
         UserVote created = super.createFromTo(userTo);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL).build().toUri();
+                .path(REST_URL+"/{id}").build().toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
@@ -50,12 +54,22 @@ public class ProfileVoteRestController extends AbstractUserVoteController{
         super.updateFromTo(userVoteTo, authUserId());
     }
 
-    @GetMapping("/vote/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void vote(@PathVariable("id") int id) {
-        super.vote(authUserId(), id);
-    }
+//    @GetMapping("/vote/{id}")
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public void vote(@PathVariable("id") int id) {
+//        super.vote(authUserId(), id);
+//    }
 
+    //{"restaurant": { "id": 50006 } }
+    @PostMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public ResponseEntity<VoteTo> createWithLocation(@PathVariable int id) {
+        VoteTo votesCreate = super.createVote(authUserId(), id);
+        URI uriOfNewUserVote = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(REST_URL+"/{id}").buildAndExpand(votesCreate.getId()).toUri();
+
+        return ResponseEntity.created(uriOfNewUserVote).body(votesCreate);
+    }
 
     @DeleteMapping()
     @ResponseStatus(HttpStatus.NO_CONTENT)

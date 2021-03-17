@@ -17,7 +17,7 @@ public class SpringMain {
         try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/inmemory.xml")) {
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
             AdminVoteRestController adminUserController = appCtx.getBean(AdminVoteRestController.class);
-            adminUserController.create(new UserVote(null, "userName", "email@mail.ru", "password", Role.ROLE_ADMIN));
+            adminUserController.create(new UserVote(null, "userName", "email@mail.ru", "password", Role.ADMIN));
             System.out.println();
 
             RestaurantRestController restaurantController = appCtx.getBean(RestaurantRestController.class);

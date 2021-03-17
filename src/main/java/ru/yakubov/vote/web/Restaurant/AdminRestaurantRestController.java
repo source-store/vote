@@ -8,6 +8,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.yakubov.vote.model.Restaurants;
 import ru.yakubov.vote.to.RestaurantTo;
 import ru.yakubov.vote.util.VoteUtilsTo;
+import ru.yakubov.vote.web.menu.AdminMenuRestController;
 
 import java.net.URI;
 import java.util.List;
@@ -18,9 +19,12 @@ import java.util.List;
 * GET /admin/restaurant/{id}        get restaurant
 * GET /admin/restaurant/to/{id}     get restaurantTo
 * POST /admin/restaurant            create restaurant
+* DELETE /admin/restaurant/{id}     delete restaurant
 * PUT /admin/restaurant             UPDATE restaurant
 * */
 
+@RestController
+@RequestMapping(value = AdminRestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdminRestaurantRestController extends AbstractRestaurantRestController{
     public static final String REST_URL = ROOT_REST_URL + ADMIN_REST_URL + RESTAURANT_REST_URL;
 

@@ -18,11 +18,15 @@ public class DataJpaVoteRepository implements VoteRepository {
     private CrudVoteRepository crudRepository;
 
     @Override
+    @Transactional
     public Votes save(Votes vote) {
-        if (!vote.isNew() && get(vote.getId()) == null) {
+        if (vote.isNew()) {
+            return crudRepository.save(vote);
+        }
+        else if (get(vote.getId()) == null) {
             return null;
         }
-        return crudRepository.save(vote);
+        return crudRepository.update(vote.getId(), vote.getDate(), vote.getRestaurant().getId(), vote.getUserVote().getId());
     }
 
     @Override

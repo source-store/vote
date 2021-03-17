@@ -12,16 +12,14 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+//@NoArgsConstructor
 @Entity
 @Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date"}, name = "votes_unique_user_date_idx")})
-@Getter
-@Setter
-@NoArgsConstructor
 public class Votes extends AbstractBaseEntity{
     public static final LocalTime VOTE_DEADLINE = LocalTime.of(11, 0);
 
-    @Column(name = "date", nullable = false)
     @NotNull
+    @Column(name = "date", nullable = false)
     private LocalDate date = LocalDate.now();
 
     @NotNull
@@ -32,8 +30,8 @@ public class Votes extends AbstractBaseEntity{
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "restaurant_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurants restaurant;
 
 
@@ -45,6 +43,9 @@ public class Votes extends AbstractBaseEntity{
     public Votes(Integer id, LocalDate date) {
         super(id);
         this.date = date;
+    }
+
+    public Votes() {
     }
 
     public LocalDate getDate() {

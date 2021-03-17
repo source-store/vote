@@ -14,11 +14,11 @@ VALUES (50000, 'Admin1', 'admin1@yandex.ru', '{noop}password1'),
        (50004, 'User3', 'user3@yandex.ru', '{noop}password5');
 
 INSERT INTO USER_ROLES (ROLE, USER_ID)
-VALUES ('ROLE_ADMIN', 50000),
-       ('ROLE_ADMIN', 50001),
-       ('ROLE_USER',  50002),
-       ('ROLE_USER',  50003),
-       ('ROLE_USER',  50004);
+VALUES ('ADMIN', 50000),
+       ('ADMIN', 50001),
+       ('USER',  50002),
+       ('USER',  50003),
+       ('USER',  50004);
 
 INSERT INTO RESTAURANTS (ID, NAME, ADDRESS)
 VALUES (50005, 'Ресторан1', 'адрес1'),

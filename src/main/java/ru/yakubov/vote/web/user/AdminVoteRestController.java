@@ -54,6 +54,7 @@ public class AdminVoteRestController extends AbstractUserVoteController{
     //{ "name": "User22", "email": "user22@yandex.ru", "password": "password", "enabled": true, "roles": ["USER"]}
     //принимаем объекты в теле в формате json
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.CREATED)
     public ResponseEntity<UserVote> createWithLocation(@RequestBody UserVote userVote) {
         UserVote userVoteCreate = super.create(userVote);
         URI uriOfNewUserVote = ServletUriComponentsBuilder.fromCurrentContextPath()
