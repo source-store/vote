@@ -3,7 +3,6 @@ package ru.yakubov.vote.web.user;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.yakubov.vote.model.UserVote;
@@ -15,12 +14,23 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+
+/*
+* GET /admin/profile                                                    get all user profiles
+* GET /admin/profile/{userId}                                           get user profile by id
+* POST /admin/profile/register                                          create new user from UserVote
+* DELETE /admin/profile/{userId}                                        delete user
+* PUT /admin/profile/{userId}                                           update user
+* GET /profiles/in?email=user2@yandex.ru                                get profile by email
+* GET /profiles/{userId}}/vote/in?date1=2021-03-08&date2=2021-03-10     get user vote by date (period)
+* */
+
 @RestController
 //Отдаем сообщения в формате json (produces = MediaType.APPLICATION_JSON_VALUE)
 @RequestMapping(value = AdminVoteRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdminVoteRestController extends AbstractUserVoteController{
 
-    public static final String REST_URL = "/admin/profiles";
+    public static final String REST_URL = ROOT_REST_URL+ADMIN_REST_URL+PROFILE_REST_URL;
     public static final String VOTE_URL = "/vote";
 
 
@@ -28,11 +38,11 @@ public class AdminVoteRestController extends AbstractUserVoteController{
     @Override
     @GetMapping//тоже самое @RequestMapping(method = RequestMethod.GET)
     public List<UserVote> getAll() {
-//        SecurityUtil.safeGet();
+        SecurityUtil.safeGet();
         return super.getAll();
     }
 
-    //http://localhost:8080/vote/admin/profiles/50003
+    //http://localhost:8080/vote/admin/profile/50003
     @Override
     @GetMapping("/{id}")
     //в @PathVariable("id") "id" можно нее указывать, но пока делаю так.
@@ -52,7 +62,7 @@ public class AdminVoteRestController extends AbstractUserVoteController{
         return ResponseEntity.created(uriOfNewUserVote).body(userVoteCreate);
     }
 
-    //http://localhost:8080/vote/admin/profiles/50003
+    //http://localhost:8080/vote/admin/profile/50003
     @Override
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -60,7 +70,7 @@ public class AdminVoteRestController extends AbstractUserVoteController{
         super.delete(id);
     }
 
-    //http://localhost:8080/vote/admin/profiles/50003
+    //http://localhost:8080/vote/admin/profile/50003
     //Пример json
     //{ "name": "User222", "email": "user222@yandex.ru", "password": "password", "enabled": true, "registered": 1615732656452, "roles": ["USER"]}
     @Override
@@ -77,13 +87,7 @@ public class AdminVoteRestController extends AbstractUserVoteController{
         return super.getByMail(email);
     }
 
-    //http://localhost:8080/vote/admin/profiles/50004/vote/by?date=2021-03-08
-    @GetMapping("/{id}" + VOTE_URL + "/by")
-    public Votes getUserVoteByOneDate(@PathVariable int id, @RequestParam String date) {
-        return super.getUserVoteByOneDate(id, makeDateFromString(date));
-    }
-
-    //http://localhost:8080/vote/admin/profiles/50004/vote/in?date1=2021-03-08&date2=2021-03-10
+    //http://localhost:8080/vote/admin/profile/50004/vote/in?date1=2021-03-08&date2=2021-03-10
     @GetMapping("/{id}" + VOTE_URL + "/in")
     public List<Votes> getUserVoteByDate(@PathVariable int id, @RequestParam("date1") String date1, @RequestParam("date2") String date2) {
         return super.getByUserDate(id, makeDateFromString(date1), makeDateFromString(date2));

@@ -39,7 +39,7 @@ public class DataJpaUserVoteRepository implements UserVoteRepository {
     }
 
     @Override
-    @Transactional
+//    @Transactional
     public UserVote getByEmail(String email) {
         return crudRepository.getByEmail(email);
     }

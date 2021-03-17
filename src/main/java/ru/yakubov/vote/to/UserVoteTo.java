@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 public class UserVoteTo extends BaseTo implements HasIdAndEmail, Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -4783984052924957103L;
 
     @NotBlank
     @Size(min = 2, max = 100)

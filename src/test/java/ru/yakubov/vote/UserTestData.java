@@ -19,12 +19,12 @@ public class UserTestData {
     public static final int USER_ID2  = TEST_START_SEQ + 3;
     public static final int USER_ID3  = TEST_START_SEQ + 4;
 
-    public static final UserVote newUser = new UserVote(null, "newUser", "newuser@yandex.ru", "password", Role.USER);
-    public static final UserVote admin1 = new UserVote(ADMIN_ID1, "Admin1", "admin1@yandex.ru", "password", Role.ADMIN);
-    public static final UserVote admin2 = new UserVote(ADMIN_ID2, "Admin2", "admin2@yandex.ru", "password", Role.ADMIN);
-    public static final UserVote user1 = new UserVote(USER_ID1, "User1", "user1@yandex.ru", "password", Role.USER);
-    public static final UserVote user2 = new UserVote(USER_ID2, "User2", "user2@yandex.ru", "password", Role.USER, Role.ADMIN);
-    public static final UserVote user3 = new UserVote(USER_ID3, "User3", "user3@yandex.ru", "password", Role.USER);
+    public static final UserVote newUser = new UserVote(null, "newUser", "newuser@yandex.ru", "password", Role.ROLE_USER);
+    public static final UserVote admin1 = new UserVote(ADMIN_ID1, "Admin1", "admin1@yandex.ru", "password1", Role.ROLE_ADMIN);
+    public static final UserVote admin2 = new UserVote(ADMIN_ID2, "Admin2", "admin2@yandex.ru", "password2", Role.ROLE_ADMIN);
+    public static final UserVote user1 = new UserVote(USER_ID1, "User1", "user1@yandex.ru", "password3", Role.ROLE_USER);
+    public static final UserVote user2 = new UserVote(USER_ID2, "User2", "user2@yandex.ru", "password4", Role.ROLE_USER, Role.ROLE_ADMIN);
+    public static final UserVote user3 = new UserVote(USER_ID3, "User3", "user3@yandex.ru", "password5", Role.ROLE_USER);
 
     public static final List<UserVote> users = new ArrayList<>();
 

@@ -25,7 +25,7 @@ public class UserVoteServiceTest extends AbstractTest {
 
     @Test
     public void getByRoles() {
-        assertNotNull(service.getByRoles(Role.USER));
+        assertNotNull(service.getByRoles(Role.ROLE_USER));
     }
 
 

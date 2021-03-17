@@ -3,6 +3,7 @@ package ru.yakubov.vote.web.menu;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import ru.yakubov.vote.RestaurantTestData;
 import ru.yakubov.vote.UserTestData;
 import ru.yakubov.vote.service.MenuService;
 import ru.yakubov.vote.web.AbstractControllerTest;
@@ -31,6 +32,19 @@ public class AdminMenuRestControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
                 .andExpect(content().json(writeValue(MENU9)));
+
+    }
+
+    @Test
+    void getRestaurantMenu() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/"+ RestaurantTestData.RESTAURANT_ID1)
+                .with(userHttpBasic(UserTestData.admin1)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
+//                .andExpect(content().json(writeValue(MENU9)))
+        ;
 
     }
 

@@ -17,6 +17,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
  * @link https://github.com/FasterXML/jackson-docs/wiki/JacksonHowToCustomSerializers
  */
 public class JacksonObjectMapper extends ObjectMapper {
+    private static final long serialVersionUID = 4741256182167594104L;
 
     private static final ObjectMapper MAPPER = new JacksonObjectMapper();
 

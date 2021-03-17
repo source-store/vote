@@ -7,18 +7,18 @@ ALTER SEQUENCE GLOBAL_SEQ RESTART WITH 100000;
 
 
 INSERT INTO USERS (ID, NAME, EMAIL, PASSWORD)
-VALUES (50000, 'Admin1', 'admin1@yandex.ru', 'password'),
-       (50001, 'Admin2', 'admin2@yandex.ru', 'password'),
-       (50002, 'User1', 'user1@yandex.ru', 'password'),
-       (50003, 'User2', 'user2@yandex.ru', 'password'),
-       (50004, 'User3', 'user3@yandex.ru', 'password');
+VALUES (50000, 'Admin1', 'admin1@yandex.ru', '{noop}password1'),
+       (50001, 'Admin2', 'admin2@yandex.ru', '{noop}password2'),
+       (50002, 'User1', 'user1@yandex.ru', '{noop}password3'),
+       (50003, 'User2', 'user2@yandex.ru', '{noop}password4'),
+       (50004, 'User3', 'user3@yandex.ru', '{noop}password5');
 
 INSERT INTO USER_ROLES (ROLE, USER_ID)
-VALUES ('ADMIN', 50000),
-       ('ADMIN', 50001),
-       ('USER',  50002),
-       ('USER',  50003),
-       ('USER',  50004);
+VALUES ('ROLE_ADMIN', 50000),
+       ('ROLE_ADMIN', 50001),
+       ('ROLE_USER',  50002),
+       ('ROLE_USER',  50003),
+       ('ROLE_USER',  50004);
 
 INSERT INTO RESTAURANTS (ID, NAME, ADDRESS)
 VALUES (50005, 'Ресторан1', 'адрес1'),

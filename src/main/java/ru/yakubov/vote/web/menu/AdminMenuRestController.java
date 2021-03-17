@@ -14,10 +14,20 @@ import java.util.List;
 
 import static ru.yakubov.vote.util.DateTimeUtil.makeDateFromString;
 
+/*
+*   GET    /admin/menu/all/in?date1={date1}&date2={date2}       получить меню по всем ресторанам за период
+*   GET    /admin/menu/{id}/in?date1={date1}&date2={date2}      получить все меню по ресторану
+*   GET    /admin/menu/{id}                                     получить все меню по ресторану
+*   GET    /admin/menu/one/{id}                                 получить конкретный пункт меню
+*   POST   /admin/menu/new                                      создать новый пункт меню
+*   DELETE /admin/menu/one/{id}                                 удалить пункт меню
+*   PUT    /admin/menu/one/{id}                                 обновить пункт меню
+*/
+
 @RestController
 @RequestMapping(value = AdminMenuRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdminMenuRestController extends AbstractMenuRestController{
-    public static final String REST_URL = "/admin/menu";
+    public static final String REST_URL = ROOT_REST_URL+ADMIN_REST_URL+MENU_REST_URL;
 
     public AdminMenuRestController(MenuService service) {
         super(service);
@@ -55,14 +65,14 @@ public class AdminMenuRestController extends AbstractMenuRestController{
         return ResponseEntity.created(uriOfNewResource).body(newMenu);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/one/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id){
         super.delete(id);
     }
 
     //{ "id": 100000, "restaurant": { "id": 50006 },"date": [2021, 3, 18],"decription": "m443enu11", "price": 50 }
-    @PutMapping("/{Id}")
+    @PutMapping("/one/{Id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@RequestBody Menu menu){
         super.create(menu);

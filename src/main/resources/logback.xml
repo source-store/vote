@@ -23,6 +23,10 @@
     <logger name="ru.yakubov.vote" level="debug"/>
     <logger name="org.springframework.web" level="debug"/>
 
+    <logger name="ru.yakubov.vote" level="debug"/>
+    <logger name="org.springframework.cache.jcache.JCacheCacheManager" level="info"/>
+    <logger name="org.springframework.orm.jpa.JpaTransactionManager" level="debug"/>
+
     <root level="info">
         <appender-ref ref="file"/>
         <appender-ref ref="console"/>

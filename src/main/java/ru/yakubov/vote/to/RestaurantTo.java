@@ -3,7 +3,7 @@ package ru.yakubov.vote.to;
 import java.io.Serializable;
 
 public class RestaurantTo extends BaseTo implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -4783984057724957103L;
 
     private final String name;
 

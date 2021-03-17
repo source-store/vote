@@ -9,12 +9,19 @@ import java.util.List;
 
 import static ru.yakubov.vote.util.DateTimeUtil.makeDateFromString;
 
+/*
+ *   GET    /menu/all/in?date1={date1}&date2={date2}       получить меню по всем ресторанам за период
+ *   GET    /menu/{id}/in?date1={date1}&date2={date2}      получить все меню по ресторану
+ *   GET    /menu/{id}                                     получить все меню по ресторану
+ *   GET    /menu/one/{id}                                 получить конкретный пункт меню
+ */
+
 
 //Отдаем сообщения в формате json (produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
 @RequestMapping(value = MenuRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class MenuRestController extends AbstractMenuRestController{
-    public static final String REST_URL = "/menu";
+    public static final String REST_URL = ROOT_REST_URL+MENU_REST_URL;
 
     public MenuRestController(MenuService service) {
         super(service);

@@ -7,13 +7,14 @@ import ru.yakubov.vote.model.Restaurants;
 import ru.yakubov.vote.service.RestaurantService;
 import ru.yakubov.vote.to.RestaurantTo;
 import ru.yakubov.vote.util.VoteUtilsTo;
+import ru.yakubov.vote.web.RestUrlPattern;
 
 import java.util.List;
 
 import static ru.yakubov.vote.util.ValidationUtil.assureIdConsistent;
 import static ru.yakubov.vote.util.ValidationUtil.checkNew;
 
-public abstract class AbstractRestaurantRestController {
+public abstract class AbstractRestaurantRestController extends RestUrlPattern {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired

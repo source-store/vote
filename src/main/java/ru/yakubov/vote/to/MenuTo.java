@@ -7,6 +7,7 @@ import java.util.Date;
 
 
 public class MenuTo extends BaseTo implements Serializable {
+    private static final long serialVersionUID = -4783984052914957103L;
 
     private final LocalDate date;
 

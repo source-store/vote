@@ -2,6 +2,7 @@ package ru.yakubov.vote.util;
 
 import ru.yakubov.vote.model.Menu;
 import ru.yakubov.vote.model.Restaurants;
+import ru.yakubov.vote.model.Role;
 import ru.yakubov.vote.model.UserVote;
 import ru.yakubov.vote.to.MenuTo;
 import ru.yakubov.vote.to.RestaurantTo;
@@ -37,5 +38,9 @@ public class VoteUtilsTo {
 
     public static UserVoteTo createTo(UserVote userVote) {
         return new UserVoteTo(userVote.getId(), userVote.getName(), userVote.getEmail(), userVote.getPassword());
+    }
+
+    public static UserVote createUserFromTo(UserVoteTo userVoteTo) {
+        return new UserVote(null, userVoteTo.getName(), userVoteTo.getEmail(), userVoteTo.getPassword(), Role.ROLE_USER);
     }
 }

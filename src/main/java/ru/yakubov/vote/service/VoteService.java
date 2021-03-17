@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import static ru.yakubov.vote.model.Votes.VOTE_DEADLINE;
 import static ru.yakubov.vote.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
@@ -76,6 +77,13 @@ public class VoteService {
         return repository.getByDate(beginDate, endDate);
     }
 
+    public void DeleteCurrentVote(int id) {
+        Votes votes = getByUserOneDate(id, LocalDate.now());
+        if (votes != null) {
+            delete(votes.getId());
+        }
+    }
+
     @Transactional
     public List<Votes> getByOneDate(LocalDate setDate) {
         return repository.getByDate(setDate, setDate);
@@ -93,7 +101,7 @@ public class VoteService {
             newVote.setRestaurant(restaurants);
             create(newVote);
         } else {
-            if (LocalTime.now().isAfter(LocalTime.of(11, 0, 0))) {
+            if (LocalTime.now().isAfter(VOTE_DEADLINE)) {
                 throw new FailVoteException("Too late change vote");
             }
             vote.setRestaurant(restaurants);

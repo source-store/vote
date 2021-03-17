@@ -12,10 +12,11 @@
 
     <http pattern="/**" use-expressions="true" name="restSecurityFilterChain" create-session="stateless">
         <http-basic/>
-        <intercept-url pattern="/admin/**" access="hasRole('ADMIN')"/>
-        <intercept-url pattern="/profile/register" access="isAnonymous()"/>
-        <intercept-url pattern="/restaurants" access="permitAll()"/>
-        <intercept-url pattern="/**" access="isAuthenticated()"/>
+        <intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/profile" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/menu" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/restaurant" access="hasRole('ROLE_USER')"/>
+<!--        <intercept-url pattern="/**" access="isAuthenticated()"/>-->
         <csrf disabled="true"/>
     </http>
 

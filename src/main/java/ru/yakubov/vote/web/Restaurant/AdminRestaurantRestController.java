@@ -12,17 +12,26 @@ import ru.yakubov.vote.util.VoteUtilsTo;
 import java.net.URI;
 import java.util.List;
 
-public class AdminRestaurantRestController extends AbstractRestaurantRestController{
-    public static final String REST_URL = "/admin/restaurant";
+/*
+* GET /admin/restaurant             get all restaurants
+* GET /admin/restaurant/to          get all restaurantsTo
+* GET /admin/restaurant/{id}        get restaurant
+* GET /admin/restaurant/to/{id}     get restaurantTo
+* POST /admin/restaurant            create restaurant
+* PUT /admin/restaurant             UPDATE restaurant
+* */
 
-    @GetMapping(value = "/to", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<RestaurantTo> getAllTo() {
-        return VoteUtilsTo.getRestaurantTos(service.getAll());
-    }
+public class AdminRestaurantRestController extends AbstractRestaurantRestController{
+    public static final String REST_URL = ROOT_REST_URL + ADMIN_REST_URL + RESTAURANT_REST_URL;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Restaurants> getAll() {
         return service.getAll();
+    }
+
+    @GetMapping(value = "/to", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<RestaurantTo> getAllTo() {
+        return VoteUtilsTo.getRestaurantTos(service.getAll());
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

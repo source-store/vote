@@ -26,7 +26,9 @@ public class SecurityUtil {
     }
 
     public static AuthorizedUser get() {
-        return requireNonNull(safeGet(), "No authorized user found");
+        AuthorizedUser user = safeGet();
+        requireNonNull(user, "No authorized user found");
+        return user;
     }
 
 
