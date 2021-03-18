@@ -26,12 +26,12 @@ public class UserVote extends AbstractNamedEntity{
     @Column(name = "email", nullable = false, unique = true)
     @Email
     @NotBlank
-    @Size(max = 100)
+    @Size(min = 3, max = 100)
     private String email;
 
     @Column(name = "password", nullable = false)
     @NotBlank
-    @Size(min = 5, max = 100)
+    @Size(min = 5, max = 15)
     private String password;
 
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")

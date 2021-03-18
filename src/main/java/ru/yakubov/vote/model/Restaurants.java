@@ -19,7 +19,7 @@ public class Restaurants extends AbstractNamedEntity{
 
     @Column(name = "address", nullable = false)
     @NotBlank
-    @Size(min = 1, max = 100)
+    @Size(min = 2, max = 100)
     private String address;
 
 

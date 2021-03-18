@@ -16,7 +16,7 @@ public class UserVoteTo extends BaseTo implements HasIdAndEmail, Serializable {
 
     @Email
     @NotBlank
-    @Size(max = 100)
+    @Size(min = 3, max = 100)
     private String email;
 
     @NotBlank

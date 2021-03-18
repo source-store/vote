@@ -4,10 +4,12 @@ package ru.yakubov.vote.web.menu;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.yakubov.vote.model.Menu;
 import ru.yakubov.vote.service.MenuService;
+import ru.yakubov.vote.web.View;
 
 import java.net.URI;
 import java.util.List;
@@ -59,7 +61,7 @@ public class AdminMenuRestController extends AbstractMenuRestController{
     //{ "restaurant":{"id":50005,"name":"Ресторан1","address":"адрес1"},"date":[2021,3,18],"decription":"menu11", "price":50 }
     @PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
-    public ResponseEntity<Menu> createWithLocations(@RequestBody Menu menu){
+    public ResponseEntity<Menu> createWithLocations(@Validated(View.Web.class) @RequestBody Menu menu){
         Menu newMenu = super.create(menu);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath().path(REST_URL+"/{Id}")
                 .buildAndExpand(newMenu.getRestaurant().getId(),newMenu.getId()).toUri();
@@ -75,7 +77,7 @@ public class AdminMenuRestController extends AbstractMenuRestController{
     //{ "id": 100000, "restaurant": { "id": 50006 },"date": [2021, 3, 18],"decription": "m443enu11", "price": 50 }
     @PutMapping("/{Id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody Menu menu){
+    public void update(@Validated(View.Web.class) @RequestBody Menu menu){
         super.update(menu);
     }
 

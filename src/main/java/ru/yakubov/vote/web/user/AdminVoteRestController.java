@@ -3,11 +3,13 @@ package ru.yakubov.vote.web.user;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.yakubov.vote.model.UserVote;
 import ru.yakubov.vote.model.Votes;
 import ru.yakubov.vote.web.SecurityUtil;
+import ru.yakubov.vote.web.View;
 
 import java.net.URI;
 import java.time.LocalDate;
@@ -55,7 +57,8 @@ public class AdminVoteRestController extends AbstractUserVoteController{
     //принимаем объекты в теле в формате json
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
-    public ResponseEntity<UserVote> createWithLocation(@RequestBody UserVote userVote) {
+//    public ResponseEntity<UserVote> createWithLocation(@RequestBody UserVote userVote) {
+    public ResponseEntity<UserVote> createWithLocation(@Validated(View.Web.class) @RequestBody UserVote userVote) {
         UserVote userVoteCreate = super.create(userVote);
         URI uriOfNewUserVote = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL+"/{id}").buildAndExpand(userVoteCreate.getId()).toUri();
@@ -77,7 +80,7 @@ public class AdminVoteRestController extends AbstractUserVoteController{
     @Override
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody UserVote userVote, @PathVariable("id") int id) {
+    public void update(@Validated(View.Web.class) @RequestBody UserVote userVote, @PathVariable("id") int id) {
         super.update(userVote, id);
     }
 

@@ -1,6 +1,10 @@
 package ru.yakubov.vote.to;
 
 
+import javax.persistence.Column;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
@@ -9,10 +13,15 @@ import java.util.Date;
 public class MenuTo extends BaseTo implements Serializable {
     private static final long serialVersionUID = -4783984052914957103L;
 
+    @NotNull
     private final LocalDate date;
 
+    @NotNull
+    @NotBlank
+    @Size(min = 3, max = 100)
     private final String decription;
 
+    @NotNull
     private final Integer price;
 
     private final RestaurantTo restaurant;

@@ -3,11 +3,13 @@
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.yakubov.vote.model.Restaurants;
 import ru.yakubov.vote.to.RestaurantTo;
 import ru.yakubov.vote.util.VoteUtilsTo;
+import ru.yakubov.vote.web.View;
 import ru.yakubov.vote.web.menu.AdminMenuRestController;
 
 import java.net.URI;
@@ -50,7 +52,7 @@ public class AdminRestaurantRestController extends AbstractRestaurantRestControl
 
 
     @PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Restaurants>  createWithLocations(Restaurants restaurant) {
+    public ResponseEntity<Restaurants>  createWithLocations(@Validated(View.Web.class) @RequestBody Restaurants restaurant) {
         Restaurants newRestaurant = super.create(restaurant);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath().path(REST_URL+"/{Id}")
                 .buildAndExpand(newRestaurant.getId()).toUri();
