@@ -23,7 +23,7 @@ import static ru.yakubov.vote.web.SecurityUtil.authUserId;
 
 /*
 *       GET /profile                    get current user profile
-*       POST /profile                   register new User from UserVoteTo (Role.USER)
+*       POST /profile/register          register new User from UserVoteTo (Role.USER)
 *       PUT /profile                    update
 *       POST /profile/{restaurantId}    vote
 *       DELETE /profile                 delete current user vote
@@ -36,8 +36,8 @@ public class ProfileVoteRestController extends AbstractUserVoteController{
     public static final String REST_URL = ROOT_REST_URL+PROFILE_REST_URL;
 
 
-
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    //{"name": "User22", "email": "user25@yandex.ru", "password": "password"}
+    @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
     public ResponseEntity<UserVote> register(@RequestBody UserVoteTo userVoteTo) {
 

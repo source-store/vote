@@ -27,6 +27,7 @@
         <intercept-url pattern="/rest/**" access="isAuthenticated()"/>
         <intercept-url pattern="/rest/menu/**" access="hasAnyRole('ROLE_USER')"/>
         <intercept-url pattern="/rest/restaurant/**" access="hasAnyRole('ROLE_USER')"/>
+        <intercept-url pattern="/profile/register" access="isAnonymous()"/>
         <form-login/>
         <logout/>
         <csrf disabled="true"/>
