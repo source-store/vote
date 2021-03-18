@@ -14,12 +14,10 @@
 <!--    <context:component-scan base-package="ru.yakubov.**.repository.jpa"/>-->
 
 <!--    <context:component-scan base-package="ru.yakubov.**.repository.jdbc"/>-->
-
     <jdbc:initialize-database data-source="dataSource" enabled="${database.init}">
-        <jdbc:script location="${jdbc.initLocation}"/>
-        <jdbc:script encoding="utf-8" location="classpath:db/populateDB.sql"/>
+        <jdbc:script encoding="utf-8" location="${jdbc.initLocation}" separator=";;"/>
+        <jdbc:script encoding="utf-8" location="classpath:db/populateDB.sql" separator=";"/>
     </jdbc:initialize-database>
-
 
     <bean id="dataSource"
           class="${database.class}"
