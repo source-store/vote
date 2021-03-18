@@ -46,7 +46,7 @@ public abstract class AbstractUserVoteController extends RestUrlPattern {
 
 
     public UserVote createFromTo(UserVoteTo userVoteTo) {
-        log.info("createFromTo {}", userVoteTo);
+        log.info("createFromTo userVoteTo {}", userVoteTo);
         UserVote userVote = VoteUtilsTo.createUserFromTo(userVoteTo);
         checkNew(userVote);
         return service.create(userVote);

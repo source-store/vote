@@ -93,7 +93,6 @@ public class VoteService {
 
     public VoteTo vote(int userId, int restaurantId) {
         Votes vote = getByUserOneDate(userId, LocalDate.now());
-
         Restaurants restaurants = restaurantRepository.get(restaurantId);
         if (vote == null) {
             UserVote user = userRepository.get(userId);

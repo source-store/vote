@@ -22,10 +22,11 @@ import java.net.URI;
 import static ru.yakubov.vote.web.SecurityUtil.authUserId;
 
 /*
-*       GET /profile                get current user profile
-*       POST /profile/register      register new User from UserVoteTo (Role.USER)
-*       PUT /profile                update
-*       DELETE /profile             delete current user vote
+*       GET /profile                    get current user profile
+*       POST /profile                   register new User from UserVoteTo (Role.USER)
+*       PUT /profile                    update
+*       POST /profile/{restaurantId}    vote
+*       DELETE /profile                 delete current user vote
 **/
 
 @RestController
@@ -34,14 +35,21 @@ public class ProfileVoteRestController extends AbstractUserVoteController{
 
     public static final String REST_URL = ROOT_REST_URL+PROFILE_REST_URL;
 
-    @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
+
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
-    public ResponseEntity<UserVote> register(@RequestBody UserVoteTo userTo) {
-        UserVote created = super.createFromTo(userTo);
+    public ResponseEntity<UserVote> register(@RequestBody UserVoteTo userVoteTo) {
+
+        System.out.println(userVoteTo);
+        UserVote created = super.createFromTo(userVoteTo);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL+"/{id}").build().toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
+
+
+
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public UserVote get() {
@@ -54,13 +62,6 @@ public class ProfileVoteRestController extends AbstractUserVoteController{
         super.updateFromTo(userVoteTo, authUserId());
     }
 
-//    @GetMapping("/vote/{id}")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void vote(@PathVariable("id") int id) {
-//        super.vote(authUserId(), id);
-//    }
-
-    //{"restaurant": { "id": 50006 } }
     @PostMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
     public ResponseEntity<VoteTo> createWithLocation(@PathVariable int id) {

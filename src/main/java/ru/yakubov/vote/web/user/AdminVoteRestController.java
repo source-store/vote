@@ -18,7 +18,7 @@ import java.util.List;
 /*
 * GET /admin/profile                                                    get all user profiles
 * GET /admin/profile/{userId}                                           get user profile by id
-* POST /admin/profile/register                                          create new user from UserVote
+* POST /admin/profile                                                   create new user from UserVote
 * DELETE /admin/profile/{userId}                                        delete user
 * PUT /admin/profile/{userId}                                           update user
 * GET /profiles/in?email=user2@yandex.ru                                get profile by email
@@ -53,7 +53,7 @@ public class AdminVoteRestController extends AbstractUserVoteController{
     //Пример json
     //{ "name": "User22", "email": "user22@yandex.ru", "password": "password", "enabled": true, "roles": ["USER"]}
     //принимаем объекты в теле в формате json
-    @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
     public ResponseEntity<UserVote> createWithLocation(@RequestBody UserVote userVote) {
         UserVote userVoteCreate = super.create(userVote);
