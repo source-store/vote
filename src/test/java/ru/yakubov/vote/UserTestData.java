@@ -9,7 +9,7 @@ import java.util.List;
 import static ru.yakubov.vote.model.AbstractBaseEntity.START_SEQ;
 
 public class UserTestData {
-    public static TestMatcher<UserVote> USER_MATCHER = TestMatcher.usingIgnoringFieldsComparator("votes", "registered");
+    public static TestMatcher<UserVote> USER_MATCHER = TestMatcher.usingIgnoringFieldsComparator("votes", "registered", "password");
 
     public static final int TEST_START_SEQ = 50_000;
 

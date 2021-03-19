@@ -79,6 +79,7 @@ public class VoteService {
         return repository.getByDate(beginDate, endDate);
     }
 
+    @Transactional
     public void DeleteCurrentVote(int id) {
         Votes votes = getByUserOneDate(id, LocalDate.now());
         if (votes != null) {
@@ -94,6 +95,9 @@ public class VoteService {
     public VoteTo vote(int userId, int restaurantId) {
         Votes vote = getByUserOneDate(userId, LocalDate.now());
         Restaurants restaurants = restaurantRepository.get(restaurantId);
+//        if (LocalTime.now().isAfter(VOTE_DEADLINE)) {
+//            throw new FailVoteException("Too late change vote");
+//        }
         if (vote == null) {
             UserVote user = userRepository.get(userId);
             Votes newVote = new Votes(LocalDate.now());
@@ -101,9 +105,6 @@ public class VoteService {
             newVote.setRestaurant(restaurants);
             return create(newVote);
         } else {
-            if (LocalTime.now().isAfter(VOTE_DEADLINE)) {
-                throw new FailVoteException("Too late change vote");
-            }
             vote.setRestaurant(restaurants);
             return create(vote);
         }

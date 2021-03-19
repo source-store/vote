@@ -61,13 +61,13 @@ public class AdminRestaurantRestController extends AbstractRestaurantRestControl
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(int id) {
+    public void delete(@PathVariable int id) {
         super.delete(id);
     }
 
-    @PutMapping("/{Id}")
+    @PutMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(Restaurants restaurant) {
+    public void update(@Validated(View.Web.class) @RequestBody Restaurants restaurant) {
         super.update(restaurant, restaurant.getId());
     }
 }

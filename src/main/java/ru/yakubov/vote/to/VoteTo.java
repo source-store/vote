@@ -1,16 +1,23 @@
 package ru.yakubov.vote.to;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
 public class VoteTo extends BaseTo implements Serializable {
     private static final long serialVersionUID = -4783984052255957103L;
 
+    @NotNull
     private LocalDate date;
 
+    @NotNull
     private int userId;
 
+    @NotNull
     private int restaurantId;
+
+    public VoteTo(){
+    }
 
     public VoteTo(int userId, LocalDate date) {
         this(null, date);

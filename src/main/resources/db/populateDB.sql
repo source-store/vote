@@ -18,6 +18,7 @@ VALUES ('ADMIN', 50000),
        ('ADMIN', 50001),
        ('USER',  50002),
        ('USER',  50003),
+       ('ADMIN', 50003),
        ('USER',  50004);
 
 INSERT INTO RESTAURANTS (ID, NAME, ADDRESS)

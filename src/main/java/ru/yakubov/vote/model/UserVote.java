@@ -39,6 +39,7 @@ public class UserVote extends AbstractNamedEntity{
 
     @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()")
     @NotNull
+    @JsonIgnore
     private Date registered = new Date();
 
 

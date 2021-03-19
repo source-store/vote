@@ -197,21 +197,21 @@ CREATE OR REPLACE FUNCTION after_delete_votes()
     LANGUAGE plpgsql;;
 
 create trigger delete_users
-    after DELETE on USERS FOR EACH ROW
+    after DELETE OR UPDATE on USERS FOR EACH ROW
 EXECUTE PROCEDURE after_delete_users();;
 
 create trigger delete_user_roles
-    after DELETE on USER_ROLES FOR EACH ROW
+    after DELETE OR UPDATE on USER_ROLES FOR EACH ROW
 EXECUTE PROCEDURE after_delete_user_roles();;
 
 create trigger delete_restaurants
-    after DELETE on RESTAURANTS FOR EACH ROW
+    after DELETE OR UPDATE on RESTAURANTS FOR EACH ROW
 EXECUTE PROCEDURE after_delete_restaurants();;
 
 create trigger delete_menu
-    after DELETE on MENU FOR EACH ROW
+    after DELETE OR UPDATE on MENU FOR EACH ROW
 EXECUTE PROCEDURE after_delete_menu();;
 
 create trigger delete_votes
-    after DELETE on VOTES FOR EACH ROW
+    after DELETE OR UPDATE on VOTES FOR EACH ROW
 EXECUTE PROCEDURE after_delete_votes();;
