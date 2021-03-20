@@ -100,7 +100,6 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
         Votes votes = new Votes(VoteTestData.VOTE1);
         votes.setDate(LocalDate.now());
         votes.setUserVote(UserTestData.user2);
-//        votes.setRestaurant(RestaurantTestData.restaurant3);
 
         Votes newVote = crudRepository.save(votes);
 

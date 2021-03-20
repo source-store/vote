@@ -2,29 +2,41 @@ package ru.yakubov.vote;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ru.yakubov.vote.model.Role;
-import ru.yakubov.vote.model.UserVote;
-import ru.yakubov.vote.to.RestaurantTo;
+import ru.yakubov.vote.model.*;
 import ru.yakubov.vote.web.Restaurant.RestaurantRestController;
+import ru.yakubov.vote.web.menu.MenuRestController;
 import ru.yakubov.vote.web.user.AdminVoteRestController;
+import ru.yakubov.vote.web.user.ProfileVoteRestController;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class SpringMain {
     public static void main(String[] args) {
         // java 7 automatic resource management (ARM)
         try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/inmemory.xml")) {
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
+
             AdminVoteRestController adminUserController = appCtx.getBean(AdminVoteRestController.class);
-            adminUserController.create(new UserVote(null, "userName", "email@mail.ru", "password", Role.ADMIN));
+            System.out.println();
+            UserVote userVote = adminUserController.create(new UserVote(UserTestData.newUser));
             System.out.println();
 
             RestaurantRestController restaurantController = appCtx.getBean(RestaurantRestController.class);
-            List<RestaurantTo> filteredMealsWithExcess =
-                    restaurantController.getAllTo();
-            filteredMealsWithExcess.forEach(System.out::println);
+            Restaurants restaurants = restaurantController.create(new Restaurants(RestaurantTestData.new_restaurant));
             System.out.println();
+
+            MenuRestController menuRestController = appCtx.getBean(MenuRestController.class);
+            Menu menu = new Menu(MenuTestData.NEW_MENU);
+            menu.setRestaurant(restaurants);
+            menuRestController.create(menu);
+            System.out.println();
+
+            ProfileVoteRestController profileVoteRestController = appCtx.getBean(ProfileVoteRestController.class);
+            Votes votes = new Votes();
+            votes.setUserVote(userVote);
+            votes.setRestaurant(restaurants);
+            profileVoteRestController.createVote(userVote.getId(), restaurants.getId());
+
         }
     }
 }

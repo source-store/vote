@@ -2,8 +2,6 @@ package ru.yakubov.vote.web.menu;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-//import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.yakubov.vote.RestaurantTestData;
 import ru.yakubov.vote.UserTestData;
@@ -14,9 +12,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.yakubov.vote.MenuTestData.MENU9;
 import static ru.yakubov.vote.TestUtil.userHttpBasic;
-import static ru.yakubov.vote.web.json.JsonUtil.writeValue;
 
 
 public class MenuRestControllerTest extends AbstractControllerTest {

@@ -50,7 +50,6 @@ public class MenuTestData {
         MENU7.setRestaurant(RestaurantTestData.restaurant1);
         MENU8.setRestaurant(RestaurantTestData.restaurant3);
         MENU9.setRestaurant(RestaurantTestData.restaurant4);
-
     }
 
 

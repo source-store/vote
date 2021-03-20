@@ -1,13 +1,11 @@
 package ru.yakubov.vote;
 
-import ru.yakubov.vote.model.UserVote;
 import ru.yakubov.vote.model.Votes;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import static ru.yakubov.vote.MenuTestData.MENU_END_SEQ;
-import static ru.yakubov.vote.model.AbstractBaseEntity.START_SEQ;
 
 public class VoteTestData {
     public static TestMatcher<Votes> VOTE_MATCHER = TestMatcher.usingIgnoringFieldsComparator("date", "restaurant", "userVote");
@@ -50,7 +48,5 @@ public class VoteTestData {
         VOTES_FOR_USER2 = List.of(VOTE2);
         VOTES_FOR_USER3 = List.of(VOTE3, VOTE4);
     }
-
-
 
 }

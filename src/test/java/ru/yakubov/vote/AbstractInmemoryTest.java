@@ -3,8 +3,6 @@ package ru.yakubov.vote;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.slf4j.LoggerFactory.getLogger;

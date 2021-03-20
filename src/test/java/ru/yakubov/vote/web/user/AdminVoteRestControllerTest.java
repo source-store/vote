@@ -5,27 +5,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import ru.yakubov.vote.RestaurantTestData;
 import ru.yakubov.vote.TestUtil;
 import ru.yakubov.vote.UserTestData;
-import ru.yakubov.vote.model.Restaurants;
 import ru.yakubov.vote.model.UserVote;
-import ru.yakubov.vote.service.RestaurantService;
 import ru.yakubov.vote.service.UserVoteService;
 import ru.yakubov.vote.util.exception.NotFoundException;
 import ru.yakubov.vote.web.AbstractControllerTest;
 import ru.yakubov.vote.web.json.JsonUtil;
-import ru.yakubov.vote.web.menu.AdminMenuRestController;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.yakubov.vote.RestaurantTestData.RESTAURANT_MATCHER;
 import static ru.yakubov.vote.TestUtil.userHttpBasic;
 import static ru.yakubov.vote.UserTestData.USER_MATCHER;
-import static ru.yakubov.vote.web.json.JsonUtil.writeValue;
 
 class AdminVoteRestControllerTest extends AbstractControllerTest {
 
@@ -58,8 +52,6 @@ class AdminVoteRestControllerTest extends AbstractControllerTest {
         USER_MATCHER.assertMatch(created, UserTestData.user2);
 
     }
-
-
 
     //POST /rest/admin/profile                                                   create new user from UserVote
     @Test

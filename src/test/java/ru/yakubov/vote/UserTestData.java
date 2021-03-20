@@ -6,8 +6,6 @@ import ru.yakubov.vote.model.UserVote;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.yakubov.vote.model.AbstractBaseEntity.START_SEQ;
-
 public class UserTestData {
     public static TestMatcher<UserVote> USER_MATCHER = TestMatcher.usingIgnoringFieldsComparator("votes", "registered", "password");
 

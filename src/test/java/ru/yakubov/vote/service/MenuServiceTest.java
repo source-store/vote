@@ -83,7 +83,6 @@ public class MenuServiceTest extends AbstractTest {
         assertThrows(NotFoundException.class, () -> service.get(MenuTestData.MENU1.getId()));
     }
 
-
     @Test
     public void GetAllByDate() {
         Restaurants restaurant = restaurantService.create(RestaurantTestData.new_restaurant);
