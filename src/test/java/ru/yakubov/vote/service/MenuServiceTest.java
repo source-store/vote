@@ -31,11 +31,13 @@ public class MenuServiceTest extends AbstractTest {
 
     @Test
     public void create() {
-        Restaurants restaurants = restaurantService.create(RestaurantTestData.new_restaurant);
-        MenuTestData.NEW_MENU.setId(null);
-        MenuTestData.NEW_MENU.setRestaurant(restaurants);
-        Menu menu = service.create(MenuTestData.NEW_MENU);
-        MENU_MATCHER.assertMatch(service.get(menu.getId()), menu);
+        Restaurants restaurants = new Restaurants(restaurantService.create(RestaurantTestData.new_restaurant));
+        Menu menu = new Menu(MenuTestData.NEW_MENU);
+        menu.setId(null);
+        menu.setRestaurant(restaurants);
+
+        Menu newMenu = service.create(menu);
+        MENU_MATCHER.assertMatch(service.get(newMenu.getId()), menu);
     }
 
     @Test
@@ -58,15 +60,20 @@ public class MenuServiceTest extends AbstractTest {
 
     @Test
     public void getByIdRestaurant() {
-        Restaurants restaurant = restaurantService.create(RestaurantTestData.new_restaurant);
-        MenuTestData.NEW_MENU.setRestaurant(restaurant);
-        MenuTestData.NEW_MENU1.setRestaurant(restaurant);
-        Set<Menu> menu1 = new HashSet<Menu>();
-        menu1.add(service.create(MenuTestData.NEW_MENU));
-        menu1.add(service.create(MenuTestData.NEW_MENU1));
 
-        Set<Menu> menu2 = new HashSet<Menu>(service.getAllByRestaurantId(restaurant.getId()));
-        MENU_MATCHER.assertMatch(menu1, menu2);
+        Restaurants restaurant = restaurantService.create(RestaurantTestData.new_restaurant);
+        Menu menu1 = new Menu(MenuTestData.NEW_MENU);
+        Menu menu2 = new Menu(MenuTestData.NEW_MENU1);
+        menu1.setRestaurant(restaurant);
+        menu2.setRestaurant(restaurant);
+
+        Set<Menu> menuSet1 = new HashSet<Menu>();
+
+        menuSet1.add(service.create(menu1));
+        menuSet1.add(service.create(menu2));
+
+        Set<Menu> menuSet2 = new HashSet<Menu>(service.getAllByRestaurantId(restaurant.getId()));
+        MENU_MATCHER.assertMatch(menuSet1, menuSet2);
     }
 
     @Test
@@ -80,16 +87,22 @@ public class MenuServiceTest extends AbstractTest {
     @Test
     public void GetAllByDate() {
         Restaurants restaurant = restaurantService.create(RestaurantTestData.new_restaurant);
-        MenuTestData.NEW_MENU.setId(null);
-        MenuTestData.NEW_MENU.setRestaurant(restaurant);
-        MenuTestData.NEW_MENU1.setId(null);
-        MenuTestData.NEW_MENU1.setRestaurant(restaurant);
-        Set<Menu> menu1 = new HashSet<Menu>();
-        menu1.add(service.create(MenuTestData.NEW_MENU));
-        menu1.add(service.create(MenuTestData.NEW_MENU1));
+        Menu menu1 = new Menu(MenuTestData.NEW_MENU);
+        Menu menu2 = new Menu(MenuTestData.NEW_MENU1);
 
-        Set<Menu> menu2 = new HashSet<Menu>(service.GetAllByDate(startDate, endDate10));
-        MENU_MATCHER.assertMatch(menu1, menu2);
+        menu1.setId(null);
+        menu1.setRestaurant(restaurant);
+
+        menu2.setId(null);
+        menu2.setRestaurant(restaurant);
+
+        Set<Menu> menuSet1 = new HashSet<Menu>();
+        menuSet1.add(service.create(menu1));
+        menuSet1.add(service.create(menu2));
+
+        Set<Menu> menuSet2 = new HashSet<Menu>(service.GetAllByDate(startDate, endDate10));
+        MENU_MATCHER.assertMatch(menuSet1, menuSet2);
+
     }
 
     @Test

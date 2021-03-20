@@ -36,12 +36,12 @@ public class RestaurantRestControllerTest extends AbstractControllerTest {
     //GET /rest/restaurant/{id}        get restaurant
     @Test
     void get() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL+"/"+ RestaurantTestData.RESTAURANT_ID2)
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL+"/"+ RestaurantTestData.RESTAURANT_ID4)
                 .with(userHttpBasic(UserTestData.user1)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
-                .andExpect(content().json(writeValue(RestaurantTestData.restaurant2)));
+                .andExpect(content().json(writeValue(RestaurantTestData.restaurant4)));
 
     }
 

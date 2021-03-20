@@ -5,19 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import ru.yakubov.vote.MenuTestData;
 import ru.yakubov.vote.RestaurantTestData;
 import ru.yakubov.vote.TestUtil;
 import ru.yakubov.vote.UserTestData;
-import ru.yakubov.vote.model.Menu;
 import ru.yakubov.vote.model.Restaurants;
-import ru.yakubov.vote.service.MenuService;
 import ru.yakubov.vote.service.RestaurantService;
 import ru.yakubov.vote.util.exception.NotFoundException;
 import ru.yakubov.vote.web.AbstractControllerTest;
 import ru.yakubov.vote.web.Restaurant.AdminRestaurantRestController;
 import ru.yakubov.vote.web.json.JsonUtil;
-import ru.yakubov.vote.web.menu.AdminMenuRestController;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,8 +21,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.yakubov.vote.MenuTestData.MENU9;
-import static ru.yakubov.vote.MenuTestData.MENU_MATCHER;
 import static ru.yakubov.vote.RestaurantTestData.RESTAURANT_MATCHER;
 import static ru.yakubov.vote.TestUtil.userHttpBasic;
 import static ru.yakubov.vote.web.json.JsonUtil.writeValue;
@@ -64,7 +58,7 @@ class AdminRestaurantRestControllerTest extends AbstractControllerTest {
     @Test
     void createWithLocations() throws Exception {
 
-        Restaurants newRestaurants = RestaurantTestData.new_restaurant;
+        Restaurants newRestaurants = new Restaurants(RestaurantTestData.new_restaurant);
         newRestaurants.setId(null);
 
         ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.post(REST_URL)
@@ -84,20 +78,20 @@ class AdminRestaurantRestControllerTest extends AbstractControllerTest {
     //DELETE /rest/admin/restaurant/{id}     delete restaurant
     @Test
     void delete() throws Exception {
-        assertNotNull(service.get(RestaurantTestData.RESTAURANT_ID1));
+        assertNotNull(service.get(RestaurantTestData.RESTAURANT_ID3));
 
-        mockMvc.perform(MockMvcRequestBuilders.delete(REST_URL + "/" + RestaurantTestData.RESTAURANT_ID1)
+        mockMvc.perform(MockMvcRequestBuilders.delete(REST_URL + "/" + RestaurantTestData.RESTAURANT_ID3)
                 .with(userHttpBasic(UserTestData.admin1)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
-        assertThrows(NotFoundException.class, () -> service.get(RestaurantTestData.RESTAURANT_ID1));
+        assertThrows(NotFoundException.class, () -> service.get(RestaurantTestData.RESTAURANT_ID3));
     }
 
     //PUT /rest/admin/restaurant             UPDATE restaurant
     @Test
     void update() throws Exception {
-        Restaurants restaurants = RestaurantTestData.restaurant3;
+        Restaurants restaurants = new Restaurants(RestaurantTestData.restaurant4);
         restaurants.setName("Update NAME");
 
         mockMvc.perform(MockMvcRequestBuilders.put(REST_URL)
@@ -107,6 +101,6 @@ class AdminRestaurantRestControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
-        assertEquals(service.get(RestaurantTestData.RESTAURANT_ID3).getName(), "Update NAME");
+        assertEquals(service.get(RestaurantTestData.RESTAURANT_ID4).getName(), "Update NAME");
     }
 }

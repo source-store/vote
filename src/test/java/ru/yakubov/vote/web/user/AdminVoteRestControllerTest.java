@@ -64,7 +64,7 @@ class AdminVoteRestControllerTest extends AbstractControllerTest {
     //POST /rest/admin/profile                                                   create new user from UserVote
     @Test
     void createWithLocation() throws Exception {
-        UserVote userVote = UserTestData.newUser;
+        UserVote userVote = new UserVote(UserTestData.newUser);
         userVote.setId(null);
 
         ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.post(REST_URL)
@@ -97,7 +97,7 @@ class AdminVoteRestControllerTest extends AbstractControllerTest {
     //PUT /rest/admin/profile/{userId}                                           update user
     @Test
     void update() throws Exception {
-        UserVote userVote = UserTestData.user1;
+        UserVote userVote = new UserVote(UserTestData.user1);
         userVote.setName("Update NAME");
 
         mockMvc.perform(MockMvcRequestBuilders.put(REST_URL + "/" + UserTestData.USER_ID1)
@@ -127,7 +127,7 @@ class AdminVoteRestControllerTest extends AbstractControllerTest {
     //GET /rest/admin/profiles/{userId}}/vote/in?date1=2021-03-08&date2=2021-03-10     get user vote by date (period)
     @Test
     void getUserVoteByDate() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL+"/"+UserTestData.USER_ID3+"/vote/in?date1=2021-03-08&date2=2021-03-10")
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL+"/"+UserTestData.USER_ID2+"/vote/in?date1=2021-03-08&date2=2021-03-10")
                 .with(userHttpBasic(UserTestData.admin1)))
                 .andExpect(status().isOk())
                 .andDo(print())

@@ -35,6 +35,11 @@ public class Votes extends AbstractBaseEntity{
     private Restaurants restaurant;
 
 
+    public Votes(Votes votes) {
+        this(votes.getId(), votes.getDate());
+        this.setRestaurant(votes.getRestaurant());
+        this.setUserVote(votes.getUserVote());
+    }
 
     public Votes(LocalDate date) {
         this(null, date);

@@ -62,7 +62,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
     //PUT /profile                    update
     @Test
     void update() throws Exception {
-        UserVote userVote = UserTestData.user1;
+        UserVote userVote = new UserVote(UserTestData.user1);
         userVote.setName("Update NAME");
 
         mockMvc.perform(MockMvcRequestBuilders.put(REST_URL)
@@ -97,10 +97,10 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
     @Test
     void voteDelete() throws Exception {
 
-        Votes votes = VoteTestData.VOTE1;
+        Votes votes = new Votes(VoteTestData.VOTE1);
         votes.setDate(LocalDate.now());
         votes.setUserVote(UserTestData.user2);
-        votes.setRestaurant(RestaurantTestData.restaurant3);
+//        votes.setRestaurant(RestaurantTestData.restaurant3);
 
         Votes newVote = crudRepository.save(votes);
 

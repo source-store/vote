@@ -21,8 +21,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.yakubov.vote.MenuTestData.MENU9;
-import static ru.yakubov.vote.MenuTestData.MENU_MATCHER;
+import static ru.yakubov.vote.MenuTestData.*;
 import static ru.yakubov.vote.TestUtil.userHttpBasic;
 import static ru.yakubov.vote.web.json.JsonUtil.writeValue;
 
@@ -36,12 +35,12 @@ public class AdminMenuRestControllerTest extends AbstractControllerTest {
     //GET    /admin/menu/one/{id}                                 get menu item
     @Test
     void getOneMenu() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/one/" + MENU9.getId())
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/one/" + MENU7.getId())
                 .with(userHttpBasic(UserTestData.admin1)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
-                .andExpect(content().json(writeValue(MENU9)));
+                .andExpect(content().json(writeValue(MENU7)));
     }
 
     //GET    /admin/menu/{id}                                     get all menu items of restaurant
@@ -79,7 +78,7 @@ public class AdminMenuRestControllerTest extends AbstractControllerTest {
     //POST   /admin/menu/                                         create menu item
     @Test
     void createMenuWithLocation() throws Exception {
-        Menu menu = MenuTestData.NEW_MENU1;
+        Menu menu = new Menu(MenuTestData.NEW_MENU1);
         menu.setId(null);
         menu.setRestaurant(RestaurantTestData.restaurant4);
 
