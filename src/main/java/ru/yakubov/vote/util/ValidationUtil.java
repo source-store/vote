@@ -1,13 +1,10 @@
 package ru.yakubov.vote.util;
 
 
-import org.slf4j.Logger;
 import org.springframework.core.NestedExceptionUtils;
 import org.springframework.lang.NonNull;
 import ru.yakubov.vote.model.AbstractBaseEntity;
 import ru.yakubov.vote.util.exception.NotFoundException;
-
-import javax.servlet.http.HttpServletRequest;
 
 public class ValidationUtil {
     private ValidationUtil() {
@@ -39,12 +36,7 @@ public class ValidationUtil {
         }
     }
 
-//    public static boolean checkNewEntity(AbstractBaseEntity entity) {
-//        return entity.isNew();
-//    }
-
     public static void assureIdConsistent(AbstractBaseEntity entity, int id) {
-//      conservative when you reply, but accept liberally (http://stackoverflow.com/a/32728226/548473)
         if (entity.isNew()) {
             entity.setId(id);
         } else if (entity.id() != id) {

@@ -15,12 +15,6 @@ public class VoteUtilsTo {
     private VoteUtilsTo() {
     }
 
-    public static List<MenuTo> getMenuTos(Collection<Menu> menu) {
-        return menu.stream()
-                .map(mnu -> createTo(mnu))
-                .collect(Collectors.toList());
-    }
-
     public static List<RestaurantTo> getRestaurantTos(Collection<Restaurants> restaurants) {
         return restaurants.stream()
                 .map(restaurant -> createTo(restaurant))
