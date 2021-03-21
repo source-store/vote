@@ -64,6 +64,7 @@ public class UserVoteService implements UserDetailsService {
         checkNotFoundWithId(repository.save(prepareToSave(userVote, passwordEncoder)), userVote.id());
     }
 
+    @Cacheable("users")
     public List<UserVote> getByRoles (Role role){
         return repository.getByRoles(role);
     }

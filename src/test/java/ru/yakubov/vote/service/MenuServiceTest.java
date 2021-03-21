@@ -2,7 +2,6 @@ package ru.yakubov.vote.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.yakubov.vote.AbstractTest;
 import ru.yakubov.vote.MenuTestData;
 import ru.yakubov.vote.RestaurantTestData;
 import ru.yakubov.vote.model.Menu;

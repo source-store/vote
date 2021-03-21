@@ -11,9 +11,7 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
-<!--    <context:component-scan base-package="ru.yakubov.**.repository.jpa"/>-->
 
-<!--    <context:component-scan base-package="ru.yakubov.**.repository.jdbc"/>-->
     <jdbc:initialize-database data-source="dataSource" enabled="${database.init}">
         <jdbc:script encoding="utf-8" location="${jdbc.initLocation}" separator=";;"/>
         <jdbc:script encoding="utf-8" location="classpath:db/populateDB.sql" separator=";"/>
@@ -49,10 +47,17 @@
         </property>
     </bean>
 
+    <context:component-scan base-package="ru.yakubov.**.repository.datajpa"/>
+    <jpa:repositories base-package="ru.yakubov.**.repository.datajpa"/>
+
+    <tx:annotation-driven/>
+
+    <!-- Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+          p:entityManagerFactory-ref="entityManagerFactory"/>
 
 
-
-<!--    <beans profile="postgres">-->
+    <!--    <beans profile="postgres">-->
         <bean class="org.springframework.beans.factory.config.MethodInvokingBean">
             <property name="staticMethod" value="org.slf4j.bridge.SLF4JBridgeHandler.install"/>
         </bean>
@@ -62,39 +67,6 @@
 <!--    <beans profile="hsqldb">-->
 <!--        <context:property-placeholder location="classpath:db/hsqldb.properties" system-properties-mode="OVERRIDE"/>-->
 <!--    </beans>-->
-
-
-
-<!--    <beans profile="jdbc">-->
-<!--        <context:component-scan base-package="ru.javawebinar.**.repository.jdbc"/>-->
-<!--        <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">-->
-<!--            <constructor-arg ref="dataSource"/>-->
-<!--        </bean>-->
-
-<!--        <bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">-->
-<!--            <constructor-arg ref="jdbcTemplate"/>-->
-<!--        </bean>-->
-<!--    </beans>-->
-
-<!--    <beans profile="jpa">-->
-<!--        <context:component-scan base-package="ru.javawebinar.**.repository.jpa"/>-->
-<!--    </beans>-->
-
-<!--    <beans profile="datajpa">-->
-        <context:component-scan base-package="ru.yakubov.**.repository.datajpa"/>
-        <jpa:repositories base-package="ru.yakubov.**.repository.datajpa"/>
-<!--    </beans>-->
-
-
-<!--
-    <beans profile="jpa, datajpa">-->
-        <tx:annotation-driven/>
-
-        <!-- Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) -->
-        <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
-              p:entityManagerFactory-ref="entityManagerFactory"/>
-
-    <!--    </beans>-->
 
 
 </beans>

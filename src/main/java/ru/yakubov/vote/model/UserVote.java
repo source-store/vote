@@ -1,6 +1,7 @@
 package ru.yakubov.vote.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
@@ -43,11 +44,13 @@ public class UserVote extends AbstractNamedEntity{
     private Date registered = new Date();
 
 
+//    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
             uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role"}, name = "user_roles_unique_idx")})
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     private Set<Role> roles;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "userVote")//, cascade = CascadeType.REMOVE, orphanRemoval = true)

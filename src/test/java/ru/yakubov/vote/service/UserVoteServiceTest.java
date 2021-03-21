@@ -3,7 +3,6 @@ package ru.yakubov.vote.service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
-import ru.yakubov.vote.AbstractTest;
 import ru.yakubov.vote.UserTestData;
 import ru.yakubov.vote.model.Role;
 import ru.yakubov.vote.model.UserVote;
