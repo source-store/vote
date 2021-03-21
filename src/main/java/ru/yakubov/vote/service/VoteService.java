@@ -97,6 +97,8 @@ public class VoteService {
         Restaurants restaurants = restaurantRepository.get(restaurantId);
         if (LocalTime.now().isAfter(VOTE_DEADLINE)) {
             throw new FailVoteException("Too late change vote");
+//            throw new InvalidFormatException("Too late change vote");
+
         }
         if (vote == null) {
             UserVote user = userRepository.get(userId);

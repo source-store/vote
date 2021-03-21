@@ -1,15 +1,18 @@
 package ru.yakubov.vote.util.exception;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Data;
+import org.springframework.http.HttpStatus;
+
+@Data
 public class ErrorInfo {
     private final String url;
-    private final ErrorType type;
-    private final String typeMessage;
+    private final HttpStatus status;
     private final String[] details;
 
-    public ErrorInfo(CharSequence url, ErrorType type, String typeMessage, String... details) {
+    public ErrorInfo(CharSequence url, HttpStatus status, String[] details) {
         this.url = url.toString();
-        this.type = type;
-        this.typeMessage = typeMessage;
+        this.status = status;
         this.details = details;
     }
 }
