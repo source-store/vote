@@ -21,6 +21,7 @@ import ru.yakubov.vote.web.AbstractControllerTest;
 import ru.yakubov.vote.web.json.JsonUtil;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -29,6 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.yakubov.vote.TestUtil.userHttpBasic;
 import static ru.yakubov.vote.UserTestData.USER_MATCHER;
+import static ru.yakubov.vote.model.Votes.VOTE_DEADLINE;
 import static ru.yakubov.vote.util.VoteUtilsTo.createTo;
 
 class ProfileVoteRestControllerTest extends AbstractControllerTest {
@@ -79,18 +81,26 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
     @Test
     void createVoteWithLocation() throws Exception {
 
-        ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.post(REST_URL+"/"+ RestaurantTestData.RESTAURANT_ID4)
-                .contentType(APPLICATION_JSON)
-                .with(userHttpBasic(UserTestData.user1)))
-                .andDo(print())
-                .andExpect(status().isCreated());
-
+        if (LocalTime.now().isAfter(VOTE_DEADLINE)) {
+            ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.post(REST_URL + "/" + RestaurantTestData.RESTAURANT_ID4)
+                    .contentType(APPLICATION_JSON)
+                    .with(userHttpBasic(UserTestData.user1)))
+                    .andDo(print())
+                    .andExpect(status().isConflict());
+        }else {
+            ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.post(REST_URL+"/"+ RestaurantTestData.RESTAURANT_ID4)
+                    .contentType(APPLICATION_JSON)
+                    .with(userHttpBasic(UserTestData.user1)))
+                    .andDo(print())
+                    .andExpect(status().isCreated());
         VoteTo created = TestUtil.readFromJsonResultActions(actions, VoteTo.class);
         Integer id = created.getId();
         Votes getVotes = voteService.get(id);
 
         assertEquals(getVotes.getUserVote().getId(), UserTestData.user1.getId());
         assertEquals(getVotes.getRestaurant().getId(), RestaurantTestData.RESTAURANT_ID4);
+        }
+
     }
 
     //DELETE /profile                 delete current user vote

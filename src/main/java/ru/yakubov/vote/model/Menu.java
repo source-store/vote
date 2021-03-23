@@ -9,12 +9,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Calendar;
-import java.util.Date;
 
 @NamedQueries({
-//        @NamedQuery(name = Menu.ALL_SORTED, query = "SELECT m FROM Menu m WHERE m.restaurant.id=:restorauntId ORDER BY m.decription DESC"),
         @NamedQuery(name = Menu.GET_ONE, query = "SELECT m FROM Menu m WHERE m.id=:id"),
         @NamedQuery(name = Menu.DELETE, query = "DELETE FROM Menu m WHERE m.id=:id")})
 @Entity
@@ -22,7 +19,6 @@ import java.util.Date;
 public class Menu extends AbstractBaseEntity {
 
     public static final String GET_ONE = "Menu.getOne";
-    //    public static final String ALL_SORTED = "Menu.getAll";
     public static final String DELETE = "Menu.delete";
 
 
