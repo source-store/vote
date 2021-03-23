@@ -10,7 +10,6 @@ import ru.yakubov.vote.model.Restaurants;
 import ru.yakubov.vote.to.RestaurantTo;
 import ru.yakubov.vote.util.VoteUtilsTo;
 import ru.yakubov.vote.web.View;
-import ru.yakubov.vote.web.menu.AdminMenuRestController;
 
 import java.net.URI;
 import java.util.List;

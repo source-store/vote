@@ -1,13 +1,11 @@
 package ru.yakubov.vote.repository.datajpa;
 
 
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
-import ru.yakubov.vote.model.Menu;
 import ru.yakubov.vote.model.Votes;
 
 import java.time.LocalDate;
@@ -24,9 +22,7 @@ public interface CrudVoteRepository extends JpaRepository<Votes, Integer> {
     @Query("DELETE FROM Votes u WHERE u.id=:id")
     int delete(@Param("id") int id);
 
-//    @EntityGraph(attributePaths = {"restaurant"})
-    @Query("SELECT u FROM Votes u " +
-            "WHERE u.id=:id")
+    @Query("SELECT u FROM Votes u WHERE u.id=:id")
     Votes get(@Param("id") int id);
 
 

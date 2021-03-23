@@ -1,9 +1,5 @@
 package ru.yakubov.vote.repository;
 
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import ru.yakubov.vote.model.Role;
-import ru.yakubov.vote.model.UserVote;
 import ru.yakubov.vote.model.Votes;
 
 import java.time.LocalDate;

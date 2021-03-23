@@ -3,8 +3,6 @@ package ru.yakubov.vote.web.menu;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import ru.yakubov.vote.model.Menu;
 import ru.yakubov.vote.service.MenuService;
 import ru.yakubov.vote.web.RestUrlPattern;
@@ -12,7 +10,6 @@ import ru.yakubov.vote.web.RestUrlPattern;
 import java.time.LocalDate;
 import java.util.List;
 
-import static ru.yakubov.vote.util.DateTimeUtil.makeDateFromString;
 import static ru.yakubov.vote.util.ValidationUtil.checkNew;
 
 public class AbstractMenuRestController extends RestUrlPattern {

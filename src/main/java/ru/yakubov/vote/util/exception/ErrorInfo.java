@@ -1,6 +1,5 @@
 package ru.yakubov.vote.util.exception;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 

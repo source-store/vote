@@ -1,6 +1,5 @@
 package ru.yakubov.vote.repository;
 
-import org.springframework.data.repository.query.Param;
 import ru.yakubov.vote.model.Menu;
 
 import java.time.LocalDate;

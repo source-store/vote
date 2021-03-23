@@ -4,8 +4,6 @@ import ru.yakubov.vote.model.UserVote;
 import ru.yakubov.vote.to.UserVoteTo;
 import ru.yakubov.vote.util.VoteUtilsTo;
 
-import static ru.yakubov.vote.web.SecurityUtil.safeGet;
-
 public class AuthorizedUser extends org.springframework.security.core.userdetails.User{
     private static final long serialVersionUID = 7496650878122997852L;
 

@@ -2,7 +2,6 @@ package ru.yakubov.vote.repository;
 
 import ru.yakubov.vote.model.Restaurants;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public interface RestaurantRepository {

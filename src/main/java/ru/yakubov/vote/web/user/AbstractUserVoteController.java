@@ -3,13 +3,11 @@ package ru.yakubov.vote.web.user;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.yakubov.vote.model.Restaurants;
 import ru.yakubov.vote.model.UserVote;
 import ru.yakubov.vote.model.Votes;
 import ru.yakubov.vote.service.RestaurantService;
 import ru.yakubov.vote.service.UserVoteService;
 import ru.yakubov.vote.service.VoteService;
-import ru.yakubov.vote.to.RestaurantTo;
 import ru.yakubov.vote.to.UserVoteTo;
 import ru.yakubov.vote.to.VoteTo;
 import ru.yakubov.vote.util.VoteUtilsTo;
@@ -29,10 +27,6 @@ public abstract class AbstractUserVoteController extends RestUrlPattern {
 
     @Autowired
     private UserVoteService service;
-
-    @Autowired
-    private RestaurantService restaurantService;
-
 
     public List<UserVote> getAll() {
         log.info("getAll");
@@ -84,16 +78,7 @@ public abstract class AbstractUserVoteController extends RestUrlPattern {
 
     public VoteTo createVote(int userId, int restautantId) {
         log.info("createVote userId {} restautantId {}", userId, restautantId);
-
         return voteService.vote(userId, restautantId);
-
-//        Votes votes = new Votes(LocalDate.now());
-//        UserVote userVote = service.get(userId);
-//        Restaurants restaurants = restaurantService.get(restautantId);
-//        votes.setUserVote(userVote);
-//        votes.setRestaurant(restaurants);
-//
-//        return voteService.create(votes);
     }
 
     public void voteDelete(int userId) {

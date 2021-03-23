@@ -5,8 +5,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.yakubov.vote.model.Menu;
 import ru.yakubov.vote.repository.MenuVoteRepository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.util.List;
 

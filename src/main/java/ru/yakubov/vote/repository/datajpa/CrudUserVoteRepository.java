@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
-import ru.yakubov.vote.model.Role;
 import ru.yakubov.vote.model.UserVote;
 
 import java.util.List;
@@ -15,7 +14,6 @@ import java.util.List;
 public interface CrudUserVoteRepository extends JpaRepository<UserVote, Integer> {
 
     @Modifying
-//    @Query(name = User.DELETE)
     @Query("DELETE FROM UserVote u WHERE u.id=:id")
     int delete(@Param("id") int id);
 
@@ -25,11 +23,6 @@ public interface CrudUserVoteRepository extends JpaRepository<UserVote, Integer>
     @EntityGraph(attributePaths = {"roles"})
     @Query("SELECT u FROM UserVote u ORDER BY u.name")
     List<UserVote> getByRoles ();
-
-
-//    @EntityGraph(attributePaths = {"roles", "votes"})
-//    @Query("SELECT u FROM UserVote u WHERE u.id=?1")
-//    UserVote getWithVotes(int id);
 
 
 }
