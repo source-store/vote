@@ -37,12 +37,12 @@ Two roles are *administrator* and *user*.
 
 *administrator:*
 -------------
-can create / edit users, menu items, restaurants.
+can create / edit users, menu items, restaurants, can view voting results
 
 
 *user:*
 ----
-can view / change his profile, view menus and restaurants, perform voting, delete his vote in accordance with the task.
+can view / change himself profile, view menus and restaurants, perform voting, delete his vote in accordance with the task, can view voting results
 
 
 REST API
@@ -50,15 +50,17 @@ REST API
 
 **AdminVoteRestController (Role ADMIN)**
 
-|*Method*  | *URL*                                                       | *Body(JSON)*  |*Code response*|*Body(JSON)*    |  *Access*  |
-|:--------:|-------------------------------------------------------------|:-------------:|:-------------:|:--------------:|:----------:|
-| GET      | /rest/admin/profile                                         |               | 200           | List(UserVote) |   ADMIN    |
-| GET      | /rest/admin/profile/{userId}                                |               | 200           | UserVote       |   ADMIN    |
-| POST     | /rest/admin/profile                                         | UserVote      | 201           | UserVote       |   ADMIN    |
-| DELETE   | /rest/admin/profile/{userId}                                |               | 204           |                |   ADMIN    |
-| PUT      | /rest/admin/profile/{userId}                                |               | 204           |                |   ADMIN    |
-| GET      | /rest/profiles/in?email={email}                             |               | 200           | UserVote       |   ADMIN    |
-| GET      | /rest/profiles/{userId}}/vote/in?date1={date1}&date2={date2}|               | 200           | List(Votes)    |   ADMIN    |
+|*Method*  | *URL*                                                       | *Body(JSON)*  |*Code response*|  *Body(JSON)*    |  *Access*  |
+|:--------:|-------------------------------------------------------------|:-------------:|:-------------:|:----------------:|:----------:|
+| GET      | /rest/admin/result                                          |               | 200           | List<VoteResult> |   ADMIN    |
+| GET      | /rest/admin/result/in?date1={date1}&date2={date2}           |               | 200           | List<VoteResult> |   ADMIN    |
+| GET      | /rest/admin/profile                                         |               | 200           | List(UserVote)   |   ADMIN    |
+| GET      | /rest/admin/profile/{userId}                                |               | 200           | UserVote         |   ADMIN    |
+| POST     | /rest/admin/profile                                         | UserVote      | 201           | UserVote         |   ADMIN    |
+| DELETE   | /rest/admin/profile/{userId}                                |               | 204           |                  |   ADMIN    |
+| PUT      | /rest/admin/profile/{userId}                                |               | 204           |                  |   ADMIN    |
+| GET      | /rest/profiles/in?email={email}                             |               | 200           | UserVote         |   ADMIN    |
+| GET      | /rest/profiles/{userId}}/vote/in?date1={date1}&date2={date2}|               | 200           | List(Votes)      |   ADMIN    |
 
 
 **ProfileVoteRestController (Role USER)**

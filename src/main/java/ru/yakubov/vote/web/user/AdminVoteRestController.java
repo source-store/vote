@@ -7,6 +7,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.yakubov.vote.model.UserVote;
+import ru.yakubov.vote.model.VoteResult;
 import ru.yakubov.vote.model.Votes;
 import ru.yakubov.vote.web.SecurityUtil;
 import ru.yakubov.vote.web.View;
@@ -16,8 +17,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import static ru.yakubov.vote.util.DateTimeUtil.makeDateFromString;
+
 
 /*
+* GET /admin/result                                                     get result vote current date
+* GET /admin/result/in?date1=YYYY-MM-DD&date2=YYYY-MM-DD                get result vote by period
 * GET /admin/profile                                                    get all user profiles
 * GET /admin/profile/{userId}                                           get user profile by id
 * POST /admin/profile                                                   create new user from UserVote
@@ -35,6 +40,15 @@ public class AdminVoteRestController extends AbstractUserVoteController{
     public static final String REST_URL = ROOT_REST_URL+ADMIN_REST_URL+PROFILE_REST_URL;
     public static final String VOTE_URL = "/vote";
 
+    @GetMapping(value = "/result", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<VoteResult> getResultCurdate() {
+        return super.getResultCurdate();
+    }
+
+    @GetMapping(value = "/result/in", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<VoteResult> getResultDatePeriod(@RequestParam("date1") String date1, @RequestParam("date2") String date2) {
+        return super.getResultDatePeriod(makeDateFromString(date1), makeDateFromString(date2));
+    }
 
     //http://localhost:8080/vote/admin/profiles
     @Override

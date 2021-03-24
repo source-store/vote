@@ -28,6 +28,26 @@ class AdminVoteRestControllerTest extends AbstractControllerTest {
     @Autowired
     UserVoteService service;
 
+    //GET /rest/admin/result                                         get result vote current date
+    @Test
+    void getResultCurdate() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL+"/result")
+                .with(userHttpBasic(UserTestData.admin1)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON));
+    }
+
+    //GET /rest/admin/result/in?date1=YYYY-MM-DD&date2=YYYY-MM-DD    get result vote by period
+    @Test
+    void getResultDatePeriod() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL+"/result/in?date1=2021-03-08&date2=2021-03-11")
+                .with(userHttpBasic(UserTestData.admin1)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON));
+    }
+
     //GET /rest/admin/profile                                                    get all user profiles
     @Test
     void getAll() throws Exception {
