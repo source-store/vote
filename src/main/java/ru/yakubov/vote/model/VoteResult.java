@@ -1,5 +1,8 @@
 package ru.yakubov.vote.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import ru.yakubov.vote.util.DateTimeUtil;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -10,6 +13,7 @@ public class VoteResult extends AbstractBaseEntity{
 
     @NotNull
     @Column(name = "date", nullable = false)
+    @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate date;
 
     @NotNull

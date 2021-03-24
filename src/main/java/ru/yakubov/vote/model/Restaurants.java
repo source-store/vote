@@ -8,14 +8,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.List;
 
-@NamedQueries({
-        @NamedQuery(name = Restaurants.ALL_SORTED, query = "SELECT m FROM Restaurants m WHERE m.id=:restorauntId ORDER BY m.name DESC"),
-        @NamedQuery(name = Restaurants.DELETE, query = "DELETE FROM Restaurants m WHERE m.id=:restorauntId")})
 @Entity
 @Table(name = "restaurants")
 public class Restaurants extends AbstractNamedEntity{
-    public static final String ALL_SORTED = "Restaurants.getAll";
-    public static final String DELETE = "Restaurants.delete";
 
     @Column(name = "address", nullable = false)
     @NotBlank

@@ -3,6 +3,8 @@ package ru.yakubov.vote.model;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.format.annotation.DateTimeFormat;
+import ru.yakubov.vote.util.DateTimeUtil;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,15 +13,9 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Calendar;
 
-@NamedQueries({
-        @NamedQuery(name = Menu.GET_ONE, query = "SELECT m FROM Menu m WHERE m.id=:id"),
-        @NamedQuery(name = Menu.DELETE, query = "DELETE FROM Menu m WHERE m.id=:id")})
 @Entity
 @Table(name = "menu", uniqueConstraints = {@UniqueConstraint(columnNames = {"date", "decription", "restaurant_id"}, name = "menu_unique_date_decription_restaurant_idx")})
 public class Menu extends AbstractBaseEntity {
-
-    public static final String GET_ONE = "Menu.getOne";
-    public static final String DELETE = "Menu.delete";
 
 
     @NotNull
@@ -30,9 +26,8 @@ public class Menu extends AbstractBaseEntity {
 
     @NotNull
     @Column(name = "date", nullable = false)
-    private LocalDate date = LocalDate.of(Calendar.getInstance().get(Calendar.YEAR),
-            Calendar.getInstance().get(Calendar.MONTH),
-            Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+    @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
+    private LocalDate date = LocalDate.now();
 
 
     @NotNull

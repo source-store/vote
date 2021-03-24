@@ -1,7 +1,9 @@
 package ru.yakubov.vote.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.util.CollectionUtils;
+import ru.yakubov.vote.util.DateTimeUtil;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -10,18 +12,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.*;
 
-@NamedQueries({
-        @NamedQuery(name = UserVote.DELETE, query = "DELETE FROM UserVote u WHERE u.id=:id"),
-        @NamedQuery(name = UserVote.BY_EMAIL, query = "SELECT u FROM UserVote u LEFT JOIN FETCH u.roles WHERE u.email=?1"),
-        @NamedQuery(name = UserVote.ALL_SORTED, query = "SELECT u FROM UserVote u LEFT JOIN FETCH u.roles ORDER BY u.name, u.email"),
-})
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
 public class UserVote extends AbstractNamedEntity{
-
-    public static final String DELETE = "UserVote.delete";
-    public static final String BY_EMAIL = "UserVote.getByEmail";
-    public static final String ALL_SORTED = "UserVote.getAllSorted";
 
     @Column(name = "email", nullable = false, unique = true)
     @Email
@@ -40,6 +33,7 @@ public class UserVote extends AbstractNamedEntity{
     @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()")
     @NotNull
     @JsonIgnore
+    @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
     private Date registered = new Date();
 
 
