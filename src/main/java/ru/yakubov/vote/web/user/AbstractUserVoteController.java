@@ -4,8 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.yakubov.vote.model.UserVote;
+import ru.yakubov.vote.model.VoteResult;
 import ru.yakubov.vote.model.Votes;
-import ru.yakubov.vote.service.RestaurantService;
 import ru.yakubov.vote.service.UserVoteService;
 import ru.yakubov.vote.service.VoteService;
 import ru.yakubov.vote.to.UserVoteTo;
@@ -90,4 +90,16 @@ public abstract class AbstractUserVoteController extends RestUrlPattern {
         log.info("getByUserDat userId {} beginDate {}  endDate {}", id, beginDate, endDate);
         return voteService.getByUserDate(id, beginDate, endDate);
     }
+
+    public List<VoteResult> getResultDatePeriod(LocalDate beginDate, LocalDate endDate){
+        log.info("getResultDatePeriod beginDate {}  endDate {}", beginDate, endDate);
+        return voteService.getResultDate(beginDate, endDate);
+    }
+
+    public List<VoteResult> getResultCurdate(){
+        log.info("getResultCurdate ");
+        return voteService.getResultDate(LocalDate.now(), LocalDate.now());
+    }
+
+
 }

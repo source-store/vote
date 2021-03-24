@@ -7,18 +7,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.yakubov.vote.model.UserVote;
+import ru.yakubov.vote.model.VoteResult;
 import ru.yakubov.vote.to.UserVoteTo;
 import ru.yakubov.vote.to.VoteTo;
 
 import java.net.URI;
+import java.util.List;
 
+import static ru.yakubov.vote.util.DateTimeUtil.makeDateFromString;
 import static ru.yakubov.vote.web.SecurityUtil.authUserId;
 
 /*
-*       GET /profile                    get current user profile
-*       PUT /profile                    update
-*       POST /profile/{restaurantId}    vote
-*       DELETE /profile                 delete current user vote
+*       GET /result                                         get result vote current date
+*       GET /result/in?date1=YYYY-MM-DD&date2=YYYY-MM-DD    get result vote by period
+*       GET /profile                                        get current user profile
+*       PUT /profile                                        update
+*       POST /profile/{restaurantId}                        vote
+*       DELETE /profile                                     delete current user vote
 **/
 
 @RestController
@@ -26,6 +31,17 @@ import static ru.yakubov.vote.web.SecurityUtil.authUserId;
 public class ProfileVoteRestController extends AbstractUserVoteController{
 
     public static final String REST_URL = ROOT_REST_URL+PROFILE_REST_URL;
+
+    @GetMapping(value = "/result", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<VoteResult> getResultCurdate() {
+        return super.getResultCurdate();
+    }
+
+    @GetMapping(value = "/result/in", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<VoteResult> getResultDatePeriod(@RequestParam("date1") String date1, @RequestParam("date2") String date2) {
+        return super.getResultDatePeriod(makeDateFromString(date1), makeDateFromString(date2));
+    }
+
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public UserVote get() {

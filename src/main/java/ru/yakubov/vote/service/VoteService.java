@@ -5,10 +5,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.yakubov.vote.model.Restaurants;
 import ru.yakubov.vote.model.UserVote;
+import ru.yakubov.vote.model.VoteResult;
 import ru.yakubov.vote.model.Votes;
 import ru.yakubov.vote.repository.RestaurantRepository;
 import ru.yakubov.vote.repository.UserVoteRepository;
 import ru.yakubov.vote.repository.VoteRepository;
+import ru.yakubov.vote.repository.VoteResultRepository;
 import ru.yakubov.vote.to.VoteTo;
 import ru.yakubov.vote.util.VoteUtilsTo;
 import ru.yakubov.vote.util.exception.FailVoteException;
@@ -26,11 +28,15 @@ public class VoteService {
     private final VoteRepository repository;
     private final UserVoteRepository userRepository;
     private final RestaurantRepository restaurantRepository;
+    private final VoteResultRepository voteResultRepository;
 
-    public VoteService(VoteRepository repository, UserVoteRepository userRepository, RestaurantRepository restaurantRepository) {
+    public VoteService(VoteRepository repository, UserVoteRepository userRepository,
+                                                  RestaurantRepository restaurantRepository,
+                                                  VoteResultRepository voteResultRepository) {
         this.repository = repository;
         this.userRepository = userRepository;
         this.restaurantRepository = restaurantRepository;
+        this.voteResultRepository = voteResultRepository;
     }
 
     @Transactional
@@ -110,4 +116,7 @@ public class VoteService {
         }
     }
 
+    public List<VoteResult> getResultDate(LocalDate beginDate, LocalDate endDate){
+        return voteResultRepository.getResultDate(beginDate, endDate);
+    }
 }

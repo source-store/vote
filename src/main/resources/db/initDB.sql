@@ -12,7 +12,7 @@ DROP FUNCTION IF EXISTS after_delete_votes();;
 
 
 DROP TABLE IF EXISTS USER_ROLES;;
-DROP VIEW IF EXISTS VOTE;;
+DROP VIEW IF EXISTS voteresult;;
 DROP TABLE IF EXISTS VOTES;;
 DROP TABLE IF EXISTS MENU;;
 DROP TABLE IF EXISTS USERS;;
@@ -80,13 +80,19 @@ CREATE TABLE VOTES
 CREATE UNIQUE INDEX votes_unique_user_date_idx ON VOTES (user_id, date);;
 
 
-CREATE OR REPLACE VIEW vote
+CREATE OR REPLACE VIEW voteresult
  AS
-select md.restaurant_id, md.date, count(1) count, sum(md.price) totalprice, count(v.user_id) totalvoted
-from MENU md
-join RESTAURANTS r on r.id = md.restaurant_id
-left outer join votes v on v.restaurant_id = md.restaurant_id and v.date = md.date
-group by r.name, md.restaurant_id, md.date order by md.date, r.name;;
+select row_number() over () id, restaurant_id, date, sum(vt) voteCount, sum(mn) menuCount
+from (select r.name, r.id restaurant_id, v.date, 1 vt, 0 mn
+      from RESTAURANTS r
+               join votes v on v.restaurant_id = r.id
+      union all
+      select r.name, r.id restaurant_id, m.date, 0 vt, 1 mn
+      from menu m
+               join RESTAURANTS r on r.id = m.restaurant_id
+     ) as voteresult
+group by name, restaurant_id, date
+order by restaurant_id, date, voteCount, menuCount;;
 
 
 CREATE TABLE SHADOW_USERS

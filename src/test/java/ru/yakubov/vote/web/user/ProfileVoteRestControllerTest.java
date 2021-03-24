@@ -48,6 +48,26 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
     private CrudVoteRepository crudRepository;
 
 
+    //GET /result                                         get result vote current date
+    @Test
+    void getResultCurdate() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL+"/result")
+                .with(userHttpBasic(UserTestData.user1)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON));
+    }
+
+    //GET /result/in?date1=YYYY-MM-DD&date2=YYYY-MM-DD    get result vote by period
+    @Test
+    void getResultDatePeriod() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL+"/result/in?date1=2021-03-08&date2=2021-03-11")
+                .with(userHttpBasic(UserTestData.user1)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON));
+    }
+
     //GET /rest/profile                                           get user profile by id
     @Test
     void get() throws Exception {
