@@ -52,8 +52,8 @@ REST API
 
 |*Method*  | *URL*                                                       | *Body(JSON)*  |*Code response*|  *Body(JSON)*    |  *Access*  |
 |:--------:|-------------------------------------------------------------|:-------------:|:-------------:|:----------------:|:----------:|
-| GET      | /rest/admin/result                                          |               | 200           | List<VoteResult> |   ADMIN    |
-| GET      | /rest/admin/result/in?date1={date1}&date2={date2}           |               | 200           | List<VoteResult> |   ADMIN    |
+| GET      | /rest/admin/result                                          |               | 200           | List(VoteResult) |   ADMIN    |
+| GET      | /rest/admin/result/in?date1={date1}&date2={date2}           |               | 200           | List(VoteResult) |   ADMIN    |
 | GET      | /rest/admin/profile                                         |               | 200           | List(UserVote)   |   ADMIN    |
 | GET      | /rest/admin/profile/{userId}                                |               | 200           | UserVote         |   ADMIN    |
 | POST     | /rest/admin/profile                                         | UserVote      | 201           | UserVote         |   ADMIN    |
@@ -67,8 +67,8 @@ REST API
 
 |*Method*  | *URL*                                       | *Body(JSON)*  |*Code response*|  *Body(JSON)*    |  *Access*  |
 |:--------:|---------------------------------------------|:-------------:|:-------------:|:----------------:|:----------:|
-| GET      | /rest/result                                |               | 200           | List<VoteResult> |  USER      |
-| GET      | /rest/result/in?date1={date1}&date2={date2} |               | 200           | List<VoteResult> |  USER      |
+| GET      | /rest/result                                |               | 200           | List(VoteResult) |  USER      |
+| GET      | /rest/result/in?date1={date1}&date2={date2} |               | 200           | List(VoteResult) |  USER      |
 | GET      | /rest/profile                               |               | 200           | UserVote         |  USER      |
 | PUT      | /rest/profile                               | UserVoteTo    | 204           |                  |  USER      |
 | POST     | /rest/profile/{restaurantId}                |               | 201           | VoteTo           |  USER      |
