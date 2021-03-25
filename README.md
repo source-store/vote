@@ -72,6 +72,7 @@ REST API
 | GET      | /rest/profile                               |               | 200           | UserVote         |  USER      |
 | PUT      | /rest/profile                               | UserVoteTo    | 204           |                  |  USER      |
 | POST     | /rest/profile/{restaurantId}                |               | 201           | VoteTo           |  USER      |
+| POST     | /rest/profile/register                      | UserVoteTo    | 200           | UserVote         |            |
 | DELETE   | /rest//profile                              |               | 204           |                  |  USER      |
 
 
