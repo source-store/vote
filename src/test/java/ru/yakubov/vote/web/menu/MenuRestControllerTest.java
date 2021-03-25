@@ -1,7 +1,9 @@
 package ru.yakubov.vote.web.menu;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.yakubov.vote.RestaurantTestData;
 import ru.yakubov.vote.UserTestData;
@@ -21,6 +23,14 @@ public class MenuRestControllerTest extends AbstractControllerTest {
 
     @Autowired
     MenuService service;
+
+    @Autowired
+    CacheManager cacheManager;
+
+    @BeforeEach
+    public void setUp(){
+        cacheManager.getCache("menu").clear();
+    }
 
     //GET    /menu/all/in?date1={date1}&date2={date2}       get menu for all restaurants for the period
     @Test

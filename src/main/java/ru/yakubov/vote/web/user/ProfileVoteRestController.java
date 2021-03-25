@@ -4,12 +4,14 @@ package ru.yakubov.vote.web.user;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.yakubov.vote.model.UserVote;
 import ru.yakubov.vote.model.VoteResult;
 import ru.yakubov.vote.to.UserVoteTo;
 import ru.yakubov.vote.to.VoteTo;
+import ru.yakubov.vote.web.View;
 
 import java.net.URI;
 import java.util.List;
@@ -23,6 +25,7 @@ import static ru.yakubov.vote.web.SecurityUtil.authUserId;
 *       GET /profile                                        get current user profile
 *       PUT /profile                                        update
 *       POST /profile/{restaurantId}                        vote
+*       POST /rest/profile/register                         register new user
 *       DELETE /profile                                     delete current user vote
 **/
 
@@ -64,6 +67,18 @@ public class ProfileVoteRestController extends AbstractUserVoteController{
 
         return ResponseEntity.created(uriOfNewUserVote).body(votesCreateTo);
     }
+
+    @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public ResponseEntity<UserVote> createRegisterWithLocation(@Validated(View.Web.class) @RequestBody UserVoteTo userVoteTo) {
+        UserVote created = super.createFromTo(userVoteTo);
+        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(REST_URL+"/{id}").build().toUri();
+        return ResponseEntity.created(uriOfNewResource).body(created);
+    }
+
+
+
 
     @DeleteMapping()
     @ResponseStatus(HttpStatus.NO_CONTENT)

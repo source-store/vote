@@ -1,7 +1,9 @@
 package ru.yakubov.vote.web.restaurant;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -31,6 +33,14 @@ class AdminRestaurantRestControllerTest extends AbstractControllerTest {
 
     @Autowired
     RestaurantService service;
+
+    @Autowired
+    CacheManager cacheManager;
+
+    @BeforeEach
+    public void setUp(){
+        cacheManager.getCache("restaurants").clear();
+    }
 
     //GET /rest/admin/restaurant             get all restaurants
     @Test
