@@ -14,10 +14,11 @@
         <http-basic/>
         <intercept-url pattern="/rest/profile/register" access="permitAll()"/>
         <intercept-url pattern="/rest/admin/**" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/rest/menu/**" access="hasAnyRole('ROLE_USER')"/>
-        <intercept-url pattern="/rest/profile/**" access="hasAnyRole('ROLE_USER')"/>
-        <intercept-url pattern="/rest/restaurant/**" access="hasAnyRole('ROLE_USER')"/>
-        <intercept-url pattern="/rest/**" access="isAuthenticated()"/>
+        <intercept-url pattern="/rest/**" access="hasAnyRole('ROLE_USER')"/>
+<!--        <intercept-url pattern="/rest/menu/**" access="hasAnyRole('ROLE_USER')"/>-->
+<!--        <intercept-url pattern="/rest/profile/**" access="hasAnyRole('ROLE_USER')"/>-->
+<!--        <intercept-url pattern="/rest/restaurant/**" access="hasAnyRole('ROLE_USER')"/>-->
+<!--        <intercept-url pattern="/rest/**" access="isAuthenticated()"/>-->
         <csrf disabled="true"/>
     </http>
 

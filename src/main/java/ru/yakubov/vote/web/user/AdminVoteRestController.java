@@ -37,7 +37,7 @@ import static ru.yakubov.vote.util.DateTimeUtil.makeDateFromString;
 @RequestMapping(value = AdminVoteRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdminVoteRestController extends AbstractUserVoteController{
 
-    public static final String REST_URL = ROOT_REST_URL+ADMIN_REST_URL+PROFILE_REST_URL;
+    public static final String REST_URL = ROOT_REST_URL+ADMIN_REST_URL;
     public static final String VOTE_URL = "/vote";
 
     @GetMapping(value = "/result", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -52,7 +52,7 @@ public class AdminVoteRestController extends AbstractUserVoteController{
 
     //http://localhost:8080/vote/admin/profiles
     @Override
-    @GetMapping//тоже самое @RequestMapping(method = RequestMethod.GET)
+    @GetMapping(PROFILE_REST_URL)//тоже самое @RequestMapping(method = RequestMethod.GET)
     public List<UserVote> getAll() {
         SecurityUtil.safeGet();
         return super.getAll();
@@ -60,7 +60,7 @@ public class AdminVoteRestController extends AbstractUserVoteController{
 
     //http://localhost:8080/vote/admin/profile/50003
     @Override
-    @GetMapping("/{id}")
+    @GetMapping(PROFILE_REST_URL+"/{id}")
     //в @PathVariable("id") "id" можно нее указывать, но пока делаю так.
     public UserVote get(@PathVariable("id") int id) {
         return super.get(id);
@@ -69,7 +69,7 @@ public class AdminVoteRestController extends AbstractUserVoteController{
     //Пример json
     //{ "name": "User22", "email": "user22@yandex.ru", "password": "password", "enabled": true, "roles": ["USER"]}
     //принимаем объекты в теле в формате json
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = PROFILE_REST_URL, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
     public ResponseEntity<UserVote> createWithLocation(@Validated(View.Web.class) @RequestBody UserVote userVote) {
         UserVote userVoteCreate = super.create(userVote);
@@ -81,7 +81,7 @@ public class AdminVoteRestController extends AbstractUserVoteController{
 
     //http://localhost:8080/vote/admin/profile/50003
     @Override
-    @DeleteMapping("/{id}")
+    @DeleteMapping(PROFILE_REST_URL+"/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
         super.delete(id);
@@ -91,7 +91,7 @@ public class AdminVoteRestController extends AbstractUserVoteController{
     //Пример json
     //{ "name": "User222", "email": "user222@yandex.ru", "password": "password", "enabled": true, "registered": 1615732656452, "roles": ["USER"]}
     @Override
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = PROFILE_REST_URL+"/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@Validated(View.Web.class) @RequestBody UserVote userVote, @PathVariable("id") int id) {
         super.update(userVote, id);
@@ -99,13 +99,13 @@ public class AdminVoteRestController extends AbstractUserVoteController{
 
     //http://localhost:8080/vote/admin/profiles/in?email=user2@yandex.ru
     @Override
-    @GetMapping("/in")
+    @GetMapping(PROFILE_REST_URL+"/in")
     public UserVote getByMail(@RequestParam("email") String email) {
         return super.getByMail(email);
     }
 
     //http://localhost:8080/vote/admin/profile/50004/vote/in?date1=2021-03-08&date2=2021-03-10
-    @GetMapping("/{id}" + VOTE_URL + "/in")
+    @GetMapping(PROFILE_REST_URL+"/{id}" + VOTE_URL + "/in")
     public List<Votes> getUserVoteByDate(@PathVariable int id, @RequestParam("date1") String date1, @RequestParam("date2") String date2) {
         return super.getByUserDate(id, makeDateFromString(date1), makeDateFromString(date2));
     }

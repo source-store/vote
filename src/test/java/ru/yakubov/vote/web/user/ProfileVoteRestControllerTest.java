@@ -58,7 +58,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
         cacheManager.getCache("users").clear();
     }
 
-    //GET /result                                         get result vote current date
+    //GET /rest/result                                         get result vote current date
     @Test
     void getResultCurdate() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/result")
@@ -91,7 +91,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
         USER_MATCHER.assertMatch(getUserVote, UserTestData.user2);
     }
 
-    //PUT /profile                    update
+    //PUT /rest/profile                    update
     @Test
     void update() throws Exception {
         UserVote userVote = new UserVote(UserTestData.user1);
@@ -107,7 +107,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
         assertEquals(service.get(UserTestData.USER_ID1).getName(), "Update NAME");
     }
 
-    //POST /profile/{restaurantId}    vote
+    //POST /rest/profile/{restaurantId}    vote
     @Test
     void createVoteWithLocation() throws Exception {
 
@@ -152,7 +152,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
     }
 
 
-    //DELETE /profile                 delete current user vote
+    //DELETE /rest/profile                 delete current user vote
     @Test
     void voteDelete() throws Exception {
 
