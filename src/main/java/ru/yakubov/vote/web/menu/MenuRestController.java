@@ -1,10 +1,12 @@
 package ru.yakubov.vote.web.menu;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.yakubov.vote.model.Menu;
 import ru.yakubov.vote.service.MenuService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static ru.yakubov.vote.util.DateTimeUtil.makeDateFromString;
@@ -27,8 +29,8 @@ public class MenuRestController extends AbstractMenuRestController{
     }
 
     @GetMapping(value = "/all/in", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Menu> GetAllByDate(@RequestParam("date1") String date1, @RequestParam("date2") String date2) {
-        return super.GetAllByDate(makeDateFromString(date1), makeDateFromString(date2));
+    public List<Menu> GetAllByDate(@RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1, @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate  date2) {
+        return super.GetAllByDate(date1, date2);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -37,8 +39,9 @@ public class MenuRestController extends AbstractMenuRestController{
     }
 
     @GetMapping(value = "/{id}/in", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Menu> GetAllByRestaurantIdAndDate(@PathVariable int id, @RequestParam("date1") String date1, @RequestParam("date2") String date2) {
-        return super.GetAllByRestaurantIdAndDate(id, makeDateFromString(date1), makeDateFromString(date2));
+    public List<Menu> GetAllByRestaurantIdAndDate(@PathVariable int id, @RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate  date1,
+                                                  @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate  date2) {
+        return super.GetAllByRestaurantIdAndDate(id, date1, date2);
     }
 
 }

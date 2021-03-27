@@ -46,6 +46,4 @@ public class RestaurantRestController extends AbstractRestaurantRestController{
     public List<Restaurants> getAll() {
         return service.getAll();
     }
-
-
 }

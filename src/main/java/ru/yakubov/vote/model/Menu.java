@@ -11,7 +11,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.Calendar;
 
 @Entity
 @Table(name = "menu", uniqueConstraints = {@UniqueConstraint(columnNames = {"date", "decription", "restaurant_id"}, name = "menu_unique_date_decription_restaurant_idx")})

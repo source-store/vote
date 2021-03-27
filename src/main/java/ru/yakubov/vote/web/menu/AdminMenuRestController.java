@@ -1,6 +1,7 @@
 package ru.yakubov.vote.web.menu;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +13,8 @@ import ru.yakubov.vote.service.MenuService;
 import ru.yakubov.vote.web.View;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
-
-import static ru.yakubov.vote.util.DateTimeUtil.makeDateFromString;
 
 /*
 *   GET    /admin/menu/all/in?date1={date1}&date2={date2}       get menu for all restaurants for the period
@@ -37,8 +37,8 @@ public class AdminMenuRestController extends AbstractMenuRestController{
 
     //http://localhost:8080/vote/admin/menu/all/in?date1=2021-03-08&date2=2021-03-10
     @GetMapping(value = "/all/in", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Menu> GetAllByDate(@RequestParam("date1") String date1, @RequestParam("date2") String date2){
-        return super.GetAllByDate(makeDateFromString(date1), makeDateFromString(date2));
+    public List<Menu> GetAllByDate(@RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate  date1, @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate  date2){
+        return super.GetAllByDate(date1, date2);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -53,8 +53,8 @@ public class AdminMenuRestController extends AbstractMenuRestController{
 
 
     @GetMapping(value = "/{id}/in", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Menu> GetAllByRestaurantIdAndDate(@PathVariable int id, @RequestParam("date1") String date1, @RequestParam("date2") String date2) {
-        return super.GetAllByRestaurantIdAndDate(id, makeDateFromString(date1), makeDateFromString(date2));
+    public List<Menu> GetAllByRestaurantIdAndDate(@PathVariable int id, @RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1, @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
+        return super.GetAllByRestaurantIdAndDate(id, date1, date2);
     }
 
 

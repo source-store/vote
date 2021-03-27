@@ -1,6 +1,7 @@
 package ru.yakubov.vote.web.user;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +15,9 @@ import ru.yakubov.vote.to.VoteTo;
 import ru.yakubov.vote.web.View;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
-import static ru.yakubov.vote.util.DateTimeUtil.makeDateFromString;
 import static ru.yakubov.vote.web.SecurityUtil.authUserId;
 
 /*
@@ -41,8 +42,9 @@ public class ProfileVoteRestController extends AbstractUserVoteController{
     }
 
     @GetMapping(value = "/result/in", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<VoteResult> getResultDatePeriod(@RequestParam("date1") String date1, @RequestParam("date2") String date2) {
-        return super.getResultDatePeriod(makeDateFromString(date1), makeDateFromString(date2));
+    public List<VoteResult> getResultDatePeriod(@RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1,
+                                                @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
+        return super.getResultDatePeriod(date1, date2);
     }
 
 
@@ -76,9 +78,6 @@ public class ProfileVoteRestController extends AbstractUserVoteController{
                 .path(REST_URL+"/{id}").build().toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
-
-
-
 
     @DeleteMapping()
     @ResponseStatus(HttpStatus.NO_CONTENT)

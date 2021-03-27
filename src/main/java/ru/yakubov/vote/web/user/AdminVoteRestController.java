@@ -1,5 +1,6 @@
 package ru.yakubov.vote.web.user;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +15,7 @@ import ru.yakubov.vote.web.View;
 
 import java.net.URI;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-
-import static ru.yakubov.vote.util.DateTimeUtil.makeDateFromString;
 
 
 /*
@@ -46,8 +44,9 @@ public class AdminVoteRestController extends AbstractUserVoteController{
     }
 
     @GetMapping(value = "/result/in", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<VoteResult> getResultDatePeriod(@RequestParam("date1") String date1, @RequestParam("date2") String date2) {
-        return super.getResultDatePeriod(makeDateFromString(date1), makeDateFromString(date2));
+    public List<VoteResult> getResultDatePeriod(@RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1,
+                                                @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
+        return super.getResultDatePeriod(date1, date2);
     }
 
     //http://localhost:8080/vote/admin/profiles
@@ -106,12 +105,8 @@ public class AdminVoteRestController extends AbstractUserVoteController{
 
     //http://localhost:8080/vote/admin/profile/50004/vote/in?date1=2021-03-08&date2=2021-03-10
     @GetMapping(PROFILE_REST_URL+"/{id}" + VOTE_URL + "/in")
-    public List<Votes> getUserVoteByDate(@PathVariable int id, @RequestParam("date1") String date1, @RequestParam("date2") String date2) {
-        return super.getByUserDate(id, makeDateFromString(date1), makeDateFromString(date2));
-    }
-
-    private LocalDate makeDateFromString(String dateTemplate){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return LocalDate.parse(dateTemplate, formatter);
+    public List<Votes> getUserVoteByDate(@PathVariable int id, @RequestParam("date1")  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1,
+                                         @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
+        return super.getByUserDate(id, date1, date2);
     }
 }
