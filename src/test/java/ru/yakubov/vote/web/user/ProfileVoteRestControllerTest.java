@@ -35,6 +35,7 @@ import static ru.yakubov.vote.TestUtil.userHttpBasic;
 import static ru.yakubov.vote.UserTestData.USER_MATCHER;
 import static ru.yakubov.vote.model.Votes.VOTE_DEADLINE;
 import static ru.yakubov.vote.util.VoteUtilsTo.createTo;
+import static ru.yakubov.vote.web.RestUrlPattern.RESULT_VOTE_REST_URL;
 
 class ProfileVoteRestControllerTest extends AbstractControllerTest {
     private static final String REST_URL = ProfileVoteRestController.REST_URL;
@@ -61,7 +62,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
     //GET /rest/result                                         get result vote current date
     @Test
     void getResultCurdate() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/result")
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + RESULT_VOTE_REST_URL)
                 .with(userHttpBasic(UserTestData.user1)))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -71,7 +72,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
     //GET /result/in?date1=YYYY-MM-DD&date2=YYYY-MM-DD    get result vote by period
     @Test
     void getResultDatePeriod() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/result/in?date1=2021-03-08&date2=2021-03-11")
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + RESULT_VOTE_REST_URL+"/in?date1=2021-03-08&date2=2021-03-11")
                 .with(userHttpBasic(UserTestData.user1)))
                 .andExpect(status().isOk())
                 .andDo(print())

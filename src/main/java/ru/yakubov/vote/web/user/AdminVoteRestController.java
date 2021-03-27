@@ -36,14 +36,13 @@ import java.util.List;
 public class AdminVoteRestController extends AbstractUserVoteController{
 
     public static final String REST_URL = ROOT_REST_URL+ADMIN_REST_URL;
-    public static final String VOTE_URL = "/vote";
 
-    @GetMapping(value = "/result", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = RESULT_VOTE_REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<VoteResult> getResultCurdate() {
         return super.getResultCurdate();
     }
 
-    @GetMapping(value = "/result/in", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = RESULT_VOTE_REST_URL+"/in", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<VoteResult> getResultDatePeriod(@RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1,
                                                 @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
         return super.getResultDatePeriod(date1, date2);

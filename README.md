@@ -58,13 +58,13 @@ REST API
 
 |                         |*Method*  | *URL*                                                       | *Body(JSON)*  |*Code response*|  *Body(JSON)*    |  *Access*  |
 |:------------------------|:--------:|-------------------------------------------------------------|:-------------:|:-------------:|:----------------:|:----------:|
-|result vote current date | GET      | /rest/admin/result                                          |               | 200           | List(VoteResult) |   ADMIN    |
-|result vote by period    | GET      | /rest/admin/result/in?date1={date1}&date2={date2}           |               | 200           | List(VoteResult) |   ADMIN    |
-|all user profiles        | GET      | /rest/admin/profile                                         |               | 200           | List(UserVote)   |   ADMIN    |
-|user profile by id       | GET      | /rest/admin/profile/{userId}                                |               | 200           | UserVote         |   ADMIN    |
-|create new user          | POST     | /rest/admin/profile                                         | UserVote      | 201           | UserVote         |   ADMIN    |
-|delete user              | DELETE   | /rest/admin/profile/{userId}                                |               | 204           |                  |   ADMIN    |
-|update user              | PUT      | /rest/admin/profile/{userId}                                |               | 204           |                  |   ADMIN    |
+|result vote current date | GET      | /rest/admin/results                                         |               | 200           | List(VoteResult) |   ADMIN    |
+|result vote by period    | GET      | /rest/admin/results/in?date1={date1}&date2={date2}          |               | 200           | List(VoteResult) |   ADMIN    |
+|all user profiles        | GET      | /rest/admin/profiles                                        |               | 200           | List(UserVote)   |   ADMIN    |
+|user profile by id       | GET      | /rest/admin/profiles/{userId}                               |               | 200           | UserVote         |   ADMIN    |
+|create new user          | POST     | /rest/admin/profiles                                        | UserVote      | 201           | UserVote         |   ADMIN    |
+|delete user              | DELETE   | /rest/admin/profiles/{userId}                               |               | 204           |                  |   ADMIN    |
+|update user              | PUT      | /rest/admin/profiles/{userId}                               |               | 204           |                  |   ADMIN    |
 |profile by email         | GET      | /rest/profiles/in?email={email}                             |               | 200           | UserVote         |   ADMIN    |
 |user vote by date        | GET      | /rest/profiles/{userId}}/vote/in?date1={date1}&date2={date2}|               | 200           | List(Votes)      |   ADMIN    |
 
@@ -73,36 +73,36 @@ REST API
 
 |                         |*Method*  | *URL*                                       | *Body(JSON)*  |*Code response*|  *Body(JSON)*    |  *Access*  |
 |:------------------------|:--------:|---------------------------------------------|:-------------:|:-------------:|:----------------:|:----------:|
-|result vote current date | GET      | /rest/result                                |               | 200           | List(VoteResult) |  USER      |
-|result vote by period    | GET      | /rest/result/in?date1={date1}&date2={date2} |               | 200           | List(VoteResult) |  USER      |
-|current user profile     | GET      | /rest/profile                               |               | 200           | UserVote         |  USER      |
-|update current user      | PUT      | /rest/profile                               | UserVoteTo    | 204           |                  |  USER      |
-|vote                     | POST     | /rest/profile/{restaurantId}                |               | 201           | VoteTo           |  USER      |
-|register new user        | POST     | /rest/profile/register                      | UserVoteTo    | 200           | UserVoteTo       |            |
-|delete current user vote | DELETE   | /rest//profile                              |               | 204           |                  |  USER      |
+|result vote current date | GET      | /rest/results                               |               | 200           | List(VoteResult) |  USER      |
+|result vote by period    | GET      | /rest/results/in?date1={date1}&date2={date2}|               | 200           | List(VoteResult) |  USER      |
+|current user profile     | GET      | /rest/profiles                              |               | 200           | UserVote         |  USER      |
+|update current user      | PUT      | /rest/profiles                              | UserVoteTo    | 204           |                  |  USER      |
+|vote                     | POST     | /rest/profiles/{restaurantId}               |               | 201           | VoteTo           |  USER      |
+|register new user        | POST     | /rest/profiles/register                     | UserVoteTo    | 200           | UserVoteTo       |            |
+|delete current user vote | DELETE   | /rest//profiles                             |               | 204           |                  |  USER      |
 
 
 **AdminRestaurantRestController (Role ADMIN)**
 
 |                         |*Method*  | *URL*                          |    *Body(JSON)*    |*Code response*|    *Body(JSON)*     |  *Access*  |
 |:------------------------|:--------:|--------------------------------|:------------------:|:-------------:|:-------------------:|:----------:|
-|all restaurants          | GET      | /rest/admin/restaurant         |                    | 200           | List(Restaurants)   |  ADMIN     |
-|all restaurantsTo        | GET      | /rest/admin/restaurant/to      |                    | 200           | List(RestaurantsTo) |  ADMIN     |
-|restaurant               | GET      | /rest/admin/restaurant/{id}    |                    | 200           | Restaurants         |  ADMIN     |
-|restaurantTo             | GET      | /rest/admin/restaurant/to/{id} |                    | 200           | RestaurantsTo       |  ADMIN     |
-|create restaurant        | POST     | /rest/admin/restaurant         | Restaurants        | 201           | Restaurants         |  ADMIN     |
-|delete restaurant        | DELETE   | /rest/admin/restaurant/{id}    |                    | 204           |                     |  ADMIN     |
-|update restaurant        | PUT      | /rest/admin/restaurant         | Restaurants        | 204           |                     |  ADMIN     |
+|all restaurants          | GET      | /rest/admin/restaurants         |                    | 200           | List(Restaurants)   |  ADMIN     |
+|all restaurantsTo        | GET      | /rest/admin/restaurants/to      |                    | 200           | List(RestaurantsTo) |  ADMIN     |
+|restaurant               | GET      | /rest/admin/restaurants/{id}    |                    | 200           | Restaurants         |  ADMIN     |
+|restaurantTo             | GET      | /rest/admin/restaurants/to/{id} |                    | 200           | RestaurantsTo       |  ADMIN     |
+|create restaurant        | POST     | /rest/admin/restaurants         | Restaurants        | 201           | Restaurants         |  ADMIN     |
+|delete restaurant        | DELETE   | /rest/admin/restaurants/{id}    |                    | 204           |                     |  ADMIN     |
+|update restaurant        | PUT      | /rest/admin/restaurants         | Restaurants        | 204           |                     |  ADMIN     |
 
 
 **RestaurantRestController (Role USER)**
 
 |                      |*Method*  | *URL*                    |    *Body(JSON)*    |*Code response*|    *Body(JSON)*     |  *Access* |
 |:---------------------|:--------:|--------------------------|:------------------:|:-------------:|:-------------------:|:---------:|
-|all restaurants       | GET      | /rest/restaurant         |                    | 200           | List(Restaurants)   |  USER     |
-|all restaurantsTo     | GET      | /rest/restaurant/to      |                    | 200           | List(RestaurantsTo) |  USER     |
-|restaurant            | GET      | /rest/restaurant/{id}    |                    | 200           | Restaurants         |  USER     |
-|restaurantTo          | GET      | /rest/restaurant/to/{id} |                    | 200           | RestaurantsTo       |  USER     |
+|all restaurants       | GET      | /rest/restaurants         |                    | 200           | List(Restaurants)   |  USER     |
+|all restaurantsTo     | GET      | /rest/restaurants/to      |                    | 200           | List(RestaurantsTo) |  USER     |
+|restaurant            | GET      | /rest/restaurants/{id}    |                    | 200           | Restaurants         |  USER     |
+|restaurantTo          | GET      | /rest/restaurants/to/{id} |                    | 200           | RestaurantsTo       |  USER     |
 
 
 **AdminMenuRestController (Role ADMIN)**

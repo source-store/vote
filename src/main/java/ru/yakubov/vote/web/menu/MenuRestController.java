@@ -9,8 +9,6 @@ import ru.yakubov.vote.service.MenuService;
 import java.time.LocalDate;
 import java.util.List;
 
-import static ru.yakubov.vote.util.DateTimeUtil.makeDateFromString;
-
 /*
  *   GET    /menu/all/in?date1={date1}&date2={date2}       get menu for all restaurants for the period
  *   GET    /menu/{id}/in?date1={date1}&date2={date2}      get all menu items of restaurant from date

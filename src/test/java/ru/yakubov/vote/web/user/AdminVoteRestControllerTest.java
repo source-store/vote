@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.yakubov.vote.TestUtil.userHttpBasic;
 import static ru.yakubov.vote.UserTestData.USER_MATCHER;
-import static ru.yakubov.vote.web.RestUrlPattern.PROFILE_REST_URL;
+import static ru.yakubov.vote.web.RestUrlPattern.*;
 
 class AdminVoteRestControllerTest extends AbstractControllerTest {
 
@@ -42,7 +42,7 @@ class AdminVoteRestControllerTest extends AbstractControllerTest {
     //GET /rest/admin/result                                         get result vote current date
     @Test
     void getResultCurdate() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL+"/result")
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL+RESULT_VOTE_REST_URL)
                 .with(userHttpBasic(UserTestData.admin1)))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -52,7 +52,7 @@ class AdminVoteRestControllerTest extends AbstractControllerTest {
     //GET /rest/admin/result/in?date1=YYYY-MM-DD&date2=YYYY-MM-DD    get result vote by period
     @Test
     void getResultDatePeriod() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL+"/result/in?date1=2021-03-08&date2=2021-03-11")
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL+RESULT_VOTE_REST_URL+"/in?date1=2021-03-08&date2=2021-03-11")
                 .with(userHttpBasic(UserTestData.admin1)))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -150,7 +150,7 @@ class AdminVoteRestControllerTest extends AbstractControllerTest {
     //GET /rest/admin/profiles/{userId}}/vote/in?date1=2021-03-08&date2=2021-03-10     get user vote by date (period)
     @Test
     void getUserVoteByDate() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL+PROFILE_REST_URL+"/"+UserTestData.USER_ID2+"/vote/in?date1=2021-03-08&date2=2021-03-10")
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL+PROFILE_REST_URL+"/"+UserTestData.USER_ID2+VOTE_URL+"/in?date1=2021-03-08&date2=2021-03-10")
                 .with(userHttpBasic(UserTestData.admin1)))
                 .andExpect(status().isOk())
                 .andDo(print())
