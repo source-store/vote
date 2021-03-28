@@ -16,7 +16,4 @@ public interface RestaurantRepository {
 
     // ORDERED dateTime desc
     List<Restaurants> getAll();
-
-    Integer createId();
-
 }

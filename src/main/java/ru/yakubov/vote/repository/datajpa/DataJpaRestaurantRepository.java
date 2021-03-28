@@ -30,17 +30,12 @@ public class DataJpaRestaurantRepository implements RestaurantRepository {
 
     @Override
     public Restaurants get(int id) {
-        return crudRestaurantRepository.getOne(id);
+        return crudRestaurantRepository.findById(id).orElse(null);// .getOne(id);
     }
 
     @Override
     public List<Restaurants> getAll() {
         return crudRestaurantRepository.findAll();
-    }
-
-    @Override
-    public Integer createId() {
-        return null;
     }
 
 }

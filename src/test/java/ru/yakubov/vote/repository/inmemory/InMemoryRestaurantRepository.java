@@ -28,9 +28,4 @@ public class InMemoryRestaurantRepository extends InMemoryBaseRepository<Restaur
         return new ArrayList<>(map.values());
     }
 
-    @Override
-    public Integer createId() {
-        return null;
-    }
-
 }
