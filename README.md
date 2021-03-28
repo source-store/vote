@@ -1,6 +1,3 @@
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/a3cd8cf6e40d4172b041d493bede1ae3)](https://www.codacy.com/gh/source-store/topjava/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=source-store/topjava&amp;utm_campaign=Badge_Grade)
-
-[![Build Status](https://api.travis-ci.com/source-store/topjava.svg?branch=HW05)](https://travis-ci.com/source-store/topjava)
 
 
 
