@@ -1,13 +1,10 @@
-# https://docs.travis-ci.com/user/languages/java/
 language: java
 jdk: openjdk15
 
-#https://dzone.com/articles/travis-ci-tutorial-java-projects
 cache:
   directories:
     - $HOME/.m2
 
-# https://docs.travis-ci.com/user/database-setup/#PostgreSQL
 before_script:
   - psql -c 'create database topjava' -U postgres
   - psql -c 'create user "user"; grant all privileges on database topjava to "user"' -U postgres
