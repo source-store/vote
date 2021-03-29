@@ -11,7 +11,7 @@ before_script:
 
 branches:
   only:
-    - travis_postgres
+    - master
 
 services:
   - postgresql
