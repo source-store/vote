@@ -12,11 +12,9 @@ before_script:
   - psql -c 'create database topjava' -U postgres
   - psql -c 'create user "user"; grant all privileges on database topjava to "user"' -U postgres
 
-# https://docs.travis-ci.com/user/customizing-the-build#Building-Specific-Branches
 branches:
   only:
     - travis_postgres
 
-# https://stackoverflow.com/a/49852690/548473:
 services:
   - postgresql
