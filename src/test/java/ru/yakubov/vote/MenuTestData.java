@@ -1,13 +1,11 @@
 package ru.yakubov.vote;
 
 import ru.yakubov.vote.model.Menu;
-import ru.yakubov.vote.model.UserVote;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import static ru.yakubov.vote.RestaurantTestData.RESTAURANT_ID4;
-import static ru.yakubov.vote.model.AbstractBaseEntity.START_SEQ;
 
 public class MenuTestData {
     public static TestMatcher<Menu> MENU_MATCHER = TestMatcher.usingIgnoringFieldsComparator("restaurant");
