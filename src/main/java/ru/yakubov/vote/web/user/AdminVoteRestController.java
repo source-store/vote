@@ -19,8 +19,8 @@ import java.util.List;
 
 
 /*
-* GET /admin/result                                                     get result vote current date
-* GET /admin/result/in?date1=YYYY-MM-DD&date2=YYYY-MM-DD                get result vote by period
+* GET /admin/results                                                    get result vote current date
+* GET /admin/results/in?date1=YYYY-MM-DD&date2=YYYY-MM-DD               get result vote by period
 * GET /admin/profile                                                    get all user profiles
 * GET /admin/profile/{userId}                                           get user profile by id
 * POST /admin/profile                                                   create new user from UserVote

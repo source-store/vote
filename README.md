@@ -125,3 +125,32 @@ REST API
 |all menu items of restaurant from date  | GET      | /rest/menu/{id}/in?date1={date1}&date2={date2} |                    | 200           | List<Menu>   |  USER    |
 |all menu items of restaurant            | GET      | /rest/menu/{id}                                |                    | 200           | List<Menu>   |  USER    |
 
+
+### curl samples
+get all users \
+`curl -u admin2@yandex.ru:password2 http://localhost:8080/vote/rest/admin/profiles`
+
+get user (user id = 50003)\
+`curl -u admin2@yandex.ru:password2 http://localhost:8080/vote/rest/admin/profiles/50003`
+
+get result vote current date\
+`curl -u admin2@yandex.ru:password2 http://localhost:8080/vote/rest/admin/results`
+
+get result vote by period\
+`curl -u admin2@yandex.ru:password2 "http://localhost:8080/vote/rest/admin/results/in?date1=2021-03-08&date2=2021-03-10"`
+
+create new user from UserVote\
+`curl -s -X POST -d "{ \"name\": \"Us4er22\", \"email\": \"user22@andex.ru\", \"password\": \"password\", \"enabled\": \"true\", \"roles\": [\"USER\", \"ADMIN\"]}" -H "Content-Type:application/json" "http://localhost:8080/vote/rest/admin/profiles" --user admin2@yandex.ru:password2`
+
+delete user (user id = 50003)\
+`curl -X DELETE http://localhost:8080/vote/rest/admin/profiles/50003 -u admin2@yandex.ru:password2`
+
+update user (user id = 50003)\
+`curl -X PUT -d "{ \"name\": \"User22\", \"email\": \"user22@an2dex.ru\", \"password\": \"password\", \"enabled\": \"true\", \"roles\": [\"USER\", \"ADMIN\"]}" -H "Content-Type:application/json" http://localhost:8080/vote/rest/admin/profiles/50002 -u admin2@yandex.ru:password2`
+
+get profile by email (email=user2@yandex.ru)\
+`curl -u admin2@yandex.ru:password2 "http://localhost:8080/vote/rest/admin/profiles/in?email=user2@yandex.ru"`
+
+
+get user vote by date (period) (user id = 50002)\
+`curl -u admin2@yandex.ru:password2 "http://localhost:8080/vote/rest/admin/profiles/50002/vote/in?date1=2021-03-08&date2=2021-03-10"`
