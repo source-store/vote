@@ -11,3 +11,7 @@ cache:
 branches:
   only:
     - master
+
+# https://stackoverflow.com/a/49852690/548473:
+services:
+  - hsqldb
