@@ -15,13 +15,11 @@ import java.net.URI;
 import java.util.List;
 
 /*
- * GET /admin/restaurant             get all restaurants
- * GET /admin/restaurant/to          get all restaurantsTo
- * GET /admin/restaurant/{id}        get restaurant
- * GET /admin/restaurant/to/{id}     get restaurantTo
- * POST /admin/restaurant            create restaurant
- * DELETE /admin/restaurant/{id}     delete restaurant
- * PUT /admin/restaurant             UPDATE restaurant
+ * GET /admin/restaurants             get all restaurants
+ * GET /admin/restaurants/{id}        get restaurant
+ * POST /admin/restaurants            create restaurant
+ * DELETE /admin/restaurants/{id}     delete restaurant
+ * PUT /admin/restaurants             UPDATE restaurant
  * */
 
 @RestController
@@ -34,26 +32,15 @@ public class AdminRestaurantRestController extends AbstractRestaurantRestControl
         return service.getAll();
     }
 
-    @GetMapping(value = "/to", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<RestaurantTo> getAllTo() {
-        return VoteUtilsTo.getRestaurantTos(service.getAll());
-    }
-
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Restaurants get(@PathVariable int id) {
         return service.get(id);
     }
 
-    @GetMapping(value = "/to/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public RestaurantTo getTo(@PathVariable int id) {
-        return VoteUtilsTo.createTo(service.get(id));
-    }
-
-
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurants> createWithLocations(@Validated(View.Web.class) @RequestBody Restaurants restaurant) {
         Restaurants newRestaurant = super.create(restaurant);
-        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath().path(REST_URL + "/{Id}")
+        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath().path(REST_URL + "/{id}")
                 .buildAndExpand(newRestaurant.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(newRestaurant);
     }

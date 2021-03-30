@@ -16,6 +16,7 @@ import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
 
+import static ru.yakubov.vote.util.ValidationUtil.assureIdConsistent;
 import static ru.yakubov.vote.util.ValidationUtil.checkNew;
 
 /*
@@ -57,8 +58,8 @@ public class AdminMenuRestController extends AbstractMenuRestController {
     @ResponseStatus(value = HttpStatus.CREATED)
     public ResponseEntity<Menu> createWithLocations(@Validated(View.Web.class) @RequestBody Menu menu) {
         Menu newMenu = create(menu);
-        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath().path(REST_URL + "/{Id}")
-                .buildAndExpand(newMenu.getRestaurant().getId(), newMenu.getId()).toUri();
+        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath().path(REST_URL + "/{id}")
+                .buildAndExpand(newMenu.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(newMenu);
     }
 
@@ -81,7 +82,8 @@ public class AdminMenuRestController extends AbstractMenuRestController {
     }
 
     private void update(int id, Menu menu) {
-        log.info("update menu {} {}", id, menu);
+        log.info("update menu id={} {}", id, menu);
+        assureIdConsistent(menu, id);
         service.create(menu);
     }
 
@@ -90,6 +92,4 @@ public class AdminMenuRestController extends AbstractMenuRestController {
         checkNew(menu);
         return service.create(menu);
     }
-
-
 }

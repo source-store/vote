@@ -64,7 +64,7 @@ class AdminRestaurantRestControllerTest extends AbstractControllerTest {
 
     }
 
-    //POST /rest/admin/restaurant            create restaurant
+    //POST /rest/admin/restaurants            create restaurant
     @Test
     void createWithLocations() throws Exception {
 
