@@ -26,6 +26,7 @@ public class RestaurantTo extends BaseTo implements Serializable {
         this.name = null;
         this.address = null;
     }
+
     public String getName() {
         return name;
     }

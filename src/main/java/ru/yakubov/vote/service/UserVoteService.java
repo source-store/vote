@@ -65,7 +65,7 @@ public class UserVoteService implements UserDetailsService {
     }
 
     @Cacheable("users")
-    public List<UserVote> getByRoles (Role role){
+    public List<UserVote> getByRoles(Role role) {
         return repository.getByRoles(role);
     }
 

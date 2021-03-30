@@ -20,6 +20,7 @@ public class VoteUtilsTo {
                 .map(restaurant -> createTo(restaurant))
                 .collect(Collectors.toList());
     }
+
     public static RestaurantTo createTo(Restaurants restaurants) {
         return new RestaurantTo(restaurants.getId(), restaurants.getName(), restaurants.getAddress());
     }

@@ -59,7 +59,7 @@ public class MenuService {
     }
 
     @Transactional
-    public Integer getIdRestaurant(int id){
+    public Integer getIdRestaurant(int id) {
         return repository.getIdRestaurant(id);
     }
 

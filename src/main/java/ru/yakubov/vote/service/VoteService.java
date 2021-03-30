@@ -31,8 +31,8 @@ public class VoteService {
     private final VoteResultRepository voteResultRepository;
 
     public VoteService(VoteRepository repository, UserVoteRepository userRepository,
-                                                  RestaurantRepository restaurantRepository,
-                                                  VoteResultRepository voteResultRepository) {
+                       RestaurantRepository restaurantRepository,
+                       VoteResultRepository voteResultRepository) {
         this.repository = repository;
         this.userRepository = userRepository;
         this.restaurantRepository = restaurantRepository;
@@ -116,7 +116,7 @@ public class VoteService {
         }
     }
 
-    public List<VoteResult> getResultDate(LocalDate beginDate, LocalDate endDate){
+    public List<VoteResult> getResultDate(LocalDate beginDate, LocalDate endDate) {
         return voteResultRepository.getResultDate(beginDate, endDate);
     }
 }

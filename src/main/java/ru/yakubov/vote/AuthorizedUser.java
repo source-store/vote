@@ -4,7 +4,7 @@ import ru.yakubov.vote.model.UserVote;
 import ru.yakubov.vote.to.UserVoteTo;
 import ru.yakubov.vote.util.VoteUtilsTo;
 
-public class AuthorizedUser extends org.springframework.security.core.userdetails.User{
+public class AuthorizedUser extends org.springframework.security.core.userdetails.User {
     private static final long serialVersionUID = 7496650878122997852L;
 
     private UserVoteTo userVoteTo;
@@ -13,6 +13,7 @@ public class AuthorizedUser extends org.springframework.security.core.userdetail
         super(userVote.getEmail(), userVote.getPassword(), userVote.isEnabled(), true, true, true, userVote.getRoles());
         this.userVoteTo = VoteUtilsTo.createTo(userVote);
     }
+
     public UserVoteTo getUser() {
         return this.userVoteTo;
     }

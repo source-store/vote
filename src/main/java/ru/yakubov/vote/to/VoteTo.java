@@ -16,7 +16,7 @@ public class VoteTo extends BaseTo implements Serializable {
     @NotNull
     private int restaurantId;
 
-    public VoteTo(){
+    public VoteTo() {
     }
 
     public VoteTo(int userId, LocalDate date) {

@@ -2,7 +2,7 @@ package ru.yakubov.vote.to;
 
 import ru.yakubov.vote.HasId;
 
-public abstract class BaseTo  implements HasId {
+public abstract class BaseTo implements HasId {
     protected Integer id;
 
     public BaseTo() {

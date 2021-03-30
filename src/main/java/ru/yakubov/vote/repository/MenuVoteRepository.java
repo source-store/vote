@@ -21,7 +21,7 @@ public interface MenuVoteRepository {
 
     Integer getIdRestaurant(int id);
 
-    List<Menu> GetAllByDate (LocalDate beginDate, LocalDate endDate);
+    List<Menu> GetAllByDate(LocalDate beginDate, LocalDate endDate);
 
-    List<Menu> GetAllByRestaurantIdAndDate (int id, LocalDate beginDate, LocalDate endDate);
+    List<Menu> GetAllByRestaurantIdAndDate(int id, LocalDate beginDate, LocalDate endDate);
 }

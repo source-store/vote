@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "restaurants")
-public class Restaurants extends AbstractNamedEntity{
+public class Restaurants extends AbstractNamedEntity {
 
     @Column(name = "address", nullable = false)
     @NotBlank

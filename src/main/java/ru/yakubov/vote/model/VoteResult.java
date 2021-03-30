@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "voteresult")
-public class VoteResult extends AbstractBaseEntity{
+public class VoteResult extends AbstractBaseEntity {
 
     @NotNull
     @Column(name = "date", nullable = false)

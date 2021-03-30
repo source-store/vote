@@ -1,4 +1,4 @@
- package ru.yakubov.vote.web.Restaurant;
+package ru.yakubov.vote.web.Restaurant;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,18 +15,18 @@ import java.net.URI;
 import java.util.List;
 
 /*
-* GET /admin/restaurant             get all restaurants
-* GET /admin/restaurant/to          get all restaurantsTo
-* GET /admin/restaurant/{id}        get restaurant
-* GET /admin/restaurant/to/{id}     get restaurantTo
-* POST /admin/restaurant            create restaurant
-* DELETE /admin/restaurant/{id}     delete restaurant
-* PUT /admin/restaurant             UPDATE restaurant
-* */
+ * GET /admin/restaurant             get all restaurants
+ * GET /admin/restaurant/to          get all restaurantsTo
+ * GET /admin/restaurant/{id}        get restaurant
+ * GET /admin/restaurant/to/{id}     get restaurantTo
+ * POST /admin/restaurant            create restaurant
+ * DELETE /admin/restaurant/{id}     delete restaurant
+ * PUT /admin/restaurant             UPDATE restaurant
+ * */
 
 @RestController
 @RequestMapping(value = AdminRestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class AdminRestaurantRestController extends AbstractRestaurantRestController{
+public class AdminRestaurantRestController extends AbstractRestaurantRestController {
     public static final String REST_URL = ROOT_REST_URL + ADMIN_REST_URL + RESTAURANT_REST_URL;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -50,10 +50,10 @@ public class AdminRestaurantRestController extends AbstractRestaurantRestControl
     }
 
 
-    @PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Restaurants>  createWithLocations(@Validated(View.Web.class) @RequestBody Restaurants restaurant) {
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Restaurants> createWithLocations(@Validated(View.Web.class) @RequestBody Restaurants restaurant) {
         Restaurants newRestaurant = super.create(restaurant);
-        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath().path(REST_URL+"/{Id}")
+        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath().path(REST_URL + "/{Id}")
                 .buildAndExpand(newRestaurant.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(newRestaurant);
     }
@@ -64,7 +64,7 @@ public class AdminRestaurantRestController extends AbstractRestaurantRestControl
         super.delete(id);
     }
 
-    @PutMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@Validated(View.Web.class) @RequestBody Restaurants restaurant) {
         super.update(restaurant, restaurant.getId());

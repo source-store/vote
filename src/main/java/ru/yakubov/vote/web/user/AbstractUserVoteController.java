@@ -86,17 +86,17 @@ public abstract class AbstractUserVoteController extends RestUrlPattern {
         voteService.DeleteCurrentVote(userId);
     }
 
-    public List<Votes> getByUserDate(int id, LocalDate beginDate, LocalDate endDate){
+    public List<Votes> getByUserDate(int id, LocalDate beginDate, LocalDate endDate) {
         log.info("getByUserDat userId {} beginDate {}  endDate {}", id, beginDate, endDate);
         return voteService.getByUserDate(id, beginDate, endDate);
     }
 
-    public List<VoteResult> getResultDatePeriod(LocalDate beginDate, LocalDate endDate){
+    public List<VoteResult> getResultDatePeriod(LocalDate beginDate, LocalDate endDate) {
         log.info("getResultDatePeriod beginDate {}  endDate {}", beginDate, endDate);
         return voteService.getResultDate(beginDate, endDate);
     }
 
-    public List<VoteResult> getResultCurdate(){
+    public List<VoteResult> getResultCurdate() {
         log.info("getResultCurdate ");
         return voteService.getResultDate(LocalDate.now(), LocalDate.now());
     }

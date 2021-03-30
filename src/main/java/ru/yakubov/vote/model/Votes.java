@@ -12,7 +12,7 @@ import java.time.LocalTime;
 
 @Entity
 @Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date"}, name = "votes_unique_user_date_idx")})
-public class Votes extends AbstractBaseEntity{
+public class Votes extends AbstractBaseEntity {
     public static final LocalTime VOTE_DEADLINE = LocalTime.of(11, 0);
 
     @NotNull

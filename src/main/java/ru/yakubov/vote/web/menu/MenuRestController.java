@@ -19,15 +19,15 @@ import java.util.List;
 //Отдаем сообщения в формате json (produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
 @RequestMapping(value = MenuRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class MenuRestController extends AbstractMenuRestController{
-    public static final String REST_URL = ROOT_REST_URL+MENU_REST_URL;
+public class MenuRestController extends AbstractMenuRestController {
+    public static final String REST_URL = ROOT_REST_URL + MENU_REST_URL;
 
     public MenuRestController(MenuService service) {
         super(service);
     }
 
     @GetMapping(value = "/all/in", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Menu> GetAllByDate(@RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1, @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate  date2) {
+    public List<Menu> GetAllByDate(@RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1, @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
         return super.GetAllByDate(date1, date2);
     }
 
@@ -37,8 +37,8 @@ public class MenuRestController extends AbstractMenuRestController{
     }
 
     @GetMapping(value = "/{id}/in", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Menu> GetAllByRestaurantIdAndDate(@PathVariable int id, @RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate  date1,
-                                                  @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate  date2) {
+    public List<Menu> GetAllByRestaurantIdAndDate(@PathVariable int id, @RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1,
+                                                  @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
         return super.GetAllByRestaurantIdAndDate(id, date1, date2);
     }
 

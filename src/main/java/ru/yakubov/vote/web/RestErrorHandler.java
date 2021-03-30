@@ -83,7 +83,7 @@ public class RestErrorHandler {
     private static ErrorInfo logAndGetErrorInfo(HttpServletRequest req, Exception e, HttpStatus status, String... details) {
         Throwable rootCause = ValidationUtil.getRootCause(e);
         log.warn("{} at request  {}: {}", status, req.getRequestURL(), rootCause.toString());
-        if (details.length == 0){
+        if (details.length == 0) {
             details = rootCause != null ? new String[]{rootCause.getLocalizedMessage()} : new String[]{rootCause.getClass().getName()};
         }
         return new ErrorInfo(req.getRequestURL(), status, details);

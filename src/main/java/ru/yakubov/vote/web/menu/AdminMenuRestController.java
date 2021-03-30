@@ -17,19 +17,19 @@ import java.time.LocalDate;
 import java.util.List;
 
 /*
-*   GET    /admin/menu/all/in?date1={date1}&date2={date2}       get menu for all restaurants for the period
-*   GET    /admin/menu/{id}/in?date1={date1}&date2={date2}      get all menu items of restaurant from date
-*   GET    /admin/menu/{id}                                     get all menu items of restaurant
-*   GET    /admin/menu/one/{id}                                 get menu item
-*   POST   /admin/menu/                                         create menu item
-*   DELETE /admin/menu/{id}                                     delete menu item
-*   PUT    /admin/menu/{id}                                     update menu item
-*/
+ *   GET    /admin/menu/all/in?date1={date1}&date2={date2}       get menu for all restaurants for the period
+ *   GET    /admin/menu/{id}/in?date1={date1}&date2={date2}      get all menu items of restaurant from date
+ *   GET    /admin/menu/{id}                                     get all menu items of restaurant
+ *   GET    /admin/menu/one/{id}                                 get menu item
+ *   POST   /admin/menu/                                         create menu item
+ *   DELETE /admin/menu/{id}                                     delete menu item
+ *   PUT    /admin/menu/{id}                                     update menu item
+ */
 
 @RestController
 @RequestMapping(value = AdminMenuRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class AdminMenuRestController extends AbstractMenuRestController{
-    public static final String REST_URL = ROOT_REST_URL+ADMIN_REST_URL+MENU_REST_URL;
+public class AdminMenuRestController extends AbstractMenuRestController {
+    public static final String REST_URL = ROOT_REST_URL + ADMIN_REST_URL + MENU_REST_URL;
 
     public AdminMenuRestController(MenuService service) {
         super(service);
@@ -37,7 +37,7 @@ public class AdminMenuRestController extends AbstractMenuRestController{
 
     //http://localhost:8080/vote/admin/menu/all/in?date1=2021-03-08&date2=2021-03-10
     @GetMapping(value = "/all/in", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Menu> GetAllByDate(@RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate  date1, @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate  date2){
+    public List<Menu> GetAllByDate(@RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1, @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
         return super.GetAllByDate(date1, date2);
     }
 
@@ -59,25 +59,25 @@ public class AdminMenuRestController extends AbstractMenuRestController{
 
 
     //{ "restaurant":{"id":50005,"name":"Ресторан1","address":"адрес1"},"date":[2021,3,18],"decription":"menu11", "price":50 }
-    @PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
-    public ResponseEntity<Menu> createWithLocations(@Validated(View.Web.class) @RequestBody Menu menu){
+    public ResponseEntity<Menu> createWithLocations(@Validated(View.Web.class) @RequestBody Menu menu) {
         Menu newMenu = super.create(menu);
-        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath().path(REST_URL+"/{Id}")
-                .buildAndExpand(newMenu.getRestaurant().getId(),newMenu.getId()).toUri();
+        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath().path(REST_URL + "/{Id}")
+                .buildAndExpand(newMenu.getRestaurant().getId(), newMenu.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(newMenu);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable int id){
+    public void delete(@PathVariable int id) {
         super.delete(id);
     }
 
     //{ "id": 100000, "restaurant": { "id": 50006 },"date": [2021, 3, 18],"decription": "m443enu11", "price": 50 }
     @PutMapping("/{Id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@Validated(View.Web.class) @RequestBody Menu menu){
+    public void update(@Validated(View.Web.class) @RequestBody Menu menu) {
         super.update(menu);
     }
 

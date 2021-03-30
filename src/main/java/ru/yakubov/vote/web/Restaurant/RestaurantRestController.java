@@ -21,11 +21,10 @@ import java.util.List;
  * */
 
 
-
 @RestController
 @RequestMapping(value = RestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class RestaurantRestController extends AbstractRestaurantRestController{
-    public static final String REST_URL = ROOT_REST_URL+RESTAURANT_REST_URL;
+public class RestaurantRestController extends AbstractRestaurantRestController {
+    public static final String REST_URL = ROOT_REST_URL + RESTAURANT_REST_URL;
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Restaurants get(@PathVariable int id) {

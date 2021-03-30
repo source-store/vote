@@ -27,18 +27,18 @@ public class AbstractMenuRestController extends RestUrlPattern {
         return service.get(id);
     }
 
-    public void delete(int id){
+    public void delete(int id) {
         log.info("delete menu {}", id);
         service.delete(id);
     }
 
-    public void update(Menu menu){
-        log.info("update menu {}",menu);
+    public void update(Menu menu) {
+        log.info("update menu {}", menu);
         service.create(menu);
     }
 
     public Menu create(Menu menu) {
-        log.info("create menu {}",menu);
+        log.info("create menu {}", menu);
         checkNew(menu);
         return service.create(menu);
     }

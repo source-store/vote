@@ -20,5 +20,5 @@ public interface UserVoteRepository {
 
     List<UserVote> getAll();
 
-    List<UserVote> getByRoles (Role role);
+    List<UserVote> getByRoles(Role role);
 }

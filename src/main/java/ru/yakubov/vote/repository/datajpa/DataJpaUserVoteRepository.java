@@ -52,7 +52,7 @@ public class DataJpaUserVoteRepository implements UserVoteRepository {
 
     @Override
     @Transactional
-    public List<UserVote> getByRoles(Role role){
+    public List<UserVote> getByRoles(Role role) {
         return crudRepository.getByRoles().stream().filter(u -> u.getRoles().contains(role)).collect(Collectors.toList());
     }
 }

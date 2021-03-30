@@ -21,27 +21,27 @@ import java.util.List;
 import static ru.yakubov.vote.web.SecurityUtil.authUserId;
 
 /*
-*       GET /profiles/results                                         get result vote current date
-*       GET /profiles/results/in?date1=YYYY-MM-DD&date2=YYYY-MM-DD    get result vote by period
-*       GET /profiles                                        get current user profile
-*       PUT /profiles                                        update
-*       POST /profiles/{restaurantId}                        vote
-*       POST /rest/profiles/register                         register new user
-*       DELETE /profiles                                     delete current user vote
-**/
+ *       GET /profiles/results                                         get result vote current date
+ *       GET /profiles/results/in?date1=YYYY-MM-DD&date2=YYYY-MM-DD    get result vote by period
+ *       GET /profiles                                        get current user profile
+ *       PUT /profiles                                        update
+ *       POST /profiles/{restaurantId}                        vote
+ *       POST /rest/profiles/register                         register new user
+ *       DELETE /profiles                                     delete current user vote
+ **/
 
 @RestController
 @RequestMapping(value = ProfileVoteRestController.REST_URL)
-public class ProfileVoteRestController extends AbstractUserVoteController{
+public class ProfileVoteRestController extends AbstractUserVoteController {
 
-    public static final String REST_URL = ROOT_REST_URL+PROFILE_REST_URL;
+    public static final String REST_URL = ROOT_REST_URL + PROFILE_REST_URL;
 
     @GetMapping(value = RESULT_VOTE_REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<VoteResult> getResultCurdate() {
         return super.getResultCurdate();
     }
 
-    @GetMapping(value = RESULT_VOTE_REST_URL+"/in", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = RESULT_VOTE_REST_URL + "/in", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<VoteResult> getResultDatePeriod(@RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1,
                                                 @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
         return super.getResultDatePeriod(date1, date2);
@@ -65,7 +65,7 @@ public class ProfileVoteRestController extends AbstractUserVoteController{
         VoteTo votesCreateTo = super.createVote(authUserId(), id);
 
         URI uriOfNewUserVote = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL+"/{id}").buildAndExpand(votesCreateTo.getId()).toUri();
+                .path(REST_URL + "/{id}").buildAndExpand(votesCreateTo.getId()).toUri();
 
         return ResponseEntity.created(uriOfNewUserVote).body(votesCreateTo);
     }
@@ -75,7 +75,7 @@ public class ProfileVoteRestController extends AbstractUserVoteController{
     public ResponseEntity<UserVote> createRegisterWithLocation(@Validated(View.Web.class) @RequestBody UserVoteTo userVoteTo) {
         UserVote created = super.createFromTo(userVoteTo);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL+"/{id}").build().toUri();
+                .path(REST_URL + "/{id}").build().toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 

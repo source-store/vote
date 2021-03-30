@@ -29,6 +29,7 @@ public class UserVoteTo extends BaseTo implements HasIdAndEmail, Serializable {
     public UserVoteTo(String name, String email, String password) {
         this(null, name, email, password);
     }
+
     public UserVoteTo(Integer id, String name, String email, String password) {
         super(id);
         this.name = name;
