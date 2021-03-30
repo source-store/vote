@@ -20,7 +20,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 import static ru.yakubov.vote.model.Votes.VOTE_DEADLINE;
-import static ru.yakubov.vote.util.ValidationUtil.*;
+import static ru.yakubov.vote.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class VoteService {
