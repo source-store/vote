@@ -42,10 +42,31 @@ public class AdminMenuRestControllerTest extends AbstractControllerTest {
         cacheManager.getCache("menu").clear();
     }
 
-    //GET    /admin/menu/one/{id}                                 get menu item
+    //GET    /admin/menus/in?date1={date1}&date2={date2}       get menu for all restaurants for the period
+    @Test
+    void GetAllByDate() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/in?date1=2021-01-01&&date2=2021-03-11")
+                .with(userHttpBasic(UserTestData.admin1)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON));
+    }
+
+    //GET    /admin/menus?id={id}&date1={date1}&date2={date2}      get all menu items of restaurant from date
+    @Test
+    void GetAllByRestaurantIdAndDate() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "?id=50005&date1=2021-01-01&&date2=2021-03-11")
+                .with(userHttpBasic(UserTestData.admin1)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON));
+    }
+
+
+    //GET    /admin/menus/{id}                                 get menu item
     @Test
     void getOneMenu() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/one/" + MENU7.getId())
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/" + MENU7.getId())
                 .with(userHttpBasic(UserTestData.admin1)))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -53,39 +74,7 @@ public class AdminMenuRestControllerTest extends AbstractControllerTest {
                 .andExpect(content().json(writeValue(MENU7)));
     }
 
-    //GET    /admin/menu/{id}                                     get all menu items of restaurant
-    @Test
-    void getAllByRestaurantId() throws Exception {
-
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/" + RestaurantTestData.RESTAURANT_ID1)
-                .with(userHttpBasic(UserTestData.admin1)))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON));
-
-    }
-
-    //GET    /admin/menu/{id}/in?date1={date1}&date2={date2}      get all menu items of restaurant from date
-    @Test
-    void GetAllByRestaurantIdAndDate() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/50005/in?date1=2021-01-01&&date2=2021-03-11")
-                .with(userHttpBasic(UserTestData.admin1)))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON));
-    }
-
-    //GET    /admin/menu/all/in?date1={date1}&date2={date2}       get menu for all restaurants for the period
-    @Test
-    void GetAllByDate() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/all/in?date1=2021-01-01&&date2=2021-03-11")
-                .with(userHttpBasic(UserTestData.admin1)))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON));
-    }
-
-    //POST   /admin/menu/                                         create menu item
+    //POST   /admin/menus                                         create menu item
     @Test
     void createMenuWithLocation() throws Exception {
         Menu menu = new Menu(MenuTestData.NEW_MENU1);
@@ -106,7 +95,7 @@ public class AdminMenuRestControllerTest extends AbstractControllerTest {
         MENU_MATCHER.assertMatch(service.get(id), menu);
     }
 
-    //DELETE /admin/menu/{id}                                     delete menu item
+    //DELETE /admin/menus/{id}                                     delete menu item
     @Test
     void deleteOneMenu() throws Exception {
 
@@ -120,7 +109,7 @@ public class AdminMenuRestControllerTest extends AbstractControllerTest {
         assertThrows(NotFoundException.class, () -> service.get(MenuTestData.MENU1.getId()));
     }
 
-    //PUT    /admin/menu/{id}                                     update menu item
+    //PUT    /admin/menus/{id}                                     update menu item
     @Test
     void update() throws Exception {
         MENU9.setDescription("Update Description");

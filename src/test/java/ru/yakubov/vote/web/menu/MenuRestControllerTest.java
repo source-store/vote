@@ -14,7 +14,9 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static ru.yakubov.vote.MenuTestData.MENU7;
 import static ru.yakubov.vote.TestUtil.userHttpBasic;
+import static ru.yakubov.vote.web.json.JsonUtil.writeValue;
 
 
 public class MenuRestControllerTest extends AbstractControllerTest {
@@ -32,36 +34,34 @@ public class MenuRestControllerTest extends AbstractControllerTest {
         cacheManager.getCache("menu").clear();
     }
 
-    //GET    /menu/all/in?date1={date1}&date2={date2}       get menu for all restaurants for the period
+    //GET    /menus/in?date1={date1}&date2={date2}       get menu for all restaurants for the period
     @Test
     void GetAllByDate() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/all/in?date1=2021-01-01&&date2=2021-03-11")
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/in?date1=2021-01-01&&date2=2021-03-11")
                 .with(userHttpBasic(UserTestData.user1)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON));
     }
 
-    //GET    /menu/{id}/in?date1={date1}&date2={date2}      get all menu items of restaurant from date
+    //GET    /menus?id={id}&date1={date1}&date2={date2}      get all menu items of restaurant from date
     @Test
     void GetAllByRestaurantIdAndDate() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/50005/in?date1=2021-01-01&&date2=2021-03-11")
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "?id=50005&date1=2021-01-01&&date2=2021-03-11")
                 .with(userHttpBasic(UserTestData.user1)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON));
     }
 
-    //GET    /menu/{id}                                     get all menu items of restaurant
+    //GET    /menus/{id}                                 get menu item
     @Test
-    void getAllByRestaurantId() throws Exception {
-
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/" + RestaurantTestData.RESTAURANT_ID1)
+    void getOneMenu() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/" + MENU7.getId())
                 .with(userHttpBasic(UserTestData.user1)))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON));
-
+                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
+                .andExpect(content().json(writeValue(MENU7)));
     }
-
 }

@@ -10,9 +10,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 /*
- *   GET    /menu/all/in?date1={date1}&date2={date2}       get menu for all restaurants for the period
- *   GET    /menu/{id}/in?date1={date1}&date2={date2}      get all menu items of restaurant from date
- *   GET    /menu/{id}                                     get all menu items of restaurant
+ *   GET    /menus/in?date1={date1}&date2={date2}          get menu for all restaurants for the period
+ *   GET    /menus?id={id}&date1={date1}&date2={date2}     get all menu items of restaurant from date
+ *   GET    /menus/{id}                                    get menu item
  */
 
 
@@ -26,19 +26,18 @@ public class MenuRestController extends AbstractMenuRestController {
         super(service);
     }
 
-    @GetMapping(value = "/all/in", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/in", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Menu> GetAllByDate(@RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1, @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
         return super.GetAllByDate(date1, date2);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Menu> getAllByRestaurantId(@PathVariable int id) {
-        return super.getAllByRestaurantId(id);
+    public Menu get(@PathVariable int id) {
+        return super.get(id);
     }
 
-    @GetMapping(value = "/{id}/in", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Menu> GetAllByRestaurantIdAndDate(@PathVariable int id, @RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1,
-                                                  @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Menu> GetAllByRestaurantIdAndDate(@RequestParam("id") int id, @RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1, @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
         return super.GetAllByRestaurantIdAndDate(id, date1, date2);
     }
 

@@ -4,6 +4,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.yakubov.vote.model.*;
 import ru.yakubov.vote.web.Restaurant.RestaurantRestController;
+import ru.yakubov.vote.web.menu.AdminMenuRestController;
 import ru.yakubov.vote.web.menu.MenuRestController;
 import ru.yakubov.vote.web.user.AdminVoteRestController;
 import ru.yakubov.vote.web.user.ProfileVoteRestController;
@@ -25,11 +26,11 @@ public class SpringMain {
             Restaurants restaurants = restaurantController.create(new Restaurants(RestaurantTestData.new_restaurant));
             System.out.println();
 
-            MenuRestController menuRestController = appCtx.getBean(MenuRestController.class);
-            Menu menu = new Menu(MenuTestData.NEW_MENU);
-            menu.setRestaurant(restaurants);
-            menuRestController.create(menu);
-            System.out.println();
+//            AdminMenuRestController menuRestController = appCtx.getBean(AdminMenuRestController.class);
+//            Menu menu = new Menu(MenuTestData.NEW_MENU);
+//            menu.setRestaurant(restaurants);
+//            menuRestController.create(menu);
+//            System.out.println();
 
             ProfileVoteRestController profileVoteRestController = appCtx.getBean(ProfileVoteRestController.class);
             Votes votes = new Votes();

@@ -27,32 +27,10 @@ public class AbstractMenuRestController extends RestUrlPattern {
         return service.get(id);
     }
 
-    public void delete(int id) {
-        log.info("delete menu {}", id);
-        service.delete(id);
-    }
-
-    public void update(Menu menu) {
-        log.info("update menu {}", menu);
-        service.create(menu);
-    }
-
-    public Menu create(Menu menu) {
-        log.info("create menu {}", menu);
-        checkNew(menu);
-        return service.create(menu);
-    }
-
     public List<Menu> GetAllByDate(LocalDate date1, LocalDate date2) {
         log.info("GetAllByDate date1 {}  date2 {}", date1, date2);
         return service.GetAllByDate(date1, date2);
     }
-
-    public List<Menu> getAllByRestaurantId(int id) {
-        log.info("getAllByRestaurantId  RestaurantId {} ", id);
-        return service.getAllByRestaurantId(id);
-    }
-
 
     public List<Menu> GetAllByRestaurantIdAndDate(int id, LocalDate date1, LocalDate date2) {
         log.info("GetAllByRestaurantIdAndDate  RestaurantId {} date1 {}  date2 {}", id, date1, date2);
