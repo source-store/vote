@@ -59,9 +59,9 @@ CREATE TABLE MENU
     id            INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     restaurant_id INTEGER                           NOT NULL,
     date          DATE                DEFAULT now() NOT NULL,
-    decription    VARCHAR(255)                      NOT NULL,
+    description    VARCHAR(255)                      NOT NULL,
     price         BIGINT                            NOT NULL,
-    CONSTRAINT menu_unique_date_decription_restaurant_idx UNIQUE (date, decription, restaurant_id),
+    CONSTRAINT menu_unique_date_description_restaurant_idx UNIQUE (date, description, restaurant_id),
     FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE
 );;
 CREATE INDEX menu_date_idx ON MENU (date);;
@@ -131,7 +131,7 @@ CREATE TABLE SHADOW_MENU
     id            INTEGER                 NOT NULL,
     restaurant_id INTEGER                 NOT NULL,
     date          DATE                    NOT NULL,
-    decription    VARCHAR(255)            NOT NULL,
+    description    VARCHAR(255)            NOT NULL,
     price         BIGINT                  NOT NULL,
     DATE_EVENT    TIMESTAMP DEFAULT now() NOT NULL
 );;
@@ -185,8 +185,8 @@ CREATE OR REPLACE FUNCTION after_delete_menu()
     RETURNS trigger AS
 $$
 BEGIN
-    INSERT INTO SHADOW_MENU (ID, RESTAURANT_ID, DECRIPTION, PRICE, DATE)
-    VALUES (OLD.ID, OLD.RESTAURANT_ID, OLD.DECRIPTION, OLD.PRICE, OLD.DATE);
+    INSERT INTO SHADOW_MENU (ID, RESTAURANT_ID, description, PRICE, DATE)
+    VALUES (OLD.ID, OLD.RESTAURANT_ID, OLD.description, OLD.PRICE, OLD.DATE);
     RETURN NEW;
 END;
 $$

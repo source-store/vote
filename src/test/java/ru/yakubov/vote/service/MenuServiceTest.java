@@ -47,9 +47,9 @@ public class MenuServiceTest extends AbstractTest {
     @Test
     public void save() {
         Menu updatedMenu = service.get(MenuTestData.MENU2.getId());
-        updatedMenu.setDecription("UpdateNote");
+        updatedMenu.setDescription("UpdateNote");
         service.create(updatedMenu);
-        assertEquals(service.get(updatedMenu.getId()).getDecription(), "UpdateNote");
+        assertEquals(service.get(updatedMenu.getId()).getDescription(), "UpdateNote");
     }
 
     @Test

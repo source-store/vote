@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "menu", uniqueConstraints = {@UniqueConstraint(columnNames = {"date", "decription", "restaurant_id"}, name = "menu_unique_date_decription_restaurant_idx")})
+@Table(name = "menu", uniqueConstraints = {@UniqueConstraint(columnNames = {"date", "description", "restaurant_id"}, name = "menu_unique_date_description_restaurant_idx")})
 public class Menu extends AbstractBaseEntity {
 
 
@@ -31,9 +31,9 @@ public class Menu extends AbstractBaseEntity {
 
     @NotNull
     @NotBlank
-    @Column(name = "decription", nullable = false)
+    @Column(name = "description", nullable = false)
     @Size(min = 3, max = 100)
-    private String decription;
+    private String description;
 
     @NotNull
     @Column(name = "price", nullable = false)
@@ -43,12 +43,12 @@ public class Menu extends AbstractBaseEntity {
     }
 
     public Menu(Menu menu) {
-        this(menu.getId(), menu.getDecription(), menu.getDate(), menu.getPrice());
+        this(menu.getId(), menu.getDescription(), menu.getDate(), menu.getPrice());
     }
 
-    public Menu(Integer id, String decription, LocalDate date, Integer price) {
+    public Menu(Integer id, String description, LocalDate date, Integer price) {
         super(id);
-        this.decription = decription;
+        this.description = description;
         this.date = date;
         this.price = price;
     }
@@ -58,8 +58,8 @@ public class Menu extends AbstractBaseEntity {
         this.date = date;
     }
 
-    public void setDecription(String decription) {
-        this.decription = decription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setRestaurant(Restaurants restaurant) {
@@ -78,8 +78,8 @@ public class Menu extends AbstractBaseEntity {
         return date;
     }
 
-    public String getDecription() {
-        return decription;
+    public String getDescription() {
+        return description;
     }
 
     public Integer getPrice() {
@@ -91,7 +91,7 @@ public class Menu extends AbstractBaseEntity {
         return "Menu{" +
                 "id=" + id +
                 ", date=" + date +
-                ", decription=" + decription +
+                ", description=" + description +
                 ", price=" + price +
                 '}';
     }

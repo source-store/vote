@@ -17,17 +17,17 @@ public class MenuTo extends BaseTo implements Serializable {
     @NotNull
     @NotBlank
     @Size(min = 3, max = 100)
-    private final String decription;
+    private final String description;
 
     @NotNull
     private final Integer price;
 
     private final RestaurantTo restaurant;
 
-    public MenuTo(Integer id, LocalDate date, String decription, Integer price, RestaurantTo restaurant) {
+    public MenuTo(Integer id, LocalDate date, String description, Integer price, RestaurantTo restaurant) {
         super(id);
         this.date = date;
-        this.decription = decription;
+        this.description = description;
         this.price = price;
         this.restaurant = restaurant;
     }
@@ -36,8 +36,8 @@ public class MenuTo extends BaseTo implements Serializable {
         return date;
     }
 
-    public String getDecription() {
-        return decription;
+    public String getDescription() {
+        return description;
     }
 
     public Integer getPrice() {
@@ -52,7 +52,7 @@ public class MenuTo extends BaseTo implements Serializable {
     public String toString() {
         return "MenuTo{" +
                 "date=" + date +
-                ", decription=" + decription +
+                ", description=" + description +
                 ", price=" + price +
                 ", restaurant=" + restaurant +
                 '}';

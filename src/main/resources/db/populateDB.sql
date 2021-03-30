@@ -33,7 +33,7 @@ VALUES (50005, 'Ресторан1', 'адрес1'),
        (50008, 'Ресторан4', 'адрес4');
 
 
-INSERT INTO MENU (id, restaurant_id, decription, PRICE, DATE)
+INSERT INTO MENU (id, restaurant_id, description, PRICE, DATE)
 VALUES (50009, 50005, 'menu1', 50, '2021-03-10'),
        (50010, 50005, 'menu2', 10, '2021-03-10'),
        (50011, 50005, 'menu3', 20, '2021-03-10'),

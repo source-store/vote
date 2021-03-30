@@ -123,7 +123,7 @@ public class AdminMenuRestControllerTest extends AbstractControllerTest {
     //PUT    /admin/menu/{id}                                     update menu item
     @Test
     void update() throws Exception {
-        MENU9.setDecription("Update Description");
+        MENU9.setDescription("Update Description");
 
         mockMvc.perform(MockMvcRequestBuilders.put(REST_URL + "/" + MENU9.getId())
                 .contentType(MediaType.APPLICATION_JSON)
@@ -132,7 +132,7 @@ public class AdminMenuRestControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
-        assertEquals(service.get(MENU9.getId()).getDecription(), "Update Description");
+        assertEquals(service.get(MENU9.getId()).getDescription(), "Update Description");
 
     }
 

@@ -26,7 +26,7 @@ public class VoteUtilsTo {
     }
 
     public static MenuTo createTo(Menu menu) {
-        return new MenuTo(menu.getId(), menu.getDate(), menu.getDecription(), menu.getPrice(), createTo(menu.getRestaurant()));
+        return new MenuTo(menu.getId(), menu.getDate(), menu.getDescription(), menu.getPrice(), createTo(menu.getRestaurant()));
     }
 
     public static UserVoteTo createTo(UserVote userVote) {

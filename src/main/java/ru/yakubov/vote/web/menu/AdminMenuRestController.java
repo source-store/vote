@@ -58,7 +58,7 @@ public class AdminMenuRestController extends AbstractMenuRestController {
     }
 
 
-    //{ "restaurant":{"id":50005,"name":"Ресторан1","address":"адрес1"},"date":[2021,3,18],"decription":"menu11", "price":50 }
+    //{ "restaurant":{"id":50005,"name":"Ресторан1","address":"адрес1"},"date":[2021,3,18],"description":"menu11", "price":50 }
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
     public ResponseEntity<Menu> createWithLocations(@Validated(View.Web.class) @RequestBody Menu menu) {
@@ -74,7 +74,7 @@ public class AdminMenuRestController extends AbstractMenuRestController {
         super.delete(id);
     }
 
-    //{ "id": 100000, "restaurant": { "id": 50006 },"date": [2021, 3, 18],"decription": "m443enu11", "price": 50 }
+    //{ "id": 100000, "restaurant": { "id": 50006 },"date": [2021, 3, 18],"description": "m443enu11", "price": 50 }
     @PutMapping("/{Id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@Validated(View.Web.class) @RequestBody Menu menu) {
