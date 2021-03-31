@@ -22,15 +22,13 @@ import java.util.List;
 import static ru.yakubov.vote.web.RestUrlPattern.*;
 import static ru.yakubov.vote.web.SecurityUtil.authUserId;
 
-/*
- *       GET /profiles/results                                         get result vote current date
- *       GET /profiles/results/in?date1=YYYY-MM-DD&date2=YYYY-MM-DD    get result vote by period
- *       GET /profiles                                                 get current user profile
- *       GET /profiles/vote                                            get current user vote
- *       GET /profiles/votes/in?date1=2021-03-08&date2=2021-03-10      get user vote by date (period)
- *       PUT /profiles                                                 update
- *       POST /profiles/vote?id={restaurantId}                         vote
- *       POST /rest/profiles/register                                  register new user
+/**
+ *       GET /rest/profiles                                                 get current user profile
+ *       GET /rest/profiles/vote                                            get current user vote
+ *       GET /rest/profiles/votes/in?date1=2021-03-08&date2=2021-03-10      get user vote by date (period)
+ *       PUT /rest/profiles                                                 update
+ *       POST /rest/profiles/vote?id={restaurantId}                         vote
+ *       POST /rest/rest/profiles/register                                  register new user
  **/
 
 @RestController
@@ -39,47 +37,33 @@ public class ProfileVoteRestController extends AbstractUserVoteController {
 
     public static final String REST_URL = ROOT_REST_URL + PROFILE_REST_URL;
 
-    //GET /profiles/results                                         get result vote current date
-    @GetMapping(value = RESULT_VOTE_REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<VoteResult> getResultCurdate() {
-        return super.getResultCurdate();
-    }
-
-    //GET /profiles/results/in?date1=YYYY-MM-DD&date2=YYYY-MM-DD    get result vote by period
-    @GetMapping(value = RESULT_VOTE_REST_URL + "/in", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<VoteResult> getResultDatePeriod(@RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1,
-                                                @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
-        return super.getResultDatePeriod(date1, date2);
-    }
-
-    //GET /profiles                                                 get current user profile
+    // /rest/profiles                                                 get current user profile
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public UserVote get() {
         return super.get(authUserId());
     }
 
-    //GET /profiles/vote                                            get current user vote
+    // /rest/profiles/vote                                            get current user vote
     @GetMapping(value = VOTE_URL, produces = MediaType.APPLICATION_JSON_VALUE)
     public VoteTo getCurrentVote() {
         return super.getCurrentVote(authUserId());
     }
 
-    //http://localhost:8080/vote/profiles/votes/in?date1=2021-03-08&date2=2021-03-10
-    @GetMapping(value = VOTES_URL+"/in", produces = MediaType.APPLICATION_JSON_VALUE)
+    // /rest/profiles/votes/in?date1=2021-03-08&date2=2021-03-10      get user vote by date (period)
+    @GetMapping(value = VOTES_URL + "/in", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Votes> getUserVoteByDate(@RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1,
                                          @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
         return super.getByUserDate(authUserId(), date1, date2);
     }
 
-
-    //PUT /profiles                                                 update
+    // /rest/profiles                                                 update
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@RequestBody UserVoteTo userVoteTo) {
         super.updateFromTo(userVoteTo, authUserId());
     }
 
-    //POST /profiles/vote?id={restaurantId}                         vote
+    // /rest/profiles/vote?id={restaurantId}                         vote
     @PostMapping(value = VOTE_URL, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
     public ResponseEntity<VoteTo> createVoteWithLocation(@RequestParam("id") int id) {
@@ -91,14 +75,16 @@ public class ProfileVoteRestController extends AbstractUserVoteController {
         return ResponseEntity.created(uriOfNewUserVote).body(votesCreateTo);
     }
 
-    //POST /rest/profiles/register                                  register new user
+    // /rest/rest/profiles/register                                  register new user
     @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
     public ResponseEntity<UserVote> createRegisterWithLocation(@Validated(View.Web.class) @RequestBody UserVoteTo userVoteTo) {
         UserVote created = super.createFromTo(userVoteTo);
+
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL).buildAndExpand().toUri();
 
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
+
 }

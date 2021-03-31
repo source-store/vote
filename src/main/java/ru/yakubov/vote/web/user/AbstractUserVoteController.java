@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.yakubov.vote.model.UserVote;
-import ru.yakubov.vote.model.VoteResult;
 import ru.yakubov.vote.model.Votes;
 import ru.yakubov.vote.service.UserVoteService;
 import ru.yakubov.vote.service.VoteService;
@@ -22,89 +21,47 @@ public abstract class AbstractUserVoteController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private VoteService voteService;
+    protected VoteService voteService;
 
     @Autowired
-    private UserVoteService service;
+    protected UserVoteService service;
 
-    public List<UserVote> getAll() {
+    protected List<UserVote> getAll() {
         log.info("getAll");
         return service.getAll();
     }
 
-    public UserVote get(int id) {
+    protected UserVote get(int id) {
         log.info("get {}", id);
         return service.get(id);
     }
 
-
-    public UserVote createFromTo(UserVoteTo userVoteTo) {
-        log.info("createFromTo userVoteTo {}", userVoteTo);
-        UserVote userVote = VoteUtilsTo.createUserFromTo(userVoteTo);
-        checkNew(userVote);
-        return service.create(userVote);
-    }
-
-    public UserVote create(UserVote userVote) {
-        log.info("create {}", userVote);
-        checkNew(userVote);
-        return service.create(userVote);
-    }
-
-    public void delete(int id) {
-        log.info("delete {}", id);
-        service.delete(id);
-    }
-
-
-    public void updateFromTo(UserVoteTo userVoteTo, int id) {
+    protected void updateFromTo(UserVoteTo userVoteTo, int id) {
         log.info("updateFromTo {} with id={}", userVoteTo, id);
         UserVote userVote = VoteUtilsTo.createUserFromTo(userVoteTo);
         assureIdConsistent(userVote, id);
         service.create(userVote);
     }
 
-    public void update(UserVote userVote, int id) {
-        log.info("update {} with id={}", userVote, id);
-        assureIdConsistent(userVote, id);
-        service.create(userVote);
-    }
-
-    public UserVote getByMail(String email) {
-        log.info("getByEmail {}", email);
-        return service.getByEmail(email);
-    }
-
-    public VoteTo createVote(int userId, int restautantId) {
-        log.info("createVote userId {} restautantId {}", userId, restautantId);
-        return voteService.vote(userId, restautantId);
-    }
-
-    public void voteDelete(int userId) {
-        log.info("vote userId {} ", userId);
-        voteService.DeleteCurrentVote(userId);
-    }
-
-    public List<Votes> getByUserDate(int id, LocalDate beginDate, LocalDate endDate) {
+    protected List<Votes> getByUserDate(int id, LocalDate beginDate, LocalDate endDate) {
         log.info("getByUserDat userId {} beginDate {}  endDate {}", id, beginDate, endDate);
         return voteService.getByUserDate(id, beginDate, endDate);
     }
 
-    public VoteTo getCurrentVote(int id) {
+    protected VoteTo getCurrentVote(int id) {
         log.info("getCurrentVote userId {} Date {}", id, LocalDate.now());
         return VoteUtilsTo.createTo(voteService.getByUserOneDate(id, LocalDate.now()));
     }
 
-
-    public List<VoteResult> getResultDatePeriod(LocalDate beginDate, LocalDate endDate) {
-        log.info("getResultDatePeriod beginDate {}  endDate {}", beginDate, endDate);
-        return voteService.getResultDate(beginDate, endDate);
+    protected UserVote createFromTo(UserVoteTo userVoteTo) {
+        log.info("createFromTo userVoteTo {}", userVoteTo);
+        UserVote userVote = VoteUtilsTo.createUserFromTo(userVoteTo);
+        checkNew(userVote);
+        return service.create(userVote);
     }
 
-    public List<VoteResult> getResultCurdate() {
-        log.info("getResultCurdate ");
-        return voteService.getResultDate(LocalDate.now(), LocalDate.now());
+    protected VoteTo createVote(int userId, int restautantId) {
+        log.info("createVote userId {} restautantId {}", userId, restautantId);
+        return voteService.vote(userId, restautantId);
     }
-
-
 }

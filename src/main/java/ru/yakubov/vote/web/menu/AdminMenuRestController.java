@@ -20,13 +20,13 @@ import static ru.yakubov.vote.util.ValidationUtil.assureIdConsistent;
 import static ru.yakubov.vote.util.ValidationUtil.checkNew;
 import static ru.yakubov.vote.web.RestUrlPattern.*;
 
-/*
- *   GET    /admin/menus/in?date1={date1}&date2={date2}           get menu for all restaurants for the period
- *   GET    /admin/menus?id={id}&date1={date1}&date2={date2}      get all menu items of restaurant from date
- *   GET    /admin/menus/{id}                                     get menu item
- *   POST   /admin/menus/                                         create menu item
- *   DELETE /admin/menus/{id}                                     delete menu item
- *   PUT    /admin/menus/{id}                                     update menu item
+/**
+ *   GET    /rest/admin/menus/in?date1={date1}&date2={date2}           get menu for all restaurants for the period
+ *   GET    /rest/admin/menus?id={id}&date1={date1}&date2={date2}      get all menu items of restaurant from date
+ *   GET    /rest/admin/menus/{id}                                     get menu item
+ *   POST   /rest/admin/menus/                                         create menu item
+ *   DELETE /rest/admin/menus/{id}                                     delete menu item
+ *   PUT    /rest/admin/menus/{id}                                     update menu item
  */
 
 @RestController
@@ -38,23 +38,29 @@ public class AdminMenuRestController extends AbstractMenuRestController {
         super(service);
     }
 
-    //http://localhost:8080/vote/admin/menus/in?date1=2021-03-08&date2=2021-03-10
+    // /rest/admin/menus/in?date1={date1}&date2={date2}           get menu for all restaurants for the period
     @GetMapping(value = "/in", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Menu> GetAllByDate(@RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1, @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
+    public List<Menu> GetAllByDate(@RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1,
+                                   @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
         return super.GetAllByDate(date1, date2);
     }
 
+    // /rest/admin/menus?id={id}&date1={date1}&date2={date2}      get all menu items of restaurant from date
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Menu> GetAllByRestaurantIdAndDate(@RequestParam("id") int id, @RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1, @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
+    public List<Menu> GetAllByRestaurantIdAndDate(@RequestParam("id") int id,
+                                                  @RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1,
+                                                  @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
         return super.GetAllByRestaurantIdAndDate(id, date1, date2);
     }
 
+    // /rest/admin/menus/{id}                                     get menu item
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Menu get(@PathVariable int id) {
         return super.get(id);
     }
 
-    //{ "restaurant":{"id":50005,"name":"Ресторан1","address":"адрес1"},"date":[2021,3,18],"description":"menu11", "price":50 }
+
+    // /rest/admin/menus/                                         create menu item
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
     public ResponseEntity<Menu> createWithLocations(@Validated(View.Web.class) @RequestBody Menu menu) {
@@ -64,16 +70,19 @@ public class AdminMenuRestController extends AbstractMenuRestController {
         return ResponseEntity.created(uriOfNewResource).body(newMenu);
     }
 
+    // /rest/admin/menus/{id}                                     delete menu item
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteMenu(@PathVariable int id) {
         delete(id);
     }
 
-    //{ "id": 100000, "restaurant": { "id": 50006 },"date": [2021, 3, 18],"description": "m443enu11", "price": 50 }
+    // /rest/admin/menus/{id}                                     update menu item
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateMenu(@PathVariable int id, @Validated(View.Web.class) @RequestBody Menu menu) {
+    public void updateMenu(@PathVariable int id,
+                           @Validated(View.Web.class)
+                           @RequestBody Menu menu) {
         update(menu, id);
     }
 

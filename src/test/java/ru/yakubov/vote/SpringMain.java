@@ -17,10 +17,10 @@ public class SpringMain {
         try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/inmemory.xml")) {
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
 
-            AdminVoteRestController adminUserController = appCtx.getBean(AdminVoteRestController.class);
-            System.out.println();
-            UserVote userVote = adminUserController.create(new UserVote(UserTestData.newUser));
-            System.out.println();
+//            AdminVoteRestController adminUserController = appCtx.getBean(AdminVoteRestController.class);
+//            System.out.println();
+//            UserVote userVote = adminUserController.create(new UserVote(UserTestData.newUser));
+//            System.out.println();
 
 //            RestaurantRestController restaurantController = appCtx.getBean(RestaurantRestController.class);
 //            Restaurants restaurants = restaurantController.create(new Restaurants(RestaurantTestData.new_restaurant));

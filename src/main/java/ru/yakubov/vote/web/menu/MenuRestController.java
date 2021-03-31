@@ -12,10 +12,10 @@ import java.util.List;
 import static ru.yakubov.vote.web.RestUrlPattern.MENU_REST_URL;
 import static ru.yakubov.vote.web.RestUrlPattern.ROOT_REST_URL;
 
-/*
- *   GET    /menus/in?date1={date1}&date2={date2}          get menu for all restaurants for the period
- *   GET    /menus?id={id}&date1={date1}&date2={date2}     get all menu items of restaurant from date
- *   GET    /menus/{id}                                    get menu item
+/**
+ *   GET    /rest/menus/{id}                                    get menu item
+ *   GET    /rest/menus/in?date1={date1}&date2={date2}          get menu for all restaurants for the period
+ *   GET    /rest/menus?id={id}&date1={date1}&date2={date2}     get all menu items of restaurant from date
  */
 
 
@@ -29,18 +29,24 @@ public class MenuRestController extends AbstractMenuRestController {
         super(service);
     }
 
-    @GetMapping(value = "/in", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Menu> GetAllByDate(@RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1, @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
-        return super.GetAllByDate(date1, date2);
-    }
-
+    // /rest/menus/{id}                                    get menu item
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Menu get(@PathVariable int id) {
         return super.get(id);
     }
 
+    // /rest/menus/in?date1={date1}&date2={date2}          get menu for all restaurants for the period
+    @GetMapping(value = "/in", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Menu> GetAllByDate(@RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1,
+                                   @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
+        return super.GetAllByDate(date1, date2);
+    }
+
+    // /rest/menus?id={id}&date1={date1}&date2={date2}     get all menu items of restaurant from date
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Menu> GetAllByRestaurantIdAndDate(@RequestParam("id") int id, @RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1, @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
+    public List<Menu> GetAllByRestaurantIdAndDate(@RequestParam("id") int id,
+                                                  @RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1,
+                                                  @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
         return super.GetAllByRestaurantIdAndDate(id, date1, date2);
     }
 

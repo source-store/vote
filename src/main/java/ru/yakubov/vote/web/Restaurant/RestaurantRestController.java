@@ -12,9 +12,9 @@ import java.util.List;
 import static ru.yakubov.vote.web.RestUrlPattern.RESTAURANT_REST_URL;
 import static ru.yakubov.vote.web.RestUrlPattern.ROOT_REST_URL;
 
-/*
- * GET /restaurant             get all restaurants
- * GET /restaurant/{id}        get restaurant
+/**
+ * GET /rest/restaurant             get all restaurants
+ * GET /rest/restaurant/{id}        get restaurant
  * */
 
 @RestController
@@ -22,13 +22,15 @@ import static ru.yakubov.vote.web.RestUrlPattern.ROOT_REST_URL;
 public class RestaurantRestController extends AbstractRestaurantRestController {
     public static final String REST_URL = ROOT_REST_URL + RESTAURANT_REST_URL;
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Restaurants get(@PathVariable int id) {
-        return service.get(id);
-    }
-
+    // /rest/restaurant             get all restaurants
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Restaurants> getAll() {
         return service.getAll();
+    }
+
+    // /rest/restaurant/{id}        get restaurant
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Restaurants get(@PathVariable int id) {
+        return service.get(id);
     }
 }
