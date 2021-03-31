@@ -5,14 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.yakubov.vote.model.Menu;
 import ru.yakubov.vote.service.MenuService;
-import ru.yakubov.vote.web.RestUrlPattern;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import static ru.yakubov.vote.util.ValidationUtil.checkNew;
-
-public class AbstractMenuRestController extends RestUrlPattern {
+public class AbstractMenuRestController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired

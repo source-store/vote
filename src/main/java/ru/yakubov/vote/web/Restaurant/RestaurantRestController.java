@@ -6,10 +6,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.yakubov.vote.model.Restaurants;
-import ru.yakubov.vote.to.RestaurantTo;
-import ru.yakubov.vote.util.VoteUtilsTo;
 
 import java.util.List;
+
+import static ru.yakubov.vote.web.RestUrlPattern.RESTAURANT_REST_URL;
+import static ru.yakubov.vote.web.RestUrlPattern.ROOT_REST_URL;
 
 /*
  * GET /restaurant             get all restaurants

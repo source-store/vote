@@ -18,6 +18,7 @@ import java.util.List;
 
 import static ru.yakubov.vote.util.ValidationUtil.assureIdConsistent;
 import static ru.yakubov.vote.util.ValidationUtil.checkNew;
+import static ru.yakubov.vote.web.RestUrlPattern.*;
 
 /*
  *   GET    /admin/menus/in?date1={date1}&date2={date2}           get menu for all restaurants for the period

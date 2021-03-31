@@ -7,8 +7,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.yakubov.vote.model.Restaurants;
-import ru.yakubov.vote.to.RestaurantTo;
-import ru.yakubov.vote.util.VoteUtilsTo;
 import ru.yakubov.vote.web.View;
 
 import java.net.URI;
@@ -16,6 +14,7 @@ import java.util.List;
 
 import static ru.yakubov.vote.util.ValidationUtil.assureIdConsistent;
 import static ru.yakubov.vote.util.ValidationUtil.checkNew;
+import static ru.yakubov.vote.web.RestUrlPattern.*;
 
 /*
  * GET /admin/restaurants             get all restaurants

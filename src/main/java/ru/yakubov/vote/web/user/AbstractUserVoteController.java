@@ -11,7 +11,6 @@ import ru.yakubov.vote.service.VoteService;
 import ru.yakubov.vote.to.UserVoteTo;
 import ru.yakubov.vote.to.VoteTo;
 import ru.yakubov.vote.util.VoteUtilsTo;
-import ru.yakubov.vote.web.RestUrlPattern;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,7 +18,7 @@ import java.util.List;
 import static ru.yakubov.vote.util.ValidationUtil.assureIdConsistent;
 import static ru.yakubov.vote.util.ValidationUtil.checkNew;
 
-public abstract class AbstractUserVoteController extends RestUrlPattern {
+public abstract class AbstractUserVoteController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired

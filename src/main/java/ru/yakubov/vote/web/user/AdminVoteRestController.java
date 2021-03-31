@@ -1,6 +1,5 @@
 package ru.yakubov.vote.web.user;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -8,14 +7,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.yakubov.vote.model.UserVote;
-import ru.yakubov.vote.model.VoteResult;
-import ru.yakubov.vote.model.Votes;
 import ru.yakubov.vote.web.SecurityUtil;
 import ru.yakubov.vote.web.View;
 
 import java.net.URI;
-import java.time.LocalDate;
 import java.util.List;
+
+import static ru.yakubov.vote.web.RestUrlPattern.*;
 
 
 /*
