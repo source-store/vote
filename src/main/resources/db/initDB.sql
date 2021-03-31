@@ -1,20 +1,19 @@
 DROP TRIGGER IF EXISTS delete_users ON USERS;;
 DROP TRIGGER IF EXISTS delete_user_roles ON USER_ROLES;;
 DROP TRIGGER IF EXISTS delete_restaurants ON RESTAURANTS;;
-DROP TRIGGER IF EXISTS delete_menu ON MENU;;
+DROP TRIGGER IF EXISTS delete_menus ON MENUS;;
 DROP TRIGGER IF EXISTS delete_votes ON VOTES;;
 
 DROP FUNCTION IF EXISTS after_delete_users();;
 DROP FUNCTION IF EXISTS after_delete_user_roles();;
 DROP FUNCTION IF EXISTS after_delete_restaurants();;
-DROP FUNCTION IF EXISTS after_delete_menu();;
+DROP FUNCTION IF EXISTS after_delete_menus();;
 DROP FUNCTION IF EXISTS after_delete_votes();;
-
 
 DROP TABLE IF EXISTS USER_ROLES;;
 DROP VIEW IF EXISTS voteresult;;
 DROP TABLE IF EXISTS VOTES;;
-DROP TABLE IF EXISTS MENU;;
+DROP TABLE IF EXISTS MENUS;;
 DROP TABLE IF EXISTS USERS;;
 DROP TABLE IF EXISTS RESTAURANTS;;
 DROP SEQUENCE IF EXISTS GLOBAL_SEQ;;
@@ -22,7 +21,7 @@ DROP SEQUENCE IF EXISTS GLOBAL_SEQ;;
 DROP TABLE IF EXISTS SHADOW_USERS;;
 DROP TABLE IF EXISTS SHADOW_USER_ROLES;;
 DROP TABLE IF EXISTS SHADOW_RESTAURANTS;;
-DROP TABLE IF EXISTS SHADOW_MENU;;
+DROP TABLE IF EXISTS SHADOW_MENUS;;
 DROP TABLE IF EXISTS SHADOW_VOTES;;
 
 
@@ -53,18 +52,18 @@ CREATE TABLE RESTAURANTS
     name    VARCHAR(255) NOT NULL,
     address VARCHAR(255) NOT NULL
 );;
+CREATE UNIQUE INDEX restaurants_unique_name_address_idx ON RESTAURANTS (name, address);;
 
-CREATE TABLE MENU
+CREATE TABLE MENUS
 (
     id            INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     restaurant_id INTEGER                           NOT NULL,
     date          DATE                DEFAULT now() NOT NULL,
-    description    VARCHAR(255)                      NOT NULL,
+    description   VARCHAR(255)                      NOT NULL,
     price         BIGINT                            NOT NULL,
-    CONSTRAINT menu_unique_date_description_restaurant_idx UNIQUE (date, description, restaurant_id),
+    CONSTRAINT menus_unique_date_description_restaurant_idx UNIQUE (date, description, restaurant_id),
     FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE
 );;
-CREATE INDEX menu_date_idx ON MENU (date);;
 
 CREATE TABLE VOTES
 (
@@ -86,7 +85,7 @@ from (select r.name, r.id restaurant_id, v.date, 1 vt, 0 mn
                join votes v on v.restaurant_id = r.id
       union all
       select r.name, r.id restaurant_id, m.date, 0 vt, 1 mn
-      from menu m
+      from menus m
                join RESTAURANTS r on r.id = m.restaurant_id
      ) as voteresult
 group by name, restaurant_id, date
@@ -126,7 +125,7 @@ CREATE TABLE SHADOW_RESTAURANTS
 CREATE INDEX shadow_restaurants_id_idx ON SHADOW_RESTAURANTS (id);;
 CREATE INDEX shadow_restaurants_date_event_idx ON SHADOW_RESTAURANTS (DATE_EVENT);;
 
-CREATE TABLE SHADOW_MENU
+CREATE TABLE SHADOW_MENUS
 (
     id            INTEGER                 NOT NULL,
     restaurant_id INTEGER                 NOT NULL,
@@ -135,8 +134,8 @@ CREATE TABLE SHADOW_MENU
     price         BIGINT                  NOT NULL,
     DATE_EVENT    TIMESTAMP DEFAULT now() NOT NULL
 );;
-CREATE INDEX shadow_menu_id_idx ON SHADOW_MENU (id);;
-CREATE INDEX shadow_menu_date_event_idx ON SHADOW_MENU (DATE_EVENT);;
+CREATE INDEX shadow_menus_id_idx ON SHADOW_MENUS (id);;
+CREATE INDEX shadow_menus_date_event_idx ON SHADOW_MENUS (DATE_EVENT);;
 
 CREATE TABLE SHADOW_VOTES
 (
@@ -181,11 +180,11 @@ END;
 $$
     LANGUAGE plpgsql;;
 
-CREATE OR REPLACE FUNCTION after_delete_menu()
+CREATE OR REPLACE FUNCTION after_delete_menus()
     RETURNS trigger AS
 $$
 BEGIN
-    INSERT INTO SHADOW_MENU (ID, RESTAURANT_ID, description, PRICE, DATE)
+    INSERT INTO SHADOW_MENUS (ID, RESTAURANT_ID, description, PRICE, DATE)
     VALUES (OLD.ID, OLD.RESTAURANT_ID, OLD.description, OLD.PRICE, OLD.DATE);
     RETURN NEW;
 END;
@@ -221,11 +220,11 @@ create trigger delete_restaurants
     FOR EACH ROW
 EXECUTE PROCEDURE after_delete_restaurants();;
 
-create trigger delete_menu
+create trigger delete_menus
     after DELETE OR UPDATE
-    on MENU
+    on MENUS
     FOR EACH ROW
-EXECUTE PROCEDURE after_delete_menu();;
+EXECUTE PROCEDURE after_delete_menus();;
 
 create trigger delete_votes
     after DELETE OR UPDATE

@@ -56,18 +56,7 @@
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
           p:entityManagerFactory-ref="entityManagerFactory"/>
 
-
-    <!--    <beans profile="postgres">-->
-    <!--        <bean class="org.springframework.beans.factory.config.MethodInvokingBean">-->
-    <!--            <property name="staticMethod" value="org.slf4j.bridge.SLF4JBridgeHandler.install"/>-->
-    <!--        </bean>-->
-    <!--        <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>-->
-    <!--    </beans>-->
-
-
-    <!--    <beans profile="hsqldb">-->
     <context:property-placeholder location="classpath:db/hsqldb.properties" system-properties-mode="OVERRIDE"/>
-    <!--    </beans>-->
 
 
 </beans>

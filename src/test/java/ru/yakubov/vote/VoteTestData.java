@@ -9,8 +9,7 @@ import java.util.List;
 import static ru.yakubov.vote.MenuTestData.MENU_END_SEQ;
 
 public class VoteTestData {
-    public static TestMatcher<VoteTo> VOTE_TO_MATCHER = TestMatcher.usingIgnoringFieldsComparator();
-    public static TestMatcher<Votes> VOTE_MATCHER = TestMatcher.usingIgnoringFieldsComparator("date", "restaurant");
+    public static TestMatcher<Votes> VOTE_MATCHER = TestMatcher.usingIgnoringFieldsComparator("date", "restaurant", "userVote");
 
     public static final int VOTE_TEST_SEQ = MENU_END_SEQ;
 

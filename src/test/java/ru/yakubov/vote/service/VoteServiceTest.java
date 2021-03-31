@@ -27,19 +27,19 @@ public class VoteServiceTest extends AbstractTest {
     private static LocalDate endDate = LocalDate.of(2021, 3, 9);
 
     @Test
-    public void get() {
+    void get() {
         VOTE_MATCHER.assertMatch(service.get(VoteTestData.VOTE_ID1), VoteTestData.VOTE1);
     }
 
     @Test
-    public void delete() {
+    void delete() {
         assertNotNull(service.get(VoteTestData.VOTE_ID1));
         service.delete(VoteTestData.VOTE_ID1);
         assertThrows(NotFoundException.class, () -> service.get(VoteTestData.VOTE_ID1));
     }
 
     @Test
-    public void create() {
+    void create() {
         VoteTestData.NEW_VOTE.setUserVote(UserTestData.user1);
         VoteTestData.NEW_VOTE.setRestaurant(RestaurantTestData.restaurant1);
         VoteTo created = service.create(VoteTestData.NEW_VOTE);
@@ -49,33 +49,14 @@ public class VoteServiceTest extends AbstractTest {
     }
 
     @Test
-    public void getByRestaurant() {
-        VOTE_MATCHER.assertMatch(service.getByRestaurant(RestaurantTestData.RESTAURANT_ID1), VoteTestData.VOTES1);
-    }
-
-    @Test
-    public void getByRestaurantDate() {
-        VOTE_MATCHER.assertMatch(service.getByRestaurantDate(RestaurantTestData.RESTAURANT_ID2, startDate, endDate), List.of(VoteTestData.VOTE3));
-
-    }
-
-    @Test
-    public void getByUserDate() {
+    void getByUserDate() {
         VOTE_MATCHER.assertMatch(service.getByUserDate(UserTestData.USER_ID3, startDate, endDate), VoteTestData.VOTE3);
     }
 
     @Test
-    public void getByUser() {
-        Set<Votes> votes = new HashSet<Votes>(service.getByUser(UserTestData.USER_ID3));
-        Set<Votes> votesTest = new HashSet<Votes>(List.of(VoteTestData.VOTE3, VoteTestData.VOTE4));
-        VOTE_MATCHER.assertMatch(votes, votesTest);
+    void getByUserOneDate() {
+        VOTE_MATCHER.assertMatch(service.getByUserOneDate(UserTestData.USER_ID1, startDate), VoteTestData.VOTE1);
     }
 
-    @Test
-    public void getByDate() {
-        Set<Votes> votes = new HashSet<Votes>(service.getByDate(startDate, startDate));
-        Set<Votes> votesTest = new HashSet<Votes>(List.of(VoteTestData.VOTE1, VoteTestData.VOTE2, VoteTestData.VOTE3));
-        VOTE_MATCHER.assertMatch(votes, votesTest);
-    }
 
 }

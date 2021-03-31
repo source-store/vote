@@ -43,7 +43,7 @@ public class VoteRestController {
     }
 
     // /rest/votes/in?date1=YYYY-MM-DD&date2=YYYY-MM-DD    get result vote by period
-    @GetMapping(value = RESULT_VOTE_REST_URL + "/in", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/in", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<VoteResult> getResultDatePeriod(@RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1,
                                                 @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
         log.info("getResultDatePeriod beginDate {}  endDate {}", date1, date2);

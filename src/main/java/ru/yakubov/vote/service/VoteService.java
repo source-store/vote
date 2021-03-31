@@ -56,16 +56,6 @@ public class VoteService {
     }
 
     @Transactional
-    public List<Votes> getByRestaurant(int id) {
-        return repository.getByRestaurant(id);
-    }
-
-    @Transactional
-    public List<Votes> getByRestaurantDate(int id, LocalDate beginDate, LocalDate endDate) {
-        return repository.getByRestaurantDate(id, beginDate, endDate);
-    }
-
-    @Transactional
     public List<Votes> getByUserDate(int id, LocalDate beginDate, LocalDate endDate) {
         return repository.getByUserDate(id, beginDate, endDate);
     }
@@ -73,29 +63,6 @@ public class VoteService {
     @Transactional
     public Votes getByUserOneDate(int id, LocalDate setDate) {
         return repository.getByUserOneDate(id, setDate);
-    }
-
-    @Transactional
-    public List<Votes> getByUser(int id) {
-        return repository.getByUser(id);
-    }
-
-    @Transactional
-    public List<Votes> getByDate(LocalDate beginDate, LocalDate endDate) {
-        return repository.getByDate(beginDate, endDate);
-    }
-
-    @Transactional
-    public void DeleteCurrentVote(int id) {
-        Votes votes = getByUserOneDate(id, LocalDate.now());
-        if (votes != null) {
-            delete(votes.getId());
-        }
-    }
-
-    @Transactional
-    public List<Votes> getByOneDate(LocalDate setDate) {
-        return repository.getByDate(setDate, setDate);
     }
 
     public VoteTo vote(int userId, int restaurantId) {
