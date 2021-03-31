@@ -64,4 +64,9 @@ public abstract class AbstractUserVoteController {
         log.info("createVote userId {} restautantId {}", userId, restautantId);
         return voteService.vote(userId, restautantId);
     }
+
+    protected VoteTo updateVote(int userId, int restautantId) {
+        log.info("updateVote userId {} restautantId {}", userId, restautantId);
+        return voteService.updateVote(userId, restautantId);
+    }
 }

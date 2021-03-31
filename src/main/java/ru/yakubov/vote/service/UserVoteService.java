@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.yakubov.vote.AuthorizedUser;
 import ru.yakubov.vote.model.Role;
@@ -23,6 +24,7 @@ import static ru.yakubov.vote.util.ValidationUtil.checkNotFoundWithId;
 
 @Service("userVoteService")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+@Transactional(readOnly = true)
 public class UserVoteService implements UserDetailsService {
 
     private final UserVoteRepository repository;
@@ -33,13 +35,13 @@ public class UserVoteService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @CacheEvict(value = "users", allEntries = true)
+    @Transactional
     public UserVote create(UserVote userVote) {
         Assert.notNull(userVote, "user must not be null");
         return repository.save(prepareToSave(userVote, passwordEncoder));
     }
 
-    @CacheEvict(value = "users", allEntries = true)
+    @Transactional
     public void delete(int id) {
         checkNotFoundWithId(repository.delete(id), id);
     }
@@ -53,22 +55,19 @@ public class UserVoteService implements UserDetailsService {
         return checkNotFound(repository.getByEmail(email), "email=" + email);
     }
 
-    @Cacheable("users")
     public List<UserVote> getAll() {
         return repository.getAll();
     }
 
-    @CacheEvict(value = "users", allEntries = true)
+    @Transactional
     public void update(UserVote userVote) {
         Assert.notNull(userVote, "user must not be null");
         checkNotFoundWithId(repository.save(prepareToSave(userVote, passwordEncoder)), userVote.id());
     }
 
-    @Cacheable("users")
     public List<UserVote> getByRoles(Role role) {
         return repository.getByRoles(role);
     }
-
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -78,6 +77,4 @@ public class UserVoteService implements UserDetailsService {
         }
         return new AuthorizedUser(user);
     }
-
-
 }

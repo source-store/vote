@@ -1,5 +1,6 @@
 package ru.yakubov.vote.web.menu;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +14,10 @@ import static ru.yakubov.vote.web.RestUrlPattern.MENU_REST_URL;
 import static ru.yakubov.vote.web.RestUrlPattern.ROOT_REST_URL;
 
 /**
- *   GET    /rest/menus/{id}                                    get menu item
- *   GET    /rest/menus/in?date1={date1}&date2={date2}          get menu for all restaurants for the period
- *   GET    /rest/menus?id={id}&date1={date1}&date2={date2}     get all menu items of restaurant from date
+ * GET    /rest/menus/today                                   get menu for today
+ * GET    /rest/menus/{id}                                    get menu item
+ * GET    /rest/menus/in?date1={date1}&date2={date2}          get menu for all restaurants for the period
+ * GET    /rest/menus?id={id}&date1={date1}&date2={date2}     get all menu items of restaurant from date
  */
 
 
@@ -27,6 +29,13 @@ public class MenuRestController extends AbstractMenuRestController {
 
     public MenuRestController(MenuService service) {
         super(service);
+    }
+
+    // /rest/menus/today                                         get menu for today
+    @Cacheable("menus")
+    @GetMapping(value = "/today", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Menu> getTodayMenu() {
+        return super.GetAllByDate(LocalDate.now(), LocalDate.now());
     }
 
     // /rest/menus/{id}                                    get menu item

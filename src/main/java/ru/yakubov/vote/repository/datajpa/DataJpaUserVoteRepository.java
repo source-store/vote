@@ -21,37 +21,31 @@ public class DataJpaUserVoteRepository implements UserVoteRepository {
     private CrudUserVoteRepository crudRepository;
 
     @Override
-    @Transactional
     public UserVote save(UserVote userVote) {
         return crudRepository.save(userVote);
     }
 
     @Override
-    @Transactional
     public boolean delete(int id) {
         return crudRepository.delete(id) != 0;
     }
 
     @Override
-    @Transactional
     public UserVote get(int id) {
         return crudRepository.findById(id).orElse(null);
     }
 
     @Override
-//    @Transactional
     public UserVote getByEmail(String email) {
         return crudRepository.getByEmail(email);
     }
 
     @Override
-    @Transactional
     public List<UserVote> getAll() {
         return crudRepository.findAll(SORT_NAME_EMAIL);
     }
 
     @Override
-    @Transactional
     public List<UserVote> getByRoles(Role role) {
         return crudRepository.getByRoles().stream().filter(u -> u.getRoles().contains(role)).collect(Collectors.toList());
     }

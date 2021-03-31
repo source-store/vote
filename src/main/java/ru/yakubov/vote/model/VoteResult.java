@@ -30,20 +30,11 @@ public class VoteResult extends AbstractBaseEntity {
     public VoteResult(Integer id, @NotNull LocalDate date, @NotNull int voteCount, @NotNull int menuCount) {
         super(id);
         this.date = date;
-        this.restaurants = restaurants;
         this.voteCount = voteCount;
         this.menuCount = menuCount;
     }
 
     public VoteResult() {
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public Restaurants getRestaurants() {
-        return restaurants;
     }
 
     public int getVoteCount() {
@@ -54,6 +45,14 @@ public class VoteResult extends AbstractBaseEntity {
         return menuCount;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public Restaurants getRestaurants() {
+        return restaurants;
+    }
+
     public void setRestaurants(Restaurants restaurants) {
         this.restaurants = restaurants;
     }
@@ -62,11 +61,4 @@ public class VoteResult extends AbstractBaseEntity {
         this.date = date;
     }
 
-    public void setVoteCount(int voteCount) {
-        this.voteCount = voteCount;
-    }
-
-    public void setMenuCount(int menuCount) {
-        this.menuCount = menuCount;
-    }
 }

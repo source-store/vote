@@ -47,7 +47,4 @@ public abstract class AbstractControllerTest {
                 .build();
     }
 
-    public ResultActions perform(MockHttpServletRequestBuilder builder) throws Exception {
-        return mockMvc.perform(builder);
-    }
 }

@@ -34,11 +34,6 @@ class AdminVoteRestControllerTest extends AbstractControllerTest {
     @Autowired
     CacheManager cacheManager;
 
-    @BeforeEach
-    public void setUp(){
-        cacheManager.getCache("users").clear();
-    }
-
     //GET /rest/admin/profiles                                                    get all user profiles
     @Test
     void getAll() throws Exception {

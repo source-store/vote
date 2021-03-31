@@ -17,7 +17,6 @@ public class DataJpaVoteRepository implements VoteRepository {
     private CrudVoteRepository crudRepository;
 
     @Override
-    @Transactional
     public Votes save(Votes vote) {
         if (!vote.isNew() && get(vote.getId()) == null) {
             return null;
@@ -31,7 +30,6 @@ public class DataJpaVoteRepository implements VoteRepository {
     }
 
     @Override
-    @Transactional
     public Votes get(int id) {
         return crudRepository.findById(id).orElse(null);
     }

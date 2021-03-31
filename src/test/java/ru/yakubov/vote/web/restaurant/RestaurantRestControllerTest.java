@@ -28,11 +28,6 @@ public class RestaurantRestControllerTest extends AbstractControllerTest {
     @Autowired
     CacheManager cacheManager;
 
-    @BeforeEach
-    public void setUp(){
-        cacheManager.getCache("restaurants").clear();
-    }
-
     //GET /rest/restaurant             get all restaurants
     @Test
     void getAll() throws Exception {

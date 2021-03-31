@@ -1,33 +1,32 @@
 package ru.yakubov.vote;
 
+import lombok.Getter;
 import ru.yakubov.vote.model.UserVote;
-import ru.yakubov.vote.to.UserVoteTo;
-import ru.yakubov.vote.util.VoteUtilsTo;
 
 public class AuthorizedUser extends org.springframework.security.core.userdetails.User {
     private static final long serialVersionUID = 7496650878122997852L;
 
-    private UserVoteTo userVoteTo;
+    private UserVote userVote;
 
     public AuthorizedUser(UserVote userVote) {
         super(userVote.getEmail(), userVote.getPassword(), userVote.isEnabled(), true, true, true, userVote.getRoles());
-        this.userVoteTo = VoteUtilsTo.createTo(userVote);
+        this.userVote = userVote;
     }
 
-    public UserVoteTo getUser() {
-        return this.userVoteTo;
+    public UserVote getUser() {
+        return this.userVote;
     }
 
     public int getId() {
-        return this.userVoteTo.id();
+        return this.userVote.id();
     }
 
-    public void update(UserVoteTo newUserVoteTo) {
-        this.userVoteTo = newUserVoteTo;
+    public void update(UserVote newUserVote) {
+        this.userVote = newUserVote;
     }
 
     @Override
     public String toString() {
-        return userVoteTo.toString();
+        return userVote.toString();
     }
 }

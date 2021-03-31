@@ -5,10 +5,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import ru.yakubov.vote.MenuTestData;
 import ru.yakubov.vote.RestaurantTestData;
 import ru.yakubov.vote.UserTestData;
+import ru.yakubov.vote.model.Menu;
 import ru.yakubov.vote.service.MenuService;
 import ru.yakubov.vote.web.AbstractControllerTest;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Objects;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -31,7 +37,34 @@ public class MenuRestControllerTest extends AbstractControllerTest {
 
     @BeforeEach
     public void setUp(){
-        cacheManager.getCache("menu").clear();
+        Objects.requireNonNull(cacheManager.getCache("menus")).clear();
+    }
+
+    //GET    /rest/menus/today                                   get menu for today
+    @Test
+    void GetTodayMenus() throws Exception {
+
+        Menu menu1 = new Menu(MenuTestData.NEW_MENU);
+        Menu menu2 = new Menu(MenuTestData.NEW_MENU1);
+
+        menu1.setId(null);
+        menu2.setId(null);
+
+        menu1.setDate(LocalDate.now());
+        menu2.setDate(LocalDate.now());
+
+        menu1.setRestaurant(RestaurantTestData.restaurant4);
+        menu2.setRestaurant(RestaurantTestData.restaurant4);
+
+        service.create(menu1);
+        service.create(menu2);
+
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/today")
+                .with(userHttpBasic(UserTestData.user1)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
+                .andExpect(content().json(writeValue(List.of(menu1, menu2))));
     }
 
     //GET    /menus/in?date1={date1}&date2={date2}       get menu for all restaurants for the period

@@ -39,7 +39,7 @@ public class AdminMenuRestControllerTest extends AbstractControllerTest {
 
     @BeforeEach
     public void setUp(){
-        cacheManager.getCache("menu").clear();
+        cacheManager.getCache("menus").clear();
     }
 
     //GET    /admin/menus/in?date1={date1}&date2={date2}       get menu for all restaurants for the period

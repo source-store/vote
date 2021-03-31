@@ -75,6 +75,18 @@ public class ProfileVoteRestController extends AbstractUserVoteController {
         return ResponseEntity.created(uriOfNewUserVote).body(votesCreateTo);
     }
 
+    // /rest/profiles/vote?id={restaurantId}                         vote
+    @PutMapping(value = VOTE_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public ResponseEntity<VoteTo> updateVoteWithLocation(@RequestParam("id") int id) {
+        VoteTo votesCreateTo = super.updateVote(authUserId(), id);
+
+        URI uriOfNewUserVote = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(REST_URL + VOTE_URL).buildAndExpand().toUri();
+
+        return ResponseEntity.created(uriOfNewUserVote).body(votesCreateTo);
+    }
+
     // /rest/rest/profiles/register                                  register new user
     @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
