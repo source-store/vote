@@ -1,6 +1,5 @@
 package ru.yakubov.vote.web.restaurant;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
@@ -41,7 +40,7 @@ public class RestaurantRestControllerTest extends AbstractControllerTest {
     //GET /rest/restaurant/{id}        get restaurant
     @Test
     void get() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL+"/"+ RestaurantTestData.RESTAURANT_ID4)
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/" + RestaurantTestData.RESTAURANT_ID4)
                 .with(userHttpBasic(UserTestData.user1)))
                 .andExpect(status().isOk())
                 .andDo(print())

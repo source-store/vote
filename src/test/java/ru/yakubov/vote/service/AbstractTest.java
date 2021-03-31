@@ -18,5 +18,4 @@ import ru.yakubov.vote.TimingExtention;
 public abstract class AbstractTest {
 
 
-
 }

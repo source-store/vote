@@ -130,7 +130,7 @@ CREATE TABLE SHADOW_MENUS
     id            INTEGER                 NOT NULL,
     restaurant_id INTEGER                 NOT NULL,
     date          DATE                    NOT NULL,
-    description    VARCHAR(255)            NOT NULL,
+    description   VARCHAR(255)            NOT NULL,
     price         BIGINT                  NOT NULL,
     DATE_EVENT    TIMESTAMP DEFAULT now() NOT NULL
 );;

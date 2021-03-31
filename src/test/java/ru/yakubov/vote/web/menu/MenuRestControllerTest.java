@@ -36,7 +36,7 @@ public class MenuRestControllerTest extends AbstractControllerTest {
     CacheManager cacheManager;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         Objects.requireNonNull(cacheManager.getCache("menus")).clear();
     }
 

@@ -1,6 +1,5 @@
 package ru.yakubov.vote.web.user;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
@@ -8,11 +7,9 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.transaction.annotation.Transactional;
 import ru.yakubov.vote.RestaurantTestData;
 import ru.yakubov.vote.TestUtil;
 import ru.yakubov.vote.UserTestData;
-import ru.yakubov.vote.VoteTestData;
 import ru.yakubov.vote.model.UserVote;
 import ru.yakubov.vote.model.Votes;
 import ru.yakubov.vote.repository.VoteRepository;
@@ -20,7 +17,6 @@ import ru.yakubov.vote.service.UserVoteService;
 import ru.yakubov.vote.service.VoteService;
 import ru.yakubov.vote.to.UserVoteTo;
 import ru.yakubov.vote.to.VoteTo;
-import ru.yakubov.vote.util.exception.FailVoteException;
 import ru.yakubov.vote.web.AbstractControllerTest;
 import ru.yakubov.vote.web.json.JsonUtil;
 
@@ -34,7 +30,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.yakubov.vote.TestUtil.userHttpBasic;
 import static ru.yakubov.vote.UserTestData.USER_MATCHER;
-import static ru.yakubov.vote.VoteTestData.VOTE_MATCHER;
 import static ru.yakubov.vote.service.VoteService.VOTE_DEADLINE;
 import static ru.yakubov.vote.util.VoteUtilsTo.createTo;
 import static ru.yakubov.vote.web.RestUrlPattern.VOTES_URL;
@@ -150,8 +145,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
                     .andDo(print())
                     .andExpect(status().isConflict());
 
-        }
-            else{
+        } else {
             ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.put(REST_URL + VOTE_URL + "?id=" + RestaurantTestData.RESTAURANT_ID4)
                     .contentType(APPLICATION_JSON)
                     .with(userHttpBasic(UserTestData.user1)))

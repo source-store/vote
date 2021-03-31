@@ -1,7 +1,6 @@
 package ru.yakubov.vote;
 
 import ru.yakubov.vote.model.Votes;
-import ru.yakubov.vote.to.VoteTo;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -13,10 +12,10 @@ public class VoteTestData {
 
     public static final int VOTE_TEST_SEQ = MENU_END_SEQ;
 
-    public static final int VOTE_ID1=VOTE_TEST_SEQ + 1;
-    public static final int VOTE_ID2=VOTE_TEST_SEQ + 2;
-    public static final int VOTE_ID3=VOTE_TEST_SEQ + 3;
-    public static final int VOTE_ID4=VOTE_TEST_SEQ + 4;
+    public static final int VOTE_ID1 = VOTE_TEST_SEQ + 1;
+    public static final int VOTE_ID2 = VOTE_TEST_SEQ + 2;
+    public static final int VOTE_ID3 = VOTE_TEST_SEQ + 3;
+    public static final int VOTE_ID4 = VOTE_TEST_SEQ + 4;
 
     public static final Votes NEW_VOTE = new Votes(null, LocalDate.of(2021, 3, 20));
 

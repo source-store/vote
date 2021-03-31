@@ -19,11 +19,12 @@ import ru.yakubov.vote.service.VoteService;
 import java.time.LocalDate;
 import java.util.List;
 
-import static ru.yakubov.vote.web.RestUrlPattern.*;
+import static ru.yakubov.vote.web.RestUrlPattern.ROOT_REST_URL;
+import static ru.yakubov.vote.web.RestUrlPattern.VOTES_URL;
 
 /**
- *    GET /rest/votes                                         get result vote current date
- *    GET /rest/votes/in?date1=YYYY-MM-DD&date2=YYYY-MM-DD    get result vote by period
+ * GET /rest/votes                                         get result vote current date
+ * GET /rest/votes/in?date1=YYYY-MM-DD&date2=YYYY-MM-DD    get result vote by period
  **/
 
 @RestController

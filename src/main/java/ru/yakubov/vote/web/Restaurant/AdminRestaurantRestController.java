@@ -22,7 +22,7 @@ import static ru.yakubov.vote.web.RestUrlPattern.*;
  * POST /rest/admin/restaurants            create restaurant
  * DELETE /rest/admin/restaurants/{id}     delete restaurant
  * PUT /rest/admin/restaurants             UPDATE restaurant
- * */
+ */
 
 @RestController
 @RequestMapping(value = AdminRestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)

@@ -15,7 +15,7 @@ import static ru.yakubov.vote.web.RestUrlPattern.ROOT_REST_URL;
 /**
  * GET /rest/restaurant             get all restaurants
  * GET /rest/restaurant/{id}        get restaurant
- * */
+ */
 
 @RestController
 @RequestMapping(value = RestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)

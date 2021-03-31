@@ -1,6 +1,5 @@
 package ru.yakubov.vote;
 
-import lombok.Getter;
 import ru.yakubov.vote.model.UserVote;
 
 public class AuthorizedUser extends org.springframework.security.core.userdetails.User {

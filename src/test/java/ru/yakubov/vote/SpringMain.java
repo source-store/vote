@@ -2,12 +2,6 @@ package ru.yakubov.vote;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ru.yakubov.vote.model.*;
-import ru.yakubov.vote.web.Restaurant.RestaurantRestController;
-import ru.yakubov.vote.web.menu.AdminMenuRestController;
-import ru.yakubov.vote.web.menu.MenuRestController;
-import ru.yakubov.vote.web.user.AdminVoteRestController;
-import ru.yakubov.vote.web.user.ProfileVoteRestController;
 
 import java.util.Arrays;
 

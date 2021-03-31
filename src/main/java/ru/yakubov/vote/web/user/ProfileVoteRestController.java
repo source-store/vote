@@ -9,7 +9,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.yakubov.vote.model.UserVote;
-import ru.yakubov.vote.model.VoteResult;
 import ru.yakubov.vote.model.Votes;
 import ru.yakubov.vote.to.UserVoteTo;
 import ru.yakubov.vote.to.VoteTo;
@@ -23,12 +22,12 @@ import static ru.yakubov.vote.web.RestUrlPattern.*;
 import static ru.yakubov.vote.web.SecurityUtil.authUserId;
 
 /**
- *       GET /rest/profiles                                                 get current user profile
- *       GET /rest/profiles/vote                                            get current user vote
- *       GET /rest/profiles/votes/in?date1=2021-03-08&date2=2021-03-10      get user vote by date (period)
- *       PUT /rest/profiles                                                 update
- *       POST /rest/profiles/vote?id={restaurantId}                         vote
- *       POST /rest/rest/profiles/register                                  register new user
+ * GET /rest/profiles                                                 get current user profile
+ * GET /rest/profiles/vote                                            get current user vote
+ * GET /rest/profiles/votes/in?date1=2021-03-08&date2=2021-03-10      get user vote by date (period)
+ * PUT /rest/profiles                                                 update
+ * POST /rest/profiles/vote?id={restaurantId}                         vote
+ * POST /rest/rest/profiles/register                                  register new user
  **/
 
 @RestController

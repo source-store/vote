@@ -21,12 +21,12 @@ import static ru.yakubov.vote.util.ValidationUtil.checkNew;
 import static ru.yakubov.vote.web.RestUrlPattern.*;
 
 /**
- *   GET    /rest/admin/menus/in?date1={date1}&date2={date2}           get menu for all restaurants for the period
- *   GET    /rest/admin/menus?id={id}&date1={date1}&date2={date2}      get all menu items of restaurant from date
- *   GET    /rest/admin/menus/{id}                                     get menu item
- *   POST   /rest/admin/menus/                                         create menu item
- *   DELETE /rest/admin/menus/{id}                                     delete menu item
- *   PUT    /rest/admin/menus/{id}                                     update menu item
+ * GET    /rest/admin/menus/in?date1={date1}&date2={date2}           get menu for all restaurants for the period
+ * GET    /rest/admin/menus?id={id}&date1={date1}&date2={date2}      get all menu items of restaurant from date
+ * GET    /rest/admin/menus/{id}                                     get menu item
+ * POST   /rest/admin/menus/                                         create menu item
+ * DELETE /rest/admin/menus/{id}                                     delete menu item
+ * PUT    /rest/admin/menus/{id}                                     update menu item
  */
 
 @RestController

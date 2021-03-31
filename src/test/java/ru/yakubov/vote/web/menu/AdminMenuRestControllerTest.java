@@ -18,7 +18,6 @@ import ru.yakubov.vote.web.AbstractControllerTest;
 import ru.yakubov.vote.web.json.JsonUtil;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -38,7 +37,7 @@ public class AdminMenuRestControllerTest extends AbstractControllerTest {
     CacheManager cacheManager;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         cacheManager.getCache("menus").clear();
     }
 

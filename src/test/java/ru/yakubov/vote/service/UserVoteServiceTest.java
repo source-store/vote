@@ -38,7 +38,7 @@ public class UserVoteServiceTest extends AbstractTest {
         UserVote created = service.create(UserTestData.newUser);
         int id = created.getId();
         UserTestData.newUser.setId(id);
-        USER_MATCHER.assertMatch(service.get(id),UserTestData.newUser);
+        USER_MATCHER.assertMatch(service.get(id), UserTestData.newUser);
     }
 
     @Test

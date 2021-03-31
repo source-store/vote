@@ -13,9 +13,9 @@ public class UserTestData {
 
     public static final int ADMIN_ID1 = TEST_START_SEQ;
     public static final int ADMIN_ID2 = TEST_START_SEQ + 1;
-    public static final int USER_ID1  = TEST_START_SEQ + 2;
-    public static final int USER_ID2  = TEST_START_SEQ + 3;
-    public static final int USER_ID3  = TEST_START_SEQ + 4;
+    public static final int USER_ID1 = TEST_START_SEQ + 2;
+    public static final int USER_ID2 = TEST_START_SEQ + 3;
+    public static final int USER_ID3 = TEST_START_SEQ + 4;
 
     public static final UserVote newUser = new UserVote(null, "newUser", "newuser@yandex.ru", "password", Role.USER);
     public static final UserVote admin1 = new UserVote(ADMIN_ID1, "Admin1", "admin1@yandex.ru", "password1", Role.ADMIN);

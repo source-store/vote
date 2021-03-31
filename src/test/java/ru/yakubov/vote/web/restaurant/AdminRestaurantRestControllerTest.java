@@ -1,6 +1,5 @@
 package ru.yakubov.vote.web.restaurant;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
@@ -18,7 +17,6 @@ import ru.yakubov.vote.web.Restaurant.AdminRestaurantRestController;
 import ru.yakubov.vote.web.json.JsonUtil;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -50,7 +48,7 @@ class AdminRestaurantRestControllerTest extends AbstractControllerTest {
     //GET /rest/admin/restaurant/{id}        get restaurant
     @Test
     void get() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL+"/"+RestaurantTestData.RESTAURANT_ID2)
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/" + RestaurantTestData.RESTAURANT_ID2)
                 .with(userHttpBasic(UserTestData.admin1)))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -99,7 +97,7 @@ class AdminRestaurantRestControllerTest extends AbstractControllerTest {
         Restaurants restaurants = new Restaurants(RestaurantTestData.restaurant4);
         restaurants.setName("Update NAME");
 
-        mockMvc.perform(MockMvcRequestBuilders.put(REST_URL+"/"+RestaurantTestData.RESTAURANT_ID4)
+        mockMvc.perform(MockMvcRequestBuilders.put(REST_URL + "/" + RestaurantTestData.RESTAURANT_ID4)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(restaurants))
                 .with(userHttpBasic(UserTestData.admin1)))

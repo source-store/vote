@@ -18,9 +18,9 @@ import static ru.yakubov.vote.MenuTestData.MENU_MATCHER;
 
 public class MenuServiceTest extends AbstractTest {
 
-    private static LocalDate startDate = LocalDate.of(2021, 1, 1);
-    private static LocalDate endDate10 = LocalDate.of(2021, 1, 10);
-    private static LocalDate endDate11 = LocalDate.of(2021, 1, 11);
+    private static final LocalDate startDate = LocalDate.of(2021, 1, 1);
+    private static final LocalDate endDate10 = LocalDate.of(2021, 1, 10);
+    private static final LocalDate endDate11 = LocalDate.of(2021, 1, 11);
 
     @Autowired
     protected MenuService service;

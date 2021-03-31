@@ -5,14 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.yakubov.vote.RestaurantTestData;
 import ru.yakubov.vote.UserTestData;
 import ru.yakubov.vote.VoteTestData;
-import ru.yakubov.vote.model.Votes;
 import ru.yakubov.vote.to.VoteTo;
 import ru.yakubov.vote.util.exception.NotFoundException;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -23,8 +19,8 @@ public class VoteServiceTest extends AbstractTest {
     @Autowired
     protected VoteService service;
 
-    private static LocalDate startDate = LocalDate.of(2021, 3, 8);
-    private static LocalDate endDate = LocalDate.of(2021, 3, 9);
+    private static final LocalDate startDate = LocalDate.of(2021, 3, 8);
+    private static final LocalDate endDate = LocalDate.of(2021, 3, 9);
 
     @Test
     void get() {

@@ -13,7 +13,7 @@ public class TimingExtention implements BeforeTestExecutionCallback, AfterTestEx
 
     @Override
     public void afterAll(ExtensionContext extensionContext) throws Exception {
-        log.info('\n'+stopWatch.prettyPrint()+'\n');
+        log.info('\n' + stopWatch.prettyPrint() + '\n');
     }
 
     @Override
@@ -24,7 +24,7 @@ public class TimingExtention implements BeforeTestExecutionCallback, AfterTestEx
 
     @Override
     public void beforeAll(ExtensionContext extensionContext) throws Exception {
-        stopWatch = new StopWatch("Execution time of "+ extensionContext.getRequiredTestClass().getSimpleName());
+        stopWatch = new StopWatch("Execution time of " + extensionContext.getRequiredTestClass().getSimpleName());
 
     }
 

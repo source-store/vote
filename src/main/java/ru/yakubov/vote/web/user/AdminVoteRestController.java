@@ -25,7 +25,7 @@ import static ru.yakubov.vote.web.RestUrlPattern.*;
  * POST /rest/admin/profiles                                                  create new user from UserVote
  * DELETE /rest/admin/profiles/{userId}                                       delete user
  * PUT /rest/admin/profiles/{userId}                                          update user
- * */
+ */
 
 @RestController
 //Отдаем сообщения в формате json (produces = MediaType.APPLICATION_JSON_VALUE)

@@ -1,6 +1,5 @@
 package ru.yakubov.vote.web.user;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
@@ -22,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.yakubov.vote.TestUtil.userHttpBasic;
 import static ru.yakubov.vote.UserTestData.USER_MATCHER;
-import static ru.yakubov.vote.web.RestUrlPattern.*;
+import static ru.yakubov.vote.web.RestUrlPattern.PROFILE_REST_URL;
 
 class AdminVoteRestControllerTest extends AbstractControllerTest {
 
@@ -37,7 +36,7 @@ class AdminVoteRestControllerTest extends AbstractControllerTest {
     //GET /rest/admin/profiles                                                    get all user profiles
     @Test
     void getAll() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL+PROFILE_REST_URL)
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + PROFILE_REST_URL)
                 .with(userHttpBasic(UserTestData.admin1)))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -48,7 +47,7 @@ class AdminVoteRestControllerTest extends AbstractControllerTest {
     @Test
     void get() throws Exception {
 
-        ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.get(REST_URL+PROFILE_REST_URL + "/" + UserTestData.USER_ID2)
+        ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + PROFILE_REST_URL + "/" + UserTestData.USER_ID2)
                 .with(userHttpBasic(UserTestData.admin1)))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -62,7 +61,7 @@ class AdminVoteRestControllerTest extends AbstractControllerTest {
     //GET /rest/admin/profiles/in?email=user2@yandex.ru                                get profile by email
     @Test
     void getByMail() throws Exception {
-        ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.get(REST_URL +PROFILE_REST_URL+ "/in?email=" + UserTestData.admin2.getEmail())
+        ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + PROFILE_REST_URL + "/in?email=" + UserTestData.admin2.getEmail())
                 .with(userHttpBasic(UserTestData.admin1)))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -79,7 +78,7 @@ class AdminVoteRestControllerTest extends AbstractControllerTest {
         UserVote userVote = new UserVote(UserTestData.newUser);
         userVote.setId(null);
 
-        ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.post(REST_URL+PROFILE_REST_URL)
+        ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.post(REST_URL + PROFILE_REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(userVote))
                 .with(userHttpBasic(UserTestData.admin1)))
@@ -98,7 +97,7 @@ class AdminVoteRestControllerTest extends AbstractControllerTest {
     void delete() throws Exception {
         assertNotNull(service.get(UserTestData.USER_ID3));
 
-        mockMvc.perform(MockMvcRequestBuilders.delete(REST_URL +PROFILE_REST_URL+ "/" + UserTestData.USER_ID3)
+        mockMvc.perform(MockMvcRequestBuilders.delete(REST_URL + PROFILE_REST_URL + "/" + UserTestData.USER_ID3)
                 .with(userHttpBasic(UserTestData.admin1)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
@@ -112,7 +111,7 @@ class AdminVoteRestControllerTest extends AbstractControllerTest {
         UserVote userVote = new UserVote(UserTestData.user1);
         userVote.setName("Update NAME");
 
-        mockMvc.perform(MockMvcRequestBuilders.put(REST_URL +PROFILE_REST_URL+ "/" + UserTestData.USER_ID1)
+        mockMvc.perform(MockMvcRequestBuilders.put(REST_URL + PROFILE_REST_URL + "/" + UserTestData.USER_ID1)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(userVote))
                 .with(userHttpBasic(UserTestData.admin1)))

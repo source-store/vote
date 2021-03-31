@@ -4,15 +4,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.yakubov.vote.UserTestData;
 import ru.yakubov.vote.web.AbstractControllerTest;
-import ru.yakubov.vote.web.user.ProfileVoteRestController;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.yakubov.vote.TestUtil.userHttpBasic;
-import static ru.yakubov.vote.web.RestUrlPattern.RESULT_VOTE_REST_URL;
 
 
 /*
