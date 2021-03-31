@@ -11,15 +11,10 @@ import ru.yakubov.vote.util.VoteUtilsTo;
 
 import java.util.List;
 
-
-
 /*
  * GET /restaurant             get all restaurants
- * GET /restaurant/to          get all restaurantsTo
  * GET /restaurant/{id}        get restaurant
- * GET /restaurant/to/{id}     get restaurantTo
  * */
-
 
 @RestController
 @RequestMapping(value = RestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -29,16 +24,6 @@ public class RestaurantRestController extends AbstractRestaurantRestController {
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Restaurants get(@PathVariable int id) {
         return service.get(id);
-    }
-
-    @GetMapping(value = "/to/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public RestaurantTo getTo(@PathVariable int id) {
-        return VoteUtilsTo.createTo(service.get(id));
-    }
-
-    @GetMapping(value = "/to", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<RestaurantTo> getAllTo() {
-        return VoteUtilsTo.getRestaurantTos(service.getAll());
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

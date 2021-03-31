@@ -70,10 +70,10 @@ public class AdminMenuRestController extends AbstractMenuRestController {
     }
 
     //{ "id": 100000, "restaurant": { "id": 50006 },"date": [2021, 3, 18],"description": "m443enu11", "price": 50 }
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateMenu(@PathVariable int id, @Validated(View.Web.class) @RequestBody Menu menu) {
-        update(id, menu);
+        update(menu, id);
     }
 
     private void delete(int id) {
@@ -81,8 +81,8 @@ public class AdminMenuRestController extends AbstractMenuRestController {
         service.delete(id);
     }
 
-    private void update(int id, Menu menu) {
-        log.info("update menu id={} {}", id, menu);
+    private void update(Menu menu, int id) {
+        log.info("update {} with id={}", menu, id);
         assureIdConsistent(menu, id);
         service.create(menu);
     }

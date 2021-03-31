@@ -22,9 +22,9 @@ public class SpringMain {
             UserVote userVote = adminUserController.create(new UserVote(UserTestData.newUser));
             System.out.println();
 
-            RestaurantRestController restaurantController = appCtx.getBean(RestaurantRestController.class);
-            Restaurants restaurants = restaurantController.create(new Restaurants(RestaurantTestData.new_restaurant));
-            System.out.println();
+//            RestaurantRestController restaurantController = appCtx.getBean(RestaurantRestController.class);
+//            Restaurants restaurants = restaurantController.create(new Restaurants(RestaurantTestData.new_restaurant));
+//            System.out.println();
 
 //            AdminMenuRestController menuRestController = appCtx.getBean(AdminMenuRestController.class);
 //            Menu menu = new Menu(MenuTestData.NEW_MENU);
@@ -32,11 +32,11 @@ public class SpringMain {
 //            menuRestController.create(menu);
 //            System.out.println();
 
-            ProfileVoteRestController profileVoteRestController = appCtx.getBean(ProfileVoteRestController.class);
-            Votes votes = new Votes();
-            votes.setUserVote(userVote);
-            votes.setRestaurant(restaurants);
-            profileVoteRestController.createVote(userVote.getId(), restaurants.getId());
+//            ProfileVoteRestController profileVoteRestController = appCtx.getBean(ProfileVoteRestController.class);
+//            Votes votes = new Votes();
+//            votes.setUserVote(userVote);
+//            votes.setRestaurant(restaurants);
+//            profileVoteRestController.createVote(userVote.getId(), restaurants.getId());
 
         }
     }

@@ -104,7 +104,7 @@ class AdminRestaurantRestControllerTest extends AbstractControllerTest {
         Restaurants restaurants = new Restaurants(RestaurantTestData.restaurant4);
         restaurants.setName("Update NAME");
 
-        mockMvc.perform(MockMvcRequestBuilders.put(REST_URL)
+        mockMvc.perform(MockMvcRequestBuilders.put(REST_URL+"/"+RestaurantTestData.RESTAURANT_ID4)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(restaurants))
                 .with(userHttpBasic(UserTestData.admin1)))

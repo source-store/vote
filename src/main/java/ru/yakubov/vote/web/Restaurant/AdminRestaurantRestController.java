@@ -14,6 +14,9 @@ import ru.yakubov.vote.web.View;
 import java.net.URI;
 import java.util.List;
 
+import static ru.yakubov.vote.util.ValidationUtil.assureIdConsistent;
+import static ru.yakubov.vote.util.ValidationUtil.checkNew;
+
 /*
  * GET /admin/restaurants             get all restaurants
  * GET /admin/restaurants/{id}        get restaurant
@@ -39,7 +42,7 @@ public class AdminRestaurantRestController extends AbstractRestaurantRestControl
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurants> createWithLocations(@Validated(View.Web.class) @RequestBody Restaurants restaurant) {
-        Restaurants newRestaurant = super.create(restaurant);
+        Restaurants newRestaurant = create(restaurant);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath().path(REST_URL + "/{id}")
                 .buildAndExpand(newRestaurant.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(newRestaurant);
@@ -47,13 +50,31 @@ public class AdminRestaurantRestController extends AbstractRestaurantRestControl
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable int id) {
-        super.delete(id);
+    public void deleteRestaurant(@PathVariable int id) {
+        delete(id);
+    }
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@PathVariable int id, @Validated(View.Web.class) @RequestBody Restaurants restaurant) {
+        update(restaurant, id);
     }
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@Validated(View.Web.class) @RequestBody Restaurants restaurant) {
-        super.update(restaurant, restaurant.getId());
+    private Restaurants create(Restaurants restaurant) {
+        log.info("create {}", restaurant);
+        checkNew(restaurant);
+        return service.create(restaurant);
     }
+
+    private void delete(int id) {
+        log.info("delete {}", id);
+        service.delete(id);
+    }
+
+    private void update(Restaurants restaurant, int id) {
+        log.info("update {} with id={}", restaurant, id);
+        assureIdConsistent(restaurant, id);
+        service.update(restaurant);
+    }
+
+
 }
