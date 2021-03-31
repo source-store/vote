@@ -11,15 +11,13 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.yakubov.vote.RestaurantTestData;
 import ru.yakubov.vote.TestUtil;
 import ru.yakubov.vote.UserTestData;
-import ru.yakubov.vote.VoteTestData;
 import ru.yakubov.vote.model.UserVote;
 import ru.yakubov.vote.model.Votes;
-import ru.yakubov.vote.repository.datajpa.CrudVoteRepository;
+import ru.yakubov.vote.repository.VoteRepository;
 import ru.yakubov.vote.service.UserVoteService;
 import ru.yakubov.vote.service.VoteService;
 import ru.yakubov.vote.to.UserVoteTo;
 import ru.yakubov.vote.to.VoteTo;
-import ru.yakubov.vote.util.exception.NotFoundException;
 import ru.yakubov.vote.web.AbstractControllerTest;
 import ru.yakubov.vote.web.json.JsonUtil;
 
@@ -35,7 +33,9 @@ import static ru.yakubov.vote.TestUtil.userHttpBasic;
 import static ru.yakubov.vote.UserTestData.USER_MATCHER;
 import static ru.yakubov.vote.model.Votes.VOTE_DEADLINE;
 import static ru.yakubov.vote.util.VoteUtilsTo.createTo;
-import static ru.yakubov.vote.web.RestUrlPattern.RESULT_VOTE_REST_URL;
+import static ru.yakubov.vote.web.RestUrlPattern.*;
+import static ru.yakubov.vote.web.RestUrlPattern.VOTES_URL;
+import static ru.yakubov.vote.web.json.JsonUtil.writeValue;
 
 class ProfileVoteRestControllerTest extends AbstractControllerTest {
     private static final String REST_URL = ProfileVoteRestController.REST_URL;
@@ -49,7 +49,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
 
     @Autowired
     @Lazy
-    private CrudVoteRepository crudRepository;
+    VoteRepository voteRepository;
 
     @Autowired
     CacheManager cacheManager;
@@ -59,7 +59,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
         cacheManager.getCache("users").clear();
     }
 
-    //GET /rest/result                                         get result vote current date
+    //GET /rest/profiles/results                                         get result vote current date
     @Test
     void getResultCurdate() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + RESULT_VOTE_REST_URL)
@@ -79,7 +79,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON));
     }
 
-    //GET /rest/profile                                           get user profile by id
+    //GET /rest/profiles                                           get user profile by id
     @Test
     void get() throws Exception {
         ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.get(REST_URL)
@@ -92,7 +92,36 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
         USER_MATCHER.assertMatch(getUserVote, UserTestData.user2);
     }
 
-    //PUT /rest/profile                    update
+    //GET /rest/profiles/vote                                            get current user vote
+    @Test
+    void getCurrentVote() throws Exception {
+
+        Votes vote = new Votes(LocalDate.now());
+        vote.setRestaurant(RestaurantTestData.restaurant3);
+        vote.setUserVote(UserTestData.user1);
+
+        VoteTo create = voteService.create(vote);
+
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL+VOTE_URL)
+                .with(userHttpBasic(UserTestData.user1)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
+                .andExpect(content().json(writeValue(create)));
+
+    }
+
+    //GET /rest/profiles/votes/in?date1=2021-03-08&date2=2021-03-10     get user vote by date (period)
+    @Test
+    void getUserVoteByDate() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL+VOTES_URL+"/in?date1=2021-03-08&date2=2021-03-10")
+                .with(userHttpBasic(UserTestData.user1)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON));
+    }
+
+    //PUT /rest/profiles                    update
     @Test
     void update() throws Exception {
         UserVote userVote = new UserVote(UserTestData.user1);
@@ -108,18 +137,18 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
         assertEquals(service.get(UserTestData.USER_ID1).getName(), "Update NAME");
     }
 
-    //POST /rest/profile/{restaurantId}    vote
+    //POST /rest/profiles/{restaurantId}    vote
     @Test
     void createVoteWithLocation() throws Exception {
 
         if (LocalTime.now().isAfter(VOTE_DEADLINE)) {
-            ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.post(REST_URL + "/" + RestaurantTestData.RESTAURANT_ID4)
+            ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.post(REST_URL + VOTE_URL)
                     .contentType(APPLICATION_JSON)
                     .with(userHttpBasic(UserTestData.user1)))
                     .andDo(print())
                     .andExpect(status().isConflict());
         } else {
-            ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.post(REST_URL + "/" + RestaurantTestData.RESTAURANT_ID4)
+            ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.post(REST_URL + VOTE_URL + "?id="+RestaurantTestData.RESTAURANT_ID4)
                     .contentType(APPLICATION_JSON)
                     .with(userHttpBasic(UserTestData.user1)))
                     .andDo(print())
@@ -134,7 +163,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
 
     }
 
-    //POST /rest/profile/register                         register new user
+    //POST /rest/profiles/register                         register new user
     @Test
     void createRegisterWithLocation() throws Exception {
         UserVoteTo userVoteTo = new UserVoteTo("UserNew", "email@email.com", "password");
@@ -150,26 +179,5 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
 
         assertEquals(userVote.getName(), userVoteTo.getName());
         assertEquals(userVote.getEmail(), userVoteTo.getEmail());
-    }
-
-
-    //DELETE /rest/profile                 delete current user vote
-    @Test
-    void voteDelete() throws Exception {
-
-        Votes votes = new Votes(VoteTestData.VOTE1);
-        votes.setDate(LocalDate.now());
-        votes.setUserVote(UserTestData.user2);
-
-        Votes newVote = crudRepository.save(votes);
-
-        assertNotNull(voteService.get(newVote.getId()));
-
-        mockMvc.perform(MockMvcRequestBuilders.delete(REST_URL)
-                .with(userHttpBasic(UserTestData.user2)))
-                .andDo(print())
-                .andExpect(status().isNoContent());
-
-        assertThrows(NotFoundException.class, () -> voteService.get(newVote.getId()));
     }
 }

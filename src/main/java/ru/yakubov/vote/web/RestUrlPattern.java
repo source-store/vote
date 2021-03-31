@@ -13,6 +13,7 @@ public abstract class RestUrlPattern {
 
     public static final String RESULT_VOTE_REST_URL = "/results";
 
-    public static final String VOTE_URL = "/votes";
+    public static final String VOTES_URL = "/votes";
+    public static final String VOTE_URL = "/vote";
 
 }

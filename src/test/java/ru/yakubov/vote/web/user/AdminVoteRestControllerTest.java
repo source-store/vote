@@ -39,27 +39,7 @@ class AdminVoteRestControllerTest extends AbstractControllerTest {
         cacheManager.getCache("users").clear();
     }
 
-    //GET /rest/admin/result                                         get result vote current date
-    @Test
-    void getResultCurdate() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL+RESULT_VOTE_REST_URL)
-                .with(userHttpBasic(UserTestData.admin1)))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON));
-    }
-
-    //GET /rest/admin/result/in?date1=YYYY-MM-DD&date2=YYYY-MM-DD    get result vote by period
-    @Test
-    void getResultDatePeriod() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL+RESULT_VOTE_REST_URL+"/in?date1=2021-03-08&date2=2021-03-11")
-                .with(userHttpBasic(UserTestData.admin1)))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON));
-    }
-
-    //GET /rest/admin/profile                                                    get all user profiles
+    //GET /rest/admin/profiles                                                    get all user profiles
     @Test
     void getAll() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(REST_URL+PROFILE_REST_URL)
@@ -69,7 +49,7 @@ class AdminVoteRestControllerTest extends AbstractControllerTest {
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON));
     }
 
-    //GET /rest/admin/profile/{userId}                                           get user profile by id
+    //GET /rest/admin/profiles/{userId}                                           get user profile by id
     @Test
     void get() throws Exception {
 
@@ -81,6 +61,20 @@ class AdminVoteRestControllerTest extends AbstractControllerTest {
 
         UserVote created = TestUtil.readFromJsonResultActions(actions, UserVote.class);
         USER_MATCHER.assertMatch(created, UserTestData.user2);
+
+    }
+
+    //GET /rest/admin/profiles/in?email=user2@yandex.ru                                get profile by email
+    @Test
+    void getByMail() throws Exception {
+        ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.get(REST_URL +PROFILE_REST_URL+ "/in?email=" + UserTestData.admin2.getEmail())
+                .with(userHttpBasic(UserTestData.admin1)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON));
+
+        UserVote getUserVote = TestUtil.readFromJsonResultActions(actions, UserVote.class);
+        USER_MATCHER.assertMatch(getUserVote, UserTestData.admin2);
 
     }
 
@@ -104,7 +98,7 @@ class AdminVoteRestControllerTest extends AbstractControllerTest {
         USER_MATCHER.assertMatch(service.get(id), userVote);
     }
 
-    //DELETE /rest/admin/profile/{userId}                                        delete user
+    //DELETE /rest/admin/profiles/{userId}                                        delete user
     @Test
     void delete() throws Exception {
         assertNotNull(service.get(UserTestData.USER_ID3));
@@ -117,7 +111,7 @@ class AdminVoteRestControllerTest extends AbstractControllerTest {
         assertThrows(NotFoundException.class, () -> service.get(UserTestData.USER_ID3));
     }
 
-    //PUT /rest/admin/profile/{userId}                                           update user
+    //PUT /rest/admin/profiles/{userId}                                           update user
     @Test
     void update() throws Exception {
         UserVote userVote = new UserVote(UserTestData.user1);
@@ -133,27 +127,4 @@ class AdminVoteRestControllerTest extends AbstractControllerTest {
         assertEquals(service.get(UserTestData.USER_ID1).getName(), "Update NAME");
     }
 
-    //GET /rest/admin/profiles/in?email=user2@yandex.ru                                get profile by email
-    @Test
-    void getByMail() throws Exception {
-        ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.get(REST_URL +PROFILE_REST_URL+ "/in?email=" + UserTestData.admin2.getEmail())
-                                .with(userHttpBasic(UserTestData.admin1)))
-                                .andExpect(status().isOk())
-                                .andDo(print())
-                                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON));
-
-        UserVote getUserVote = TestUtil.readFromJsonResultActions(actions, UserVote.class);
-        USER_MATCHER.assertMatch(getUserVote, UserTestData.admin2);
-
-    }
-
-    //GET /rest/admin/profiles/{userId}}/vote/in?date1=2021-03-08&date2=2021-03-10     get user vote by date (period)
-    @Test
-    void getUserVoteByDate() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL+PROFILE_REST_URL+"/"+UserTestData.USER_ID2+VOTE_URL+"/in?date1=2021-03-08&date2=2021-03-10")
-                .with(userHttpBasic(UserTestData.admin1)))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON));
-    }
 }

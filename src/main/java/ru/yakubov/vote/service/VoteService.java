@@ -100,17 +100,18 @@ public class VoteService {
 
     public VoteTo vote(int userId, int restaurantId) {
         Votes vote = getByUserOneDate(userId, LocalDate.now());
-        Restaurants restaurants = restaurantRepository.get(restaurantId);
-        if (LocalTime.now().isAfter(VOTE_DEADLINE)) {
-            throw new FailVoteException("Too late change vote");
-        }
         if (vote == null) {
             UserVote user = userRepository.get(userId);
             Votes newVote = new Votes(LocalDate.now());
             newVote.setUserVote(user);
+            Restaurants restaurants = restaurantRepository.get(restaurantId);
             newVote.setRestaurant(restaurants);
             return create(newVote);
         } else {
+            if (LocalTime.now().isAfter(VOTE_DEADLINE)) {
+                throw new FailVoteException("Too late change vote");
+            }
+            Restaurants restaurants = restaurantRepository.get(restaurantId);
             vote.setRestaurant(restaurants);
             return create(vote);
         }

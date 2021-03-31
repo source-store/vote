@@ -91,6 +91,12 @@ public abstract class AbstractUserVoteController extends RestUrlPattern {
         return voteService.getByUserDate(id, beginDate, endDate);
     }
 
+    public VoteTo getCurrentVote(int id) {
+        log.info("getCurrentVote userId {} Date {}", id, LocalDate.now());
+        return VoteUtilsTo.createTo(voteService.getByUserOneDate(id, LocalDate.now()));
+    }
+
+
     public List<VoteResult> getResultDatePeriod(LocalDate beginDate, LocalDate endDate) {
         log.info("getResultDatePeriod beginDate {}  endDate {}", beginDate, endDate);
         return voteService.getResultDate(beginDate, endDate);

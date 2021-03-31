@@ -1,6 +1,7 @@
 package ru.yakubov.vote;
 
 import ru.yakubov.vote.model.Votes;
+import ru.yakubov.vote.to.VoteTo;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -8,7 +9,8 @@ import java.util.List;
 import static ru.yakubov.vote.MenuTestData.MENU_END_SEQ;
 
 public class VoteTestData {
-    public static TestMatcher<Votes> VOTE_MATCHER = TestMatcher.usingIgnoringFieldsComparator("date", "restaurant", "userVote");
+    public static TestMatcher<VoteTo> VOTE_TO_MATCHER = TestMatcher.usingIgnoringFieldsComparator();
+    public static TestMatcher<Votes> VOTE_MATCHER = TestMatcher.usingIgnoringFieldsComparator("date", "restaurant");
 
     public static final int VOTE_TEST_SEQ = MENU_END_SEQ;
 
