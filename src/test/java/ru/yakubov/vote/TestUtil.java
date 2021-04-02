@@ -5,7 +5,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import ru.yakubov.vote.model.UserVote;
-import ru.yakubov.vote.web.json.JsonUtil;
+import ru.yakubov.vote.controller.json.JsonUtil;
 
 import java.io.UnsupportedEncodingException;
 

@@ -12,7 +12,7 @@ import ru.yakubov.vote.repository.VoteResultRepository;
 import ru.yakubov.vote.to.VoteTo;
 import ru.yakubov.vote.util.VoteUtilsTo;
 import ru.yakubov.vote.util.exception.FailVoteException;
-import ru.yakubov.vote.web.SecurityUtil;
+import ru.yakubov.vote.controller.SecurityUtil;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

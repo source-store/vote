@@ -9,7 +9,7 @@
        http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <bean class="ru.yakubov.vote.web.json.JacksonObjectMapper" id="objectMapper" factory-method="getMapper"/>
+    <bean class="ru.yakubov.vote.controller.json.JacksonObjectMapper" id="objectMapper" factory-method="getMapper"/>
 
     <security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"/>
 
@@ -32,7 +32,7 @@
         </mvc:argument-resolvers>
     </mvc:annotation-driven>
 
-    <context:component-scan base-package="ru.yakubov.**.web"/>
+    <context:component-scan base-package="ru.yakubov.**.controller"/>
     <mvc:default-servlet-handler/>
 
 </beans>
