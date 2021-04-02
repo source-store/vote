@@ -35,16 +35,6 @@ public class DataJpaVoteRepository implements VoteRepository {
     }
 
     @Override
-    public List<Votes> getByRestaurant(int id) {
-        return crudRepository.getByRestaurant(id);
-    }
-
-    @Override
-    public List<Votes> getByRestaurantDate(int id, LocalDate beginDate, LocalDate endDate) {
-        return crudRepository.getByRestaurantDate(id, beginDate, endDate);
-    }
-
-    @Override
     public List<Votes> getByUserDate(int id, LocalDate beginDate, LocalDate endDate) {
         return crudRepository.getByUserDate(id, beginDate, endDate);
     }
@@ -52,16 +42,5 @@ public class DataJpaVoteRepository implements VoteRepository {
     @Override
     public Votes getByUserOneDate(int id, LocalDate date) {
         return crudRepository.getByUserDate(id, date, date).stream().findFirst().orElse(null);
-    }
-
-
-    @Override
-    public List<Votes> getByUser(int id) {
-        return crudRepository.getByUser(id);
-    }
-
-    @Override
-    public List<Votes> getByDate(LocalDate beginDate, LocalDate endDate) {
-        return crudRepository.getByDate(beginDate, endDate);
     }
 }

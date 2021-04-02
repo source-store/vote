@@ -146,6 +146,10 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
                     .andExpect(status().isConflict());
 
         } else {
+
+            Votes getService = voteService.getByUserOneDate(UserTestData.USER_ID1, LocalDate.now());
+            assertEquals(createService.getRestaurantId(), getService.getRestaurant().getId());
+
             ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.put(REST_URL + VOTE_URL + "?id=" + RestaurantTestData.RESTAURANT_ID4)
                     .contentType(APPLICATION_JSON)
                     .with(userHttpBasic(UserTestData.user1)))
@@ -155,9 +159,8 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
             VoteTo createRest = TestUtil.readFromJsonResultActions(actions, VoteTo.class);
 
             assertEquals(createService.getUserId(), createRest.getUserId());
-            assertEquals(createService.getRestaurantId(), createRest.getRestaurantId());
+            assertEquals(RestaurantTestData.RESTAURANT_ID4, createRest.getRestaurantId());
         }
-
 
     }
 

@@ -56,9 +56,10 @@ public class MenuRestControllerTest extends AbstractControllerTest {
         menu1.setRestaurant(RestaurantTestData.restaurant4);
         menu2.setRestaurant(RestaurantTestData.restaurant4);
 
-        service.create(menu1);
-        service.create(menu2);
+        menu1 = new Menu(service.create(menu1));
+        menu2 = new Menu(service.create(menu2));
 
+        System.out.println(List.of(menu1, menu2));
         mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/today")
                 .with(userHttpBasic(UserTestData.user1)))
                 .andExpect(status().isOk())

@@ -51,11 +51,6 @@ public class DataJpaMenuRepository implements MenuVoteRepository {
     }
 
     @Override
-    public Integer getIdRestaurant(int id) {
-        return crudMenuRepository.getOne(id).getRestaurant().getId();
-    }
-
-    @Override
     public List<Menu> GetAllByDate(LocalDate beginDate, LocalDate endDate) {
         return crudMenuRepository.GetAllByDate(beginDate, endDate);
     }

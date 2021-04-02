@@ -20,9 +20,6 @@ public interface CrudMenuRepository extends JpaRepository<Menu, Integer> {
     @Query("SELECT u FROM Menu u WHERE u.restaurant.id=:id ORDER BY u.date, u.description")
     List<Menu> getAllByRestaurantId(@Param("id") int id);
 
-    @Query("SELECT m FROM Menu m WHERE m.id=:id")
-    Menu getOne(@Param("id") int id);
-
     @Override
     @Query("SELECT u FROM Menu u JOIN FETCH u.restaurant ORDER BY u.date, u.restaurant.name, u.description")
     List<Menu> findAll();

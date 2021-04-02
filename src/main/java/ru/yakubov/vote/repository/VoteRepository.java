@@ -15,17 +15,7 @@ public interface VoteRepository {
     // null if not found
     Votes get(int id);
 
-    List<Votes> getByRestaurant(int id);
-
-    List<Votes> getByRestaurantDate(int id, LocalDate beginDate, LocalDate endDate);
-
     List<Votes> getByUserDate(int id, LocalDate beginDate, LocalDate endDate);
 
     Votes getByUserOneDate(int id, LocalDate date);
-
-    List<Votes> getByUser(int id);
-
-    List<Votes> getByDate(LocalDate beginDate, LocalDate endDate);
-
-
 }
