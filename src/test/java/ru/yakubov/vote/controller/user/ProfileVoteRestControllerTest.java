@@ -10,7 +10,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.yakubov.vote.RestaurantTestData;
 import ru.yakubov.vote.TestUtil;
 import ru.yakubov.vote.UserTestData;
-import ru.yakubov.vote.controller.user.ProfileVoteRestController;
+import ru.yakubov.vote.controller.AbstractControllerTest;
+import ru.yakubov.vote.controller.json.JsonUtil;
 import ru.yakubov.vote.model.UserVote;
 import ru.yakubov.vote.model.Votes;
 import ru.yakubov.vote.repository.VoteRepository;
@@ -18,8 +19,6 @@ import ru.yakubov.vote.service.UserVoteService;
 import ru.yakubov.vote.service.VoteService;
 import ru.yakubov.vote.to.UserVoteTo;
 import ru.yakubov.vote.to.VoteTo;
-import ru.yakubov.vote.controller.AbstractControllerTest;
-import ru.yakubov.vote.controller.json.JsonUtil;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -31,11 +30,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.yakubov.vote.TestUtil.userHttpBasic;
 import static ru.yakubov.vote.UserTestData.USER_MATCHER;
-import static ru.yakubov.vote.service.VoteService.VOTE_DEADLINE;
-import static ru.yakubov.vote.util.VoteUtilsTo.createTo;
 import static ru.yakubov.vote.controller.RestUrlPattern.VOTES_URL;
 import static ru.yakubov.vote.controller.RestUrlPattern.VOTE_URL;
 import static ru.yakubov.vote.controller.json.JsonUtil.writeValue;
+import static ru.yakubov.vote.service.VoteService.VOTE_DEADLINE;
+import static ru.yakubov.vote.util.VoteUtilsTo.createTo;
 
 class ProfileVoteRestControllerTest extends AbstractControllerTest {
     private static final String REST_URL = ProfileVoteRestController.REST_URL;
@@ -54,7 +53,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
     @Autowired
     CacheManager cacheManager;
 
-    //GET /rest/profiles                                           get user profile by id
+    //GET /rest/profile                                           get user profile by id
     @Test
     void get() throws Exception {
         ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.get(REST_URL)
@@ -67,7 +66,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
         USER_MATCHER.assertMatch(getUserVote, UserTestData.user2);
     }
 
-    //GET /rest/profiles/vote                                            get current user vote
+    //GET /rest/profile/vote                                            get current user vote
     @Test
     void getCurrentVote() throws Exception {
 
@@ -86,7 +85,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
 
     }
 
-    //GET /rest/profiles/votes/in?date1=2021-03-08&date2=2021-03-10     get user vote by date (period)
+    //GET /rest/profile/votes/in?date1=2021-03-08&date2=2021-03-10     get user vote by date (period)
     @Test
     void getUserVoteByDate() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + VOTES_URL + "/in?date1=2021-03-08&date2=2021-03-10")
@@ -96,7 +95,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON));
     }
 
-    //PUT /rest/profiles                    update
+    //PUT /rest/profile                    update
     @Test
     void update() throws Exception {
         UserVote userVote = new UserVote(UserTestData.user1);
@@ -112,7 +111,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
         assertEquals(service.get(UserTestData.USER_ID1).getName(), "Update NAME");
     }
 
-    //POST /rest/profiles/{restaurantId}    vote
+    //POST /rest/profile/{restaurantId}    vote
     @Test
     void createVoteWithLocation() throws Exception {
 
@@ -130,7 +129,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
         assertEquals(getVotes.getRestaurant().getId(), RestaurantTestData.RESTAURANT_ID4);
     }
 
-    //POST /rest/profiles/{restaurantId}    vote
+    //POST /rest/profile/{restaurantId}    vote
     @Test
     void updateVoteWithLocation() throws Exception {
 
@@ -166,7 +165,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
     }
 
 
-    //POST /rest/profiles/register                         register new user
+    //POST /rest/profile/register                         register new user
     @Test
     void createRegisterWithLocation() throws Exception {
         UserVoteTo userVoteTo = new UserVoteTo("UserNew", "email@email.com", "password");

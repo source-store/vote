@@ -6,16 +6,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ru.yakubov.vote.model.UserVote;
 import ru.yakubov.vote.controller.SecurityUtil;
 import ru.yakubov.vote.controller.View;
+import ru.yakubov.vote.model.UserVote;
 
 import java.net.URI;
 import java.util.List;
 
+import static ru.yakubov.vote.controller.RestUrlPattern.*;
 import static ru.yakubov.vote.util.ValidationUtil.assureIdConsistent;
 import static ru.yakubov.vote.util.ValidationUtil.checkNew;
-import static ru.yakubov.vote.controller.RestUrlPattern.*;
 
 
 /**
@@ -36,7 +36,7 @@ public class AdminVoteRestController extends AbstractUserVoteController {
 
     // /rest/admin/profiles                                                   get all user profiles
     @Override
-    @GetMapping(PROFILE_REST_URL)//тоже самое @RequestMapping(method = RequestMethod.GET)
+    @GetMapping(PROFILES_REST_URL)//тоже самое @RequestMapping(method = RequestMethod.GET)
     public List<UserVote> getAll() {
         SecurityUtil.safeGet();
         return super.getAll();
@@ -44,39 +44,39 @@ public class AdminVoteRestController extends AbstractUserVoteController {
 
     // /rest/admin/profiles/{id}                                              get user profile by id
     @Override
-    @GetMapping(PROFILE_REST_URL + "/{id}")
+    @GetMapping(PROFILES_REST_URL + "/{id}")
     //в @PathVariable("id") "id" можно нее указывать, но пока делаю так.
     public UserVote get(@PathVariable("id") int id) {
         return super.get(id);
     }
 
     // /rest/profiles/in?email=user2@yandex.ru                                get profile by email
-    @GetMapping(PROFILE_REST_URL + "/in")
+    @GetMapping(PROFILES_REST_URL + "/in")
     public UserVote getProfileByMail(@RequestParam("email") String email) {
         return getByMail(email);
     }
 
     // /rest/admin/profiles                                                  create new user from UserVote
-    @PostMapping(value = PROFILE_REST_URL, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = PROFILES_REST_URL, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
     public ResponseEntity<UserVote> createWithLocation(@Validated(View.Web.class) @RequestBody UserVote userVote) {
         UserVote userVoteCreate = create(userVote);
 
         URI uriOfNewUserVote = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL + PROFILE_REST_URL + "/{id}").buildAndExpand(userVoteCreate.getId()).toUri();
+                .path(REST_URL + PROFILES_REST_URL + "/{id}").buildAndExpand(userVoteCreate.getId()).toUri();
 
         return ResponseEntity.created(uriOfNewUserVote).body(userVoteCreate);
     }
 
     // /rest/admin/profiles/{userId}                                       delete user
-    @DeleteMapping(PROFILE_REST_URL + "/{id}")
+    @DeleteMapping(PROFILES_REST_URL + "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProfile(@PathVariable int id) {
         delete(id);
     }
 
     // /rest/admin/profiles/{userId}                                          update user
-    @PutMapping(value = PROFILE_REST_URL + "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = PROFILES_REST_URL + "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateProfile(@Validated(View.Web.class) @RequestBody UserVote userVote,
                               @PathVariable("id") int id) {

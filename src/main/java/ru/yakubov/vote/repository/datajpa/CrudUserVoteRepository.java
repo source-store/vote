@@ -19,10 +19,7 @@ public interface CrudUserVoteRepository extends JpaRepository<UserVote, Integer>
 
     UserVote getByEmail(String email);
 
-
     @EntityGraph(attributePaths = {"roles"})
     @Query("SELECT u FROM UserVote u ORDER BY u.name")
     List<UserVote> getByRoles();
-
-
 }

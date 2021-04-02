@@ -3,6 +3,7 @@ package ru.yakubov.vote.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import ru.yakubov.vote.controller.SecurityUtil;
 import ru.yakubov.vote.model.Restaurants;
 import ru.yakubov.vote.model.VoteResult;
 import ru.yakubov.vote.model.Votes;
@@ -12,7 +13,6 @@ import ru.yakubov.vote.repository.VoteResultRepository;
 import ru.yakubov.vote.to.VoteTo;
 import ru.yakubov.vote.util.VoteUtilsTo;
 import ru.yakubov.vote.util.exception.FailVoteException;
-import ru.yakubov.vote.controller.SecurityUtil;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

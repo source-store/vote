@@ -9,9 +9,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.yakubov.vote.controller.RestUrlPattern;
+import ru.yakubov.vote.controller.View;
 import ru.yakubov.vote.model.Menu;
 import ru.yakubov.vote.service.MenuService;
-import ru.yakubov.vote.controller.View;
 
 import java.net.URI;
 import java.time.LocalDate;

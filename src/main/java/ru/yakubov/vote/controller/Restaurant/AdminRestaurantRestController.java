@@ -7,8 +7,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.yakubov.vote.controller.RestUrlPattern;
-import ru.yakubov.vote.model.Restaurants;
 import ru.yakubov.vote.controller.View;
+import ru.yakubov.vote.model.Restaurants;
 
 import java.net.URI;
 import java.util.List;

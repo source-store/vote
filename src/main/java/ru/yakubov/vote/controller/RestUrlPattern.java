@@ -9,11 +9,11 @@ public abstract class RestUrlPattern {
 
     public static final String MENU_REST_URL = "/menus";
 
-    public static final String PROFILE_REST_URL = "/profiles";
+    public static final String PROFILES_REST_URL = "/profiles";
 
-    public static final String RESULT_VOTE_REST_URL = "/results";
+    public static final String PROFILE_REST_URL = "/profile";
 
     public static final String VOTES_URL = "/votes";
-    public static final String VOTE_URL = "/vote";
 
+    public static final String VOTE_URL = "/vote";
 }

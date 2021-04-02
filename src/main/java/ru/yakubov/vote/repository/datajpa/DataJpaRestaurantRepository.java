@@ -17,7 +17,6 @@ public class DataJpaRestaurantRepository implements RestaurantRepository {
         this.crudRestaurantRepository = crudRestaurantRepository;
     }
 
-
     @Override
     public Restaurants save(Restaurants restaurants) {
         return crudRestaurantRepository.save(restaurants);

@@ -6,9 +6,9 @@ import org.springframework.cache.CacheManager;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.yakubov.vote.RestaurantTestData;
 import ru.yakubov.vote.UserTestData;
-import ru.yakubov.vote.service.RestaurantService;
 import ru.yakubov.vote.controller.AbstractControllerTest;
 import ru.yakubov.vote.controller.Restaurant.RestaurantRestController;
+import ru.yakubov.vote.service.RestaurantService;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

@@ -8,9 +8,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.yakubov.vote.MenuTestData;
 import ru.yakubov.vote.RestaurantTestData;
 import ru.yakubov.vote.UserTestData;
+import ru.yakubov.vote.controller.AbstractControllerTest;
 import ru.yakubov.vote.model.Menu;
 import ru.yakubov.vote.service.MenuService;
-import ru.yakubov.vote.controller.AbstractControllerTest;
 
 import java.time.LocalDate;
 import java.util.List;

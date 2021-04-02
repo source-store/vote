@@ -13,10 +13,10 @@ import java.util.List;
 public interface CrudRestaurantRepository extends JpaRepository<Restaurants, Integer> {
 
     @Modifying
-    @Query("DELETE FROM Restaurants m WHERE m.id=:id")
+    @Query("DELETE FROM Restaurants r WHERE r.id=:id")
     int delete(@Param("id") int id);
 
-    @Query("SELECT m FROM Restaurants m ORDER BY m.name DESC")
+    @Query("SELECT r FROM Restaurants r ORDER BY r.name DESC")
     List<Restaurants> findAll();
 
 }

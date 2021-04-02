@@ -12,7 +12,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface CrudVoteResultRepository extends JpaRepository<VoteResult, Integer> {
 
-    @Query("SELECT u FROM VoteResult u WHERE u.date between :beginDate and :endDate")
+    @Query("SELECT v FROM VoteResult v WHERE v.date between :beginDate and :endDate")
     List<VoteResult> getResultDate(@Param("beginDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
 }
