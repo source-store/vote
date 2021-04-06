@@ -12,10 +12,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static ru.yakubov.vote.UserTestData.USER_MATCHER;
 
 @ActiveProfiles("datajpa")
-public class UserVoteServiceTest extends AbstractTest {
+public class UserServiceTest extends AbstractTest {
 
     @Autowired
-    protected UserVoteService service;
+    protected UserService service;
 
     @Test
     public void getAll() {

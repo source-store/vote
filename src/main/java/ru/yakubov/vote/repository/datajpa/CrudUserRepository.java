@@ -11,7 +11,7 @@ import ru.yakubov.vote.model.UserVote;
 import java.util.List;
 
 @Transactional(readOnly = true)
-public interface CrudUserVoteRepository extends JpaRepository<UserVote, Integer> {
+public interface CrudUserRepository extends JpaRepository<UserVote, Integer> {
 
     @Modifying
     @Query("DELETE FROM UserVote u WHERE u.id=:id")

@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.yakubov.vote.model.UserVote;
 import ru.yakubov.vote.model.Votes;
-import ru.yakubov.vote.service.UserVoteService;
+import ru.yakubov.vote.service.UserService;
 import ru.yakubov.vote.service.VoteService;
 import ru.yakubov.vote.to.UserVoteTo;
 import ru.yakubov.vote.to.VoteTo;
@@ -24,7 +24,7 @@ public abstract class AbstractUserVoteController {
     protected VoteService voteService;
 
     @Autowired
-    protected UserVoteService service;
+    protected UserService service;
 
     protected List<UserVote> getAll() {
         log.info("getAll");

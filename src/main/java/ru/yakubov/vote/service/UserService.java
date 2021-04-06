@@ -12,7 +12,7 @@ import org.springframework.util.Assert;
 import ru.yakubov.vote.AuthorizedUser;
 import ru.yakubov.vote.model.Role;
 import ru.yakubov.vote.model.UserVote;
-import ru.yakubov.vote.repository.UserVoteRepository;
+import ru.yakubov.vote.repository.datajpa.DataJpaUserRepository;
 
 import java.util.List;
 
@@ -20,15 +20,15 @@ import static ru.yakubov.vote.util.UserUtil.prepareToSave;
 import static ru.yakubov.vote.util.ValidationUtil.checkNotFound;
 import static ru.yakubov.vote.util.ValidationUtil.checkNotFoundWithId;
 
-@Service("userVoteService")
+@Service("userService")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 @Transactional(readOnly = true)
-public class UserVoteService implements UserDetailsService {
+public class UserService implements UserDetailsService {
 
-    private final UserVoteRepository repository;
+    private final DataJpaUserRepository repository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserVoteService(UserVoteRepository repository, PasswordEncoder passwordEncoder) {
+    public UserService(DataJpaUserRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
     }

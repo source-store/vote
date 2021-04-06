@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.yakubov.vote.model.Role;
 import ru.yakubov.vote.model.UserVote;
-import ru.yakubov.vote.repository.UserVoteRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,38 +13,32 @@ import java.util.stream.Collectors;
 
 @Repository
 @Transactional(readOnly = true)
-public class DataJpaUserVoteRepository implements UserVoteRepository {
+public class DataJpaUserRepository {
     private static final Sort SORT_NAME_EMAIL = Sort.by(Sort.Direction.ASC, "name", "email");
 
     @Autowired
-    private CrudUserVoteRepository crudRepository;
+    private CrudUserRepository crudRepository;
 
-    @Override
     public UserVote save(UserVote userVote) {
         return crudRepository.save(userVote);
     }
 
-    @Override
     public boolean delete(int id) {
         return crudRepository.delete(id) != 0;
     }
 
-    @Override
     public UserVote get(int id) {
         return crudRepository.findById(id).orElse(null);
     }
 
-    @Override
     public UserVote getByEmail(String email) {
         return crudRepository.getByEmail(email);
     }
 
-    @Override
     public List<UserVote> getAll() {
         return crudRepository.findAll(SORT_NAME_EMAIL);
     }
 
-    @Override
     public List<UserVote> getByRoles(Role role) {
         return crudRepository.getByRoles().stream().filter(u -> u.getRoles().contains(role)).collect(Collectors.toList());
     }

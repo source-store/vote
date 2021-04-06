@@ -7,9 +7,9 @@ import ru.yakubov.vote.controller.SecurityUtil;
 import ru.yakubov.vote.model.Restaurants;
 import ru.yakubov.vote.model.VoteResult;
 import ru.yakubov.vote.model.Votes;
-import ru.yakubov.vote.repository.RestaurantRepository;
-import ru.yakubov.vote.repository.VoteRepository;
-import ru.yakubov.vote.repository.VoteResultRepository;
+import ru.yakubov.vote.repository.datajpa.DataJpaRestaurantRepository;
+import ru.yakubov.vote.repository.datajpa.DataJpaVoteRepository;
+import ru.yakubov.vote.repository.datajpa.DataJpaVoteResultRepository;
 import ru.yakubov.vote.to.VoteTo;
 import ru.yakubov.vote.util.VoteUtilsTo;
 import ru.yakubov.vote.util.exception.FailVoteException;
@@ -25,13 +25,13 @@ import static ru.yakubov.vote.util.ValidationUtil.checkNotFoundWithId;
 public class VoteService {
     public static final LocalTime VOTE_DEADLINE = LocalTime.of(11, 0);
 
-    private final VoteRepository repository;
-    private final RestaurantRepository restaurantRepository;
-    private final VoteResultRepository voteResultRepository;
+    private final DataJpaVoteRepository repository;
+    private final DataJpaRestaurantRepository restaurantRepository;
+    private final DataJpaVoteResultRepository voteResultRepository;
 
-    public VoteService(VoteRepository repository,
-                       RestaurantRepository restaurantRepository,
-                       VoteResultRepository voteResultRepository) {
+    public VoteService(DataJpaVoteRepository repository,
+                       DataJpaRestaurantRepository restaurantRepository,
+                       DataJpaVoteResultRepository voteResultRepository) {
         this.repository = repository;
         this.restaurantRepository = restaurantRepository;
         this.voteResultRepository = voteResultRepository;

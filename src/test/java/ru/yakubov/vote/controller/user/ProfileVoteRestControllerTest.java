@@ -14,8 +14,8 @@ import ru.yakubov.vote.controller.AbstractControllerTest;
 import ru.yakubov.vote.controller.json.JsonUtil;
 import ru.yakubov.vote.model.UserVote;
 import ru.yakubov.vote.model.Votes;
-import ru.yakubov.vote.repository.VoteRepository;
-import ru.yakubov.vote.service.UserVoteService;
+import ru.yakubov.vote.repository.datajpa.DataJpaVoteRepository;
+import ru.yakubov.vote.service.UserService;
 import ru.yakubov.vote.service.VoteService;
 import ru.yakubov.vote.to.UserVoteTo;
 import ru.yakubov.vote.to.VoteTo;
@@ -40,7 +40,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
     private static final String REST_URL = ProfileVoteRestController.REST_URL;
 
     @Autowired
-    UserVoteService service;
+    UserService service;
 
     @Autowired
     @Lazy
@@ -48,7 +48,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
 
     @Autowired
     @Lazy
-    VoteRepository voteRepository;
+    DataJpaVoteRepository voteRepository;
 
     @Autowired
     CacheManager cacheManager;

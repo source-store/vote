@@ -4,19 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.yakubov.vote.model.Votes;
-import ru.yakubov.vote.repository.VoteRepository;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Repository
 @Transactional(readOnly = true)
-public class DataJpaVoteRepository implements VoteRepository {
+public class DataJpaVoteRepository {
 
     @Autowired
     private CrudVoteRepository crudRepository;
 
-    @Override
     public Votes save(Votes vote) {
         if (!vote.isNew() && get(vote.getId()) == null) {
             return null;
@@ -24,22 +22,18 @@ public class DataJpaVoteRepository implements VoteRepository {
         return crudRepository.save(vote);
     }
 
-    @Override
     public boolean delete(int id) {
         return crudRepository.delete(id) != 0;
     }
 
-    @Override
     public Votes get(int id) {
         return crudRepository.findById(id).orElse(null);
     }
 
-    @Override
     public List<Votes> getByUserDate(int id, LocalDate beginDate, LocalDate endDate) {
         return crudRepository.getByUserDate(id, beginDate, endDate);
     }
 
-    @Override
     public Votes getByUserOneDate(int id, LocalDate date) {
         return crudRepository.getByUserDate(id, date, date).stream().findFirst().orElse(null);
     }

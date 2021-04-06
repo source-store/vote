@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.yakubov.vote.model.Restaurants;
-import ru.yakubov.vote.repository.RestaurantRepository;
+import ru.yakubov.vote.repository.datajpa.DataJpaRestaurantRepository;
 
 import java.util.List;
 
@@ -15,9 +15,9 @@ import static ru.yakubov.vote.util.ValidationUtil.checkNotFoundWithId;
 @Transactional(readOnly = true)
 public class RestaurantService {
 
-    private final RestaurantRepository repository;
+    private final DataJpaRestaurantRepository repository;
 
-    public RestaurantService(RestaurantRepository repository) {
+    public RestaurantService(DataJpaRestaurantRepository repository) {
         this.repository = repository;
     }
 

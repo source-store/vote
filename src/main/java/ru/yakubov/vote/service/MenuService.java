@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.yakubov.vote.model.Menu;
-import ru.yakubov.vote.repository.MenuVoteRepository;
+import ru.yakubov.vote.repository.datajpa.DataJpaMenuRepository;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,9 +16,9 @@ import static ru.yakubov.vote.util.ValidationUtil.checkNotFoundWithId;
 @Transactional(readOnly = true)
 public class MenuService {
 
-    private final MenuVoteRepository repository;
+    private final DataJpaMenuRepository repository;
 
-    public MenuService(MenuVoteRepository repository) {
+    public MenuService(DataJpaMenuRepository repository) {
         this.repository = repository;
     }
 

@@ -21,7 +21,7 @@
                 factory-method="createDelegatingPasswordEncoder"/>
 
     <authentication-manager>
-        <authentication-provider user-service-ref="userVoteService">
+        <authentication-provider user-service-ref="userService">
             <password-encoder ref="passwordEncoder"/>
         </authentication-provider>
     </authentication-manager>

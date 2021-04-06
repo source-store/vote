@@ -11,7 +11,7 @@ import ru.yakubov.vote.UserTestData;
 import ru.yakubov.vote.controller.AbstractControllerTest;
 import ru.yakubov.vote.controller.json.JsonUtil;
 import ru.yakubov.vote.model.UserVote;
-import ru.yakubov.vote.service.UserVoteService;
+import ru.yakubov.vote.service.UserService;
 import ru.yakubov.vote.util.exception.NotFoundException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,7 +28,7 @@ class AdminVoteRestControllerTest extends AbstractControllerTest {
     private static final String REST_URL = AdminVoteRestController.REST_URL;
 
     @Autowired
-    UserVoteService service;
+    UserService service;
 
     @Autowired
     CacheManager cacheManager;
