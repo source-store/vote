@@ -31,8 +31,8 @@ import static ru.yakubov.vote.controller.SecurityUtil.authUserId;
  **/
 
 @RestController
-@RequestMapping(value = ProfileVoteRestController.REST_URL)
-public class ProfileVoteRestController extends AbstractUserVoteController {
+@RequestMapping(value = ProfileRestController.REST_URL)
+public class ProfileRestController extends AbstractUserController {
 
     public static final String REST_URL = ROOT_REST_URL + PROFILE_REST_URL;
 

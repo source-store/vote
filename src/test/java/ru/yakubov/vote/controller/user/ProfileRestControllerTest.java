@@ -36,8 +36,8 @@ import static ru.yakubov.vote.controller.json.JsonUtil.writeValue;
 import static ru.yakubov.vote.service.VoteService.VOTE_DEADLINE;
 import static ru.yakubov.vote.util.VoteUtilsTo.createTo;
 
-class ProfileVoteRestControllerTest extends AbstractControllerTest {
-    private static final String REST_URL = ProfileVoteRestController.REST_URL;
+class ProfileRestControllerTest extends AbstractControllerTest {
+    private static final String REST_URL = ProfileRestController.REST_URL;
 
     @Autowired
     UserService service;

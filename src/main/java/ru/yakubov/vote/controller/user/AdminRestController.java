@@ -29,8 +29,8 @@ import static ru.yakubov.vote.util.ValidationUtil.checkNew;
 
 @RestController
 //Отдаем сообщения в формате json (produces = MediaType.APPLICATION_JSON_VALUE)
-@RequestMapping(value = AdminVoteRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class AdminVoteRestController extends AbstractUserVoteController {
+@RequestMapping(value = AdminRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class AdminRestController extends AbstractUserController {
 
     public static final String REST_URL = ROOT_REST_URL + ADMIN_REST_URL;
 

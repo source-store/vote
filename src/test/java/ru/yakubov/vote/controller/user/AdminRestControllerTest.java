@@ -23,9 +23,9 @@ import static ru.yakubov.vote.TestUtil.userHttpBasic;
 import static ru.yakubov.vote.UserTestData.USER_MATCHER;
 import static ru.yakubov.vote.controller.RestUrlPattern.PROFILES_REST_URL;
 
-class AdminVoteRestControllerTest extends AbstractControllerTest {
+class AdminRestControllerTest extends AbstractControllerTest {
 
-    private static final String REST_URL = AdminVoteRestController.REST_URL;
+    private static final String REST_URL = AdminRestController.REST_URL;
 
     @Autowired
     UserService service;
