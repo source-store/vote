@@ -4,7 +4,7 @@ package ru.yakubov.vote.model;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
-import ru.yakubov.vote.util.DateTimeUtil;
+import ru.yakubov.vote.util.ValidationUtil;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -25,7 +25,7 @@ public class Menu extends AbstractBaseEntity {
 
     @NotNull
     @Column(name = "date", nullable = false)
-    @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
+    @DateTimeFormat(pattern = ValidationUtil.DATE_PATTERN)
     private LocalDate date = LocalDate.now();
 
 

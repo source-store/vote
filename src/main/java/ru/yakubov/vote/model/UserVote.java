@@ -3,7 +3,7 @@ package ru.yakubov.vote.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.util.CollectionUtils;
-import ru.yakubov.vote.util.DateTimeUtil;
+import ru.yakubov.vote.util.ValidationUtil;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -33,7 +33,7 @@ public class UserVote extends AbstractNamedEntity {
     @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()")
     @NotNull
     @JsonIgnore
-    @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
+    @DateTimeFormat(pattern = ValidationUtil.DATE_TIME_PATTERN)
     private Date registered = new Date();
 
 
