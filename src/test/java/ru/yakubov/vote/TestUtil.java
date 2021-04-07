@@ -5,7 +5,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import ru.yakubov.vote.controller.json.JsonUtil;
-import ru.yakubov.vote.model.UserVote;
+import ru.yakubov.vote.model.User;
 
 import java.io.UnsupportedEncodingException;
 
@@ -22,7 +22,7 @@ public class TestUtil {
         return JsonUtil.readValue(getContent(result), clazz);
     }
 
-    public static RequestPostProcessor userHttpBasic(UserVote userVote) {
-        return SecurityMockMvcRequestPostProcessors.httpBasic(userVote.getEmail(), userVote.getPassword());
+    public static RequestPostProcessor userHttpBasic(User user) {
+        return SecurityMockMvcRequestPostProcessors.httpBasic(user.getEmail(), user.getPassword());
     }
 }

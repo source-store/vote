@@ -13,7 +13,7 @@ public class SpringMain {
 
 //            AdminVoteRestController adminUserController = appCtx.getBean(AdminVoteRestController.class);
 //            System.out.println();
-//            UserVote userVote = adminUserController.create(new UserVote(UserTestData.newUser));
+//            User user = adminUserController.create(new User(UserTestData.newUser));
 //            System.out.println();
 
 //            RestaurantRestController restaurantController = appCtx.getBean(RestaurantRestController.class);
@@ -28,9 +28,9 @@ public class SpringMain {
 
 //            ProfileVoteRestController profileVoteRestController = appCtx.getBean(ProfileVoteRestController.class);
 //            Votes votes = new Votes();
-//            votes.setUserVote(userVote);
+//            votes.setUser(user);
 //            votes.setRestaurant(restaurants);
-//            profileVoteRestController.createVote(userVote.getId(), restaurants.getId());
+//            profileVoteRestController.createVote(user.getId(), restaurants.getId());
 
         }
     }

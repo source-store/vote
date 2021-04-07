@@ -67,7 +67,7 @@ public class VoteService {
             throw new FailVoteException("User voted today");
         }
         votes = new Votes(LocalDate.now());
-        votes.setUserVote(SecurityUtil.safeGet().getUser());
+        votes.setUser(SecurityUtil.safeGet().getUser());
         Restaurants restaurants = restaurantRepository.getOne(restaurantId);
         Assert.notNull(restaurants, "restaurants must not be null");
         votes.setRestaurant(restaurants);

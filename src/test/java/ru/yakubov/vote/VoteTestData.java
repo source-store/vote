@@ -8,7 +8,7 @@ import java.util.List;
 import static ru.yakubov.vote.MenuTestData.MENU_END_SEQ;
 
 public class VoteTestData {
-    public static TestMatcher<Votes> VOTE_MATCHER = TestMatcher.usingIgnoringFieldsComparator("date", "restaurant", "userVote");
+    public static TestMatcher<Votes> VOTE_MATCHER = TestMatcher.usingIgnoringFieldsComparator("date", "restaurant", "user");
 
     public static final int VOTE_TEST_SEQ = MENU_END_SEQ;
 
@@ -32,10 +32,10 @@ public class VoteTestData {
     public static final List<Votes> VOTES_FOR_USER3;
 
     static {
-        VOTE1.setUserVote(UserTestData.user1);
-        VOTE2.setUserVote(UserTestData.user2);
-        VOTE3.setUserVote(UserTestData.user3);
-        VOTE4.setUserVote(UserTestData.user3);
+        VOTE1.setUser(UserTestData.user1);
+        VOTE2.setUser(UserTestData.user2);
+        VOTE3.setUser(UserTestData.user3);
+        VOTE4.setUser(UserTestData.user3);
 
         VOTE1.setRestaurant(RestaurantTestData.restaurant1);
         VOTE2.setRestaurant(RestaurantTestData.restaurant1);

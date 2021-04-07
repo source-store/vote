@@ -5,7 +5,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.yakubov.vote.model.Role;
-import ru.yakubov.vote.model.UserVote;
+import ru.yakubov.vote.model.User;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,27 +19,27 @@ public class DataJpaUserRepository {
     @Autowired
     private CrudUserRepository crudRepository;
 
-    public UserVote save(UserVote userVote) {
-        return crudRepository.save(userVote);
+    public User save(User user) {
+        return crudRepository.save(user);
     }
 
     public boolean delete(int id) {
         return crudRepository.delete(id) != 0;
     }
 
-    public UserVote get(int id) {
+    public User get(int id) {
         return crudRepository.findById(id).orElse(null);
     }
 
-    public UserVote getByEmail(String email) {
+    public User getByEmail(String email) {
         return crudRepository.getByEmail(email);
     }
 
-    public List<UserVote> getAll() {
+    public List<User> getAll() {
         return crudRepository.findAll(SORT_NAME_EMAIL);
     }
 
-    public List<UserVote> getByRoles(Role role) {
+    public List<User> getByRoles(Role role) {
         return crudRepository.getByRoles().stream().filter(u -> u.getRoles().contains(role)).collect(Collectors.toList());
     }
 }

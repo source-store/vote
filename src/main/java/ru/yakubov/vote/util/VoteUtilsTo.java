@@ -29,15 +29,15 @@ public class VoteUtilsTo {
         return new MenuTo(menu.getId(), menu.getDate(), menu.getDescription(), menu.getPrice(), createTo(menu.getRestaurant()));
     }
 
-    public static UserTo createTo(UserVote userVote) {
-        return new UserTo(userVote.getId(), userVote.getName(), userVote.getEmail(), userVote.getPassword());
+    public static UserTo createTo(User user) {
+        return new UserTo(user.getId(), user.getName(), user.getEmail(), user.getPassword());
     }
 
     public static VoteTo createTo(Votes votes) {
-        return new VoteTo(votes.getId(), votes.getDate(), votes.getUserVote().getId(), votes.getRestaurant().getId());
+        return new VoteTo(votes.getId(), votes.getDate(), votes.getUser().getId(), votes.getRestaurant().getId());
     }
 
-    public static UserVote createUserFromTo(UserTo userTo) {
-        return new UserVote(null, userTo.getName(), userTo.getEmail(), userTo.getPassword(), Role.USER);
+    public static User createUserFromTo(UserTo userTo) {
+        return new User(null, userTo.getName(), userTo.getEmail(), userTo.getPassword(), Role.USER);
     }
 }

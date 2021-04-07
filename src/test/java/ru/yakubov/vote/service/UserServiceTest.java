@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import ru.yakubov.vote.UserTestData;
 import ru.yakubov.vote.model.Role;
-import ru.yakubov.vote.model.UserVote;
+import ru.yakubov.vote.model.User;
 import ru.yakubov.vote.util.exception.NotFoundException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,7 +35,7 @@ public class UserServiceTest extends AbstractTest {
 
     @Test
     public void create() {
-        UserVote created = service.create(UserTestData.newUser);
+        User created = service.create(UserTestData.newUser);
         int id = created.getId();
         UserTestData.newUser.setId(id);
         USER_MATCHER.assertMatch(service.get(id), UserTestData.newUser);
@@ -43,7 +43,7 @@ public class UserServiceTest extends AbstractTest {
 
     @Test
     public void save() {
-        UserVote updateUser = service.get(UserTestData.USER_ID1);
+        User updateUser = service.get(UserTestData.USER_ID1);
         int id = updateUser.getId();
         updateUser.setEmail("update@mail.ru");
         service.create(updateUser);

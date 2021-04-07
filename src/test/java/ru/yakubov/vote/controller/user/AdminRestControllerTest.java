@@ -10,7 +10,7 @@ import ru.yakubov.vote.TestUtil;
 import ru.yakubov.vote.UserTestData;
 import ru.yakubov.vote.controller.AbstractControllerTest;
 import ru.yakubov.vote.controller.json.JsonUtil;
-import ru.yakubov.vote.model.UserVote;
+import ru.yakubov.vote.model.User;
 import ru.yakubov.vote.service.UserService;
 import ru.yakubov.vote.util.exception.NotFoundException;
 
@@ -53,7 +53,7 @@ class AdminRestControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        UserVote created = TestUtil.readFromJsonResultActions(actions, UserVote.class);
+        User created = TestUtil.readFromJsonResultActions(actions, User.class);
         USER_MATCHER.assertMatch(created, UserTestData.user2);
 
     }
@@ -67,29 +67,29 @@ class AdminRestControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON));
 
-        UserVote getUserVote = TestUtil.readFromJsonResultActions(actions, UserVote.class);
-        USER_MATCHER.assertMatch(getUserVote, UserTestData.admin2);
+        User getUser = TestUtil.readFromJsonResultActions(actions, User.class);
+        USER_MATCHER.assertMatch(getUser, UserTestData.admin2);
 
     }
 
-    //POST /rest/admin/profile                                                   create new user from UserVote
+    //POST /rest/admin/profile                                                   create new user from User
     @Test
     void createWithLocation() throws Exception {
-        UserVote userVote = new UserVote(UserTestData.newUser);
-        userVote.setId(null);
+        User user = new User(UserTestData.newUser);
+        user.setId(null);
 
         ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.post(REST_URL + PROFILES_REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(userVote))
+                .content(JsonUtil.writeValue(user))
                 .with(userHttpBasic(UserTestData.admin1)))
                 .andDo(print())
                 .andExpect(status().isCreated());
 
-        UserVote created = TestUtil.readFromJsonResultActions(actions, UserVote.class);
+        User created = TestUtil.readFromJsonResultActions(actions, User.class);
         Integer id = created.getId();
-        userVote.setId(id);
-        USER_MATCHER.assertMatch(created, userVote);
-        USER_MATCHER.assertMatch(service.get(id), userVote);
+        user.setId(id);
+        USER_MATCHER.assertMatch(created, user);
+        USER_MATCHER.assertMatch(service.get(id), user);
     }
 
     //DELETE /rest/admin/profiles/{userId}                                        delete user
@@ -108,12 +108,12 @@ class AdminRestControllerTest extends AbstractControllerTest {
     //PUT /rest/admin/profiles/{userId}                                           update user
     @Test
     void update() throws Exception {
-        UserVote userVote = new UserVote(UserTestData.user1);
-        userVote.setName("Update NAME");
+        User user = new User(UserTestData.user1);
+        user.setName("Update NAME");
 
         mockMvc.perform(MockMvcRequestBuilders.put(REST_URL + PROFILES_REST_URL + "/" + UserTestData.USER_ID1)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(userVote))
+                .content(JsonUtil.writeValue(user))
                 .with(userHttpBasic(UserTestData.admin1)))
                 .andDo(print())
                 .andExpect(status().isNoContent());

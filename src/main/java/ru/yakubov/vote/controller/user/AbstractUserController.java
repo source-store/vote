@@ -3,7 +3,7 @@ package ru.yakubov.vote.controller.user;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.yakubov.vote.model.UserVote;
+import ru.yakubov.vote.model.User;
 import ru.yakubov.vote.model.Votes;
 import ru.yakubov.vote.service.UserService;
 import ru.yakubov.vote.service.VoteService;
@@ -26,21 +26,21 @@ public abstract class AbstractUserController {
     @Autowired
     protected UserService service;
 
-    protected List<UserVote> getAll() {
+    protected List<User> getAll() {
         log.info("getAll");
         return service.getAll();
     }
 
-    protected UserVote get(int id) {
+    protected User get(int id) {
         log.info("get {}", id);
         return service.get(id);
     }
 
     protected void updateFromTo(UserTo userTo, int id) {
         log.info("updateFromTo {} with id={}", userTo, id);
-        UserVote userVote = VoteUtilsTo.createUserFromTo(userTo);
-        assureIdConsistent(userVote, id);
-        service.create(userVote);
+        User user = VoteUtilsTo.createUserFromTo(userTo);
+        assureIdConsistent(user, id);
+        service.create(user);
     }
 
     protected List<Votes> getByUserDate(int id, LocalDate beginDate, LocalDate endDate) {
@@ -53,11 +53,11 @@ public abstract class AbstractUserController {
         return VoteUtilsTo.createTo(voteService.getByUserOneDate(id, LocalDate.now()));
     }
 
-    protected UserVote createFromTo(UserTo userTo) {
+    protected User createFromTo(UserTo userTo) {
         log.info("createFromTo userTo {}", userTo);
-        UserVote userVote = VoteUtilsTo.createUserFromTo(userTo);
-        checkNew(userVote);
-        return service.create(userVote);
+        User user = VoteUtilsTo.createUserFromTo(userTo);
+        checkNew(user);
+        return service.create(user);
     }
 
     protected VoteTo createVote(int userId, int restautantId) {

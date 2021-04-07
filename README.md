@@ -59,12 +59,12 @@ REST API
 |:------------------------|:--------:|-------------------------------------------------------------|:-------------:|:-------------:|:----------------:|:----------:|
 |result vote current date | GET      | /rest/admin/results                                         |               | 200           | List(VoteResult) |   ADMIN    |
 |result vote by period    | GET      | /rest/admin/results/in?date1={date1}&date2={date2}          |               | 200           | List(VoteResult) |   ADMIN    |
-|all user profiles        | GET      | /rest/admin/profiles                                        |               | 200           | List(UserVote)   |   ADMIN    |
-|user profile by id       | GET      | /rest/admin/profiles/{userId}                               |               | 200           | UserVote         |   ADMIN    |
-|create new user          | POST     | /rest/admin/profiles                                        | UserVote      | 201           | UserVote         |   ADMIN    |
+|all user profiles        | GET      | /rest/admin/profiles                                        |               | 200           | List(User)   |   ADMIN    |
+|user profile by id       | GET      | /rest/admin/profiles/{userId}                               |               | 200           | User         |   ADMIN    |
+|create new user          | POST     | /rest/admin/profiles                                        | User      | 201           | User         |   ADMIN    |
 |delete user              | DELETE   | /rest/admin/profiles/{userId}                               |               | 204           |                  |   ADMIN    |
 |update user              | PUT      | /rest/admin/profiles/{userId}                               |               | 204           |                  |   ADMIN    |
-|profile by email         | GET      | /rest/profiles/in?email={email}                             |               | 200           | UserVote         |   ADMIN    |
+|profile by email         | GET      | /rest/profiles/in?email={email}                             |               | 200           | User         |   ADMIN    |
 |user vote by date        | GET      | /rest/profiles/{userId}}/vote/in?date1={date1}&date2={date2}|               | 200           | List(Votes)      |   ADMIN    |
 
 
@@ -74,10 +74,10 @@ REST API
 |:------------------------|:--------:|---------------------------------------------|:-------------:|:-------------:|:----------------:|:----------:|
 |result vote current date | GET      | /rest/results                               |               | 200           | List(VoteResult) |  USER      |
 |result vote by period    | GET      | /rest/results/in?date1={date1}&date2={date2}|               | 200           | List(VoteResult) |  USER      |
-|current user profile     | GET      | /rest/profiles                              |               | 200           | UserVote         |  USER      |
+|current user profile     | GET      | /rest/profiles                              |               | 200           | User         |  USER      |
 |update current user      | PUT      | /rest/profiles                              | UserTo    | 204           |                  |  USER      |
 |vote                     | POST     | /rest/profiles/{restaurantId}               |               | 201           | VoteTo           |  USER      |
-|register new user        | POST     | /rest/profiles/register                     | UserTo    | 200           | UserVoteTo       |            |
+|register new user        | POST     | /rest/profiles/register                     | UserTo    | 200           | UserTo       |            |
 |delete current user vote | DELETE   | /rest//profiles                             |               | 204           |                  |  USER      |
 
 
@@ -139,7 +139,7 @@ get result vote current date\
 get result vote by period\
 `curl -u admin2@yandex.ru:password2 "http://localhost:8080/vote/rest/admin/results/in?date1=2021-03-08&date2=2021-03-10"`
 
-create new user from UserVote\
+create new user from User\
 `curl -s -X POST -d "{ \"name\": \"Us4er22\", \"email\": \"user22@andex.ru\", \"password\": \"password\", \"enabled\": \"true\", \"roles\": [\"USER\", \"ADMIN\"]}" -H "Content-Type:application/json" "http://localhost:8080/vote/rest/admin/profiles" --user admin2@yandex.ru:password2`
 
 delete user (user id = 50003)\

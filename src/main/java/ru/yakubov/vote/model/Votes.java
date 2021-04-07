@@ -22,7 +22,7 @@ public class Votes extends AbstractBaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private UserVote userVote;
+    private User user;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
@@ -34,7 +34,7 @@ public class Votes extends AbstractBaseEntity {
     public Votes(Votes votes) {
         this(votes.getId(), votes.getDate());
         this.setRestaurant(votes.getRestaurant());
-        this.setUserVote(votes.getUserVote());
+        this.setUser(votes.getUser());
     }
 
     public Votes(LocalDate date) {
@@ -53,8 +53,8 @@ public class Votes extends AbstractBaseEntity {
         return date;
     }
 
-    public UserVote getUserVote() {
-        return userVote;
+    public User getUser() {
+        return user;
     }
 
     public Restaurants getRestaurant() {
@@ -65,8 +65,8 @@ public class Votes extends AbstractBaseEntity {
         this.date = date;
     }
 
-    public void setUserVote(UserVote userVote) {
-        this.userVote = userVote;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setRestaurant(Restaurants restaurant) {

@@ -14,7 +14,7 @@ import java.util.*;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
-public class UserVote extends AbstractNamedEntity {
+public class User extends AbstractNamedEntity {
 
     @Column(name = "email", nullable = false, unique = true)
     @Email
@@ -45,24 +45,24 @@ public class UserVote extends AbstractNamedEntity {
     @JoinColumn(name = "user_id")
     private Set<Role> roles;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userVote")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
     @OrderBy("date DESC")
     @JsonIgnore
     protected List<Votes> votes;
 
 
-    public UserVote() {
+    public User() {
     }
 
-    public UserVote(UserVote u) {
+    public User(User u) {
         this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(), u.getRegistered(), u.getRoles());
     }
 
-    public UserVote(Integer id, String name, String email, String password, Role role, Role... roles) {
+    public User(Integer id, String name, String email, String password, Role role, Role... roles) {
         this(id, name, email, password, true, new Date(), EnumSet.of(role, roles));
     }
 
-    public UserVote(Integer id, String name, String email, String password, boolean enabled, Date registered, Collection<Role> roles) {
+    public User(Integer id, String name, String email, String password, boolean enabled, Date registered, Collection<Role> roles) {
         super(id, name);
         this.email = email;
         this.password = password;

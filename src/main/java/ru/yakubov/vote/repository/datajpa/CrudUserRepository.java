@@ -6,20 +6,20 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
-import ru.yakubov.vote.model.UserVote;
+import ru.yakubov.vote.model.User;
 
 import java.util.List;
 
 @Transactional(readOnly = true)
-public interface CrudUserRepository extends JpaRepository<UserVote, Integer> {
+public interface CrudUserRepository extends JpaRepository<User, Integer> {
 
     @Modifying
-    @Query("DELETE FROM UserVote u WHERE u.id=:id")
+    @Query("DELETE FROM User u WHERE u.id=:id")
     int delete(@Param("id") int id);
 
-    UserVote getByEmail(String email);
+    User getByEmail(String email);
 
     @EntityGraph(attributePaths = {"roles"})
-    @Query("SELECT u FROM UserVote u ORDER BY u.name")
-    List<UserVote> getByRoles();
+    @Query("SELECT u FROM User u ORDER BY u.name")
+    List<User> getByRoles();
 }

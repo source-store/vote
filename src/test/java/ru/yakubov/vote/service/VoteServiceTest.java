@@ -36,7 +36,7 @@ public class VoteServiceTest extends AbstractTest {
 
     @Test
     void create() {
-        VoteTestData.NEW_VOTE.setUserVote(UserTestData.user1);
+        VoteTestData.NEW_VOTE.setUser(UserTestData.user1);
         VoteTestData.NEW_VOTE.setRestaurant(RestaurantTestData.restaurant1);
         VoteTo created = service.create(VoteTestData.NEW_VOTE);
         int id = created.getId();

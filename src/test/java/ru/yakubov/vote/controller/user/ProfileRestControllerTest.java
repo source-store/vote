@@ -12,7 +12,7 @@ import ru.yakubov.vote.TestUtil;
 import ru.yakubov.vote.UserTestData;
 import ru.yakubov.vote.controller.AbstractControllerTest;
 import ru.yakubov.vote.controller.json.JsonUtil;
-import ru.yakubov.vote.model.UserVote;
+import ru.yakubov.vote.model.User;
 import ru.yakubov.vote.model.Votes;
 import ru.yakubov.vote.repository.datajpa.DataJpaVoteRepository;
 import ru.yakubov.vote.service.UserService;
@@ -62,8 +62,8 @@ class ProfileRestControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON));
 
-        UserVote getUserVote = TestUtil.readFromJsonResultActions(actions, UserVote.class);
-        USER_MATCHER.assertMatch(getUserVote, UserTestData.user2);
+        User getUser = TestUtil.readFromJsonResultActions(actions, User.class);
+        USER_MATCHER.assertMatch(getUser, UserTestData.user2);
     }
 
     //GET /rest/profile/vote                                            get current user vote
@@ -72,7 +72,7 @@ class ProfileRestControllerTest extends AbstractControllerTest {
 
         Votes vote = new Votes(LocalDate.now());
         vote.setRestaurant(RestaurantTestData.restaurant3);
-        vote.setUserVote(UserTestData.user1);
+        vote.setUser(UserTestData.user1);
 
         VoteTo create = voteService.create(vote);
 
@@ -87,7 +87,7 @@ class ProfileRestControllerTest extends AbstractControllerTest {
 
     //GET /rest/profile/votes/in?date1=2021-03-08&date2=2021-03-10     get user vote by date (period)
     @Test
-    void getUserVoteByDate() throws Exception {
+    void getUserByDate() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + VOTES_URL + "/in?date1=2021-03-08&date2=2021-03-10")
                 .with(userHttpBasic(UserTestData.user1)))
                 .andExpect(status().isOk())
@@ -98,12 +98,12 @@ class ProfileRestControllerTest extends AbstractControllerTest {
     //PUT /rest/profile                    update
     @Test
     void update() throws Exception {
-        UserVote userVote = new UserVote(UserTestData.user1);
-        userVote.setName("Update NAME");
+        User user = new User(UserTestData.user1);
+        user.setName("Update NAME");
 
         mockMvc.perform(MockMvcRequestBuilders.put(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(createTo(userVote)))
+                .content(JsonUtil.writeValue(createTo(user)))
                 .with(userHttpBasic(UserTestData.user1)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
@@ -125,7 +125,7 @@ class ProfileRestControllerTest extends AbstractControllerTest {
         Integer id = created.getId();
         Votes getVotes = voteService.get(id);
 
-        assertEquals(getVotes.getUserVote().getId(), UserTestData.user1.getId());
+        assertEquals(getVotes.getUser().getId(), UserTestData.user1.getId());
         assertEquals(getVotes.getRestaurant().getId(), RestaurantTestData.RESTAURANT_ID4);
     }
 
@@ -135,7 +135,7 @@ class ProfileRestControllerTest extends AbstractControllerTest {
 
         Votes vote = new Votes(LocalDate.now());
         vote.setRestaurant(RestaurantTestData.restaurant3);
-        vote.setUserVote(UserTestData.user1);
+        vote.setUser(UserTestData.user1);
         VoteTo createService = voteService.create(vote);
 
         if (LocalTime.now().isAfter(VOTE_DEADLINE)) {
@@ -175,11 +175,11 @@ class ProfileRestControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(status().isCreated());
 
-        UserVote created = TestUtil.readFromJsonResultActions(actions, UserVote.class);
+        User created = TestUtil.readFromJsonResultActions(actions, User.class);
         Integer id = created.getId();
-        UserVote userVote = service.get(id);
+        User user = service.get(id);
 
-        assertEquals(userVote.getName(), userTo.getName());
-        assertEquals(userVote.getEmail(), userTo.getEmail());
+        assertEquals(user.getName(), userTo.getName());
+        assertEquals(user.getEmail(), userTo.getEmail());
     }
 }
