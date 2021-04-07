@@ -11,7 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.yakubov.vote.controller.View;
 import ru.yakubov.vote.model.UserVote;
 import ru.yakubov.vote.model.Votes;
-import ru.yakubov.vote.to.UserVoteTo;
+import ru.yakubov.vote.to.UserTo;
 import ru.yakubov.vote.to.VoteTo;
 
 import java.net.URI;
@@ -58,8 +58,8 @@ public class ProfileVoteRestController extends AbstractUserVoteController {
     // /rest/profile                                                 update
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody UserVoteTo userVoteTo) {
-        super.updateFromTo(userVoteTo, authUserId());
+    public void update(@RequestBody UserTo userTo) {
+        super.updateFromTo(userTo, authUserId());
     }
 
     // /rest/profile/vote?id={restaurantId}                         vote
@@ -89,8 +89,8 @@ public class ProfileVoteRestController extends AbstractUserVoteController {
     // /rest/rest/profile/register                                  register new user
     @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
-    public ResponseEntity<UserVote> createRegisterWithLocation(@Validated(View.Web.class) @RequestBody UserVoteTo userVoteTo) {
-        UserVote created = super.createFromTo(userVoteTo);
+    public ResponseEntity<UserVote> createRegisterWithLocation(@Validated(View.Web.class) @RequestBody UserTo userTo) {
+        UserVote created = super.createFromTo(userTo);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL).buildAndExpand().toUri();

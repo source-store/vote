@@ -7,7 +7,7 @@ import ru.yakubov.vote.model.UserVote;
 import ru.yakubov.vote.model.Votes;
 import ru.yakubov.vote.service.UserService;
 import ru.yakubov.vote.service.VoteService;
-import ru.yakubov.vote.to.UserVoteTo;
+import ru.yakubov.vote.to.UserTo;
 import ru.yakubov.vote.to.VoteTo;
 import ru.yakubov.vote.util.VoteUtilsTo;
 
@@ -36,9 +36,9 @@ public abstract class AbstractUserVoteController {
         return service.get(id);
     }
 
-    protected void updateFromTo(UserVoteTo userVoteTo, int id) {
-        log.info("updateFromTo {} with id={}", userVoteTo, id);
-        UserVote userVote = VoteUtilsTo.createUserFromTo(userVoteTo);
+    protected void updateFromTo(UserTo userTo, int id) {
+        log.info("updateFromTo {} with id={}", userTo, id);
+        UserVote userVote = VoteUtilsTo.createUserFromTo(userTo);
         assureIdConsistent(userVote, id);
         service.create(userVote);
     }
@@ -53,9 +53,9 @@ public abstract class AbstractUserVoteController {
         return VoteUtilsTo.createTo(voteService.getByUserOneDate(id, LocalDate.now()));
     }
 
-    protected UserVote createFromTo(UserVoteTo userVoteTo) {
-        log.info("createFromTo userVoteTo {}", userVoteTo);
-        UserVote userVote = VoteUtilsTo.createUserFromTo(userVoteTo);
+    protected UserVote createFromTo(UserTo userTo) {
+        log.info("createFromTo userTo {}", userTo);
+        UserVote userVote = VoteUtilsTo.createUserFromTo(userTo);
         checkNew(userVote);
         return service.create(userVote);
     }

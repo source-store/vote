@@ -3,7 +3,7 @@ package ru.yakubov.vote.util;
 import ru.yakubov.vote.model.*;
 import ru.yakubov.vote.to.MenuTo;
 import ru.yakubov.vote.to.RestaurantTo;
-import ru.yakubov.vote.to.UserVoteTo;
+import ru.yakubov.vote.to.UserTo;
 import ru.yakubov.vote.to.VoteTo;
 
 import java.util.Collection;
@@ -29,15 +29,15 @@ public class VoteUtilsTo {
         return new MenuTo(menu.getId(), menu.getDate(), menu.getDescription(), menu.getPrice(), createTo(menu.getRestaurant()));
     }
 
-    public static UserVoteTo createTo(UserVote userVote) {
-        return new UserVoteTo(userVote.getId(), userVote.getName(), userVote.getEmail(), userVote.getPassword());
+    public static UserTo createTo(UserVote userVote) {
+        return new UserTo(userVote.getId(), userVote.getName(), userVote.getEmail(), userVote.getPassword());
     }
 
     public static VoteTo createTo(Votes votes) {
         return new VoteTo(votes.getId(), votes.getDate(), votes.getUserVote().getId(), votes.getRestaurant().getId());
     }
 
-    public static UserVote createUserFromTo(UserVoteTo userVoteTo) {
-        return new UserVote(null, userVoteTo.getName(), userVoteTo.getEmail(), userVoteTo.getPassword(), Role.USER);
+    public static UserVote createUserFromTo(UserTo userTo) {
+        return new UserVote(null, userTo.getName(), userTo.getEmail(), userTo.getPassword(), Role.USER);
     }
 }

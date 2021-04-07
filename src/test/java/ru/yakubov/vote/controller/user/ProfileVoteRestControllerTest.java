@@ -17,7 +17,7 @@ import ru.yakubov.vote.model.Votes;
 import ru.yakubov.vote.repository.datajpa.DataJpaVoteRepository;
 import ru.yakubov.vote.service.UserService;
 import ru.yakubov.vote.service.VoteService;
-import ru.yakubov.vote.to.UserVoteTo;
+import ru.yakubov.vote.to.UserTo;
 import ru.yakubov.vote.to.VoteTo;
 
 import java.time.LocalDate;
@@ -168,10 +168,10 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
     //POST /rest/profile/register                         register new user
     @Test
     void createRegisterWithLocation() throws Exception {
-        UserVoteTo userVoteTo = new UserVoteTo("UserNew", "email@email.com", "password");
+        UserTo userTo = new UserTo("UserNew", "email@email.com", "password");
         ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.post(REST_URL + "/register")
                 .contentType(APPLICATION_JSON)
-                .content(JsonUtil.writeValue(userVoteTo)))
+                .content(JsonUtil.writeValue(userTo)))
                 .andDo(print())
                 .andExpect(status().isCreated());
 
@@ -179,7 +179,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
         Integer id = created.getId();
         UserVote userVote = service.get(id);
 
-        assertEquals(userVote.getName(), userVoteTo.getName());
-        assertEquals(userVote.getEmail(), userVoteTo.getEmail());
+        assertEquals(userVote.getName(), userTo.getName());
+        assertEquals(userVote.getEmail(), userTo.getEmail());
     }
 }

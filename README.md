@@ -47,7 +47,7 @@ can view / change himself profile, view menus and restaurants, perform voting, d
 ----------
 registration of a new user, with USER rights 
 POST /rest/profile/register
-body (json): UserVoteTo
+body (json): UserTo
 
 
 REST API
@@ -75,9 +75,9 @@ REST API
 |result vote current date | GET      | /rest/results                               |               | 200           | List(VoteResult) |  USER      |
 |result vote by period    | GET      | /rest/results/in?date1={date1}&date2={date2}|               | 200           | List(VoteResult) |  USER      |
 |current user profile     | GET      | /rest/profiles                              |               | 200           | UserVote         |  USER      |
-|update current user      | PUT      | /rest/profiles                              | UserVoteTo    | 204           |                  |  USER      |
+|update current user      | PUT      | /rest/profiles                              | UserTo    | 204           |                  |  USER      |
 |vote                     | POST     | /rest/profiles/{restaurantId}               |               | 201           | VoteTo           |  USER      |
-|register new user        | POST     | /rest/profiles/register                     | UserVoteTo    | 200           | UserVoteTo       |            |
+|register new user        | POST     | /rest/profiles/register                     | UserTo    | 200           | UserVoteTo       |            |
 |delete current user vote | DELETE   | /rest//profiles                             |               | 204           |                  |  USER      |
 
 

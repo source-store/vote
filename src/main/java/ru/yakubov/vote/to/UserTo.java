@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
-public class UserVoteTo extends BaseTo implements HasIdAndEmail, Serializable {
+public class UserTo extends BaseTo implements HasIdAndEmail, Serializable {
     private static final long serialVersionUID = -4783984052924957103L;
 
     @NotBlank
@@ -23,14 +23,14 @@ public class UserVoteTo extends BaseTo implements HasIdAndEmail, Serializable {
     @Size(min = 5, max = 100)
     private String password;
 
-    public UserVoteTo() {
+    public UserTo() {
     }
 
-    public UserVoteTo(String name, String email, String password) {
+    public UserTo(String name, String email, String password) {
         this(null, name, email, password);
     }
 
-    public UserVoteTo(Integer id, String name, String email, String password) {
+    public UserTo(Integer id, String name, String email, String password) {
         super(id);
         this.name = name;
         this.email = email;
@@ -63,7 +63,7 @@ public class UserVoteTo extends BaseTo implements HasIdAndEmail, Serializable {
 
     @Override
     public String toString() {
-        return "UserVoteTo{" +
+        return "UserTo{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
