@@ -53,6 +53,13 @@ body (json): UserTo
 REST API
 --------
 
+##for example JSON
+User {"name": "UserName", "email": "mail@andex.ru", "password": "userPassword", "enabled": "true", "roles": ["USER", "ADMIN"]}\
+UserTo { "name": "UserName", "email": "mail@yandex.ru", "password": "userPassword"}\
+Restaurant { "name": "nameRestaurant", "address": "addressRestaurant"}\
+Menu { "restaurant": {"id": intId},"date": [YYYY, M, D],"description": "menuDescription", "price": intPrice }\
+VoteTo {"id":intId,"date":"YYYY-MM-DD","userId":intId,"restaurantId":intId}
+
 **AdminVoteRestController (Role ADMIN)**
 
 |                         |*Method*  | *URL*                                                       | *Body(JSON)* |*Code response*| *Body(JSON)* |  *Access*  |
@@ -71,10 +78,10 @@ REST API
 |:--------------------------|:------:|----------------------------------------------------|:------------:|:-------------:|:------------:|:----------:|
 |current user profile       | GET    | /rest/profile                                      |              | 200           | User         |  USER      |
 |current user vote          | GET    | /rest/profile/vote                                 |              | 200           | VoteTo       |  USER      |
-|user vote by date (period) | GET    | /rest/profile/votes/in?date1={date1}&date2={date2} |              | 200           | List(Votes)  |  USER      |
+|user vote by date (period) | GET    | /rest/profile/votes/in?date1={date1}&date2={date2} |              | 200           | List(VoteTo) |  USER      |
 |update current user        | PUT    | /rest/profile                                      | UserTo       | 204           |              |  USER      |
 |vote                       | POST   | /rest/profile/vote?id={restaurantId}               |              | 201           | VoteTo       |  USER      |
-|update current vote        | PГT    | /rest/profile/vote?id={restaurantId}               |              | 201           | VoteTo       |  USER      |
+|update current vote        | PUT    | /rest/profile/vote?id={restaurantId}               |              | 201           | VoteTo       |  USER      |
 |register new user          | POST   | /rest/profile/register                             | UserTo       | 200           | User         |            |
 
 
@@ -118,9 +125,6 @@ REST API
 |menu item                               | GET      | /rest/menus/{id}                             |              | 200           | Menu         |  USER    |
 |menu for all restaurants for the period | GET      | /rest/menus/in?date1={date1}&date2={date2}   |              | 200           | List<Menu>   |  USER    |
 |all menu items of restaurant from date  | GET      | /rest/menus?{id}&date1={date1}&date2={date2} |              | 200           | List<Menu>   |  USER    |
-
-##for example JSON
-Menu
 
 
 

@@ -44,9 +44,9 @@ public abstract class AbstractUserController {
         service.create(user);
     }
 
-    protected List<Votes> getByUserDate(int id, LocalDate beginDate, LocalDate endDate) {
+    protected List<VoteTo> getByUserDate(int id, LocalDate beginDate, LocalDate endDate) {
         log.info("getByUserDat userId {} beginDate {}  endDate {}", id, beginDate, endDate);
-        return voteService.getByUserDate(id, beginDate, endDate);
+        return voteService.getByUserDate2(id, beginDate, endDate);
     }
 
     protected VoteTo getCurrentVote(int id) {

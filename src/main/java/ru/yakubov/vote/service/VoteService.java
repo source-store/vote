@@ -17,6 +17,7 @@ import ru.yakubov.vote.util.exception.FailVoteException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static ru.yakubov.vote.util.ValidationUtil.checkNotFoundWithId;
 
@@ -54,6 +55,10 @@ public class VoteService {
 
     public List<Votes> getByUserDate(int id, LocalDate beginDate, LocalDate endDate) {
         return repository.getByUserDate(id, beginDate, endDate);
+    }
+
+    public List<VoteTo> getByUserDate2(int id, LocalDate beginDate, LocalDate endDate) {
+        return repository.getByUserDate(id, beginDate, endDate).stream().map(v -> VoteUtilsTo.createTo(v)).collect(Collectors.toList());
     }
 
     public Votes getByUserOneDate(int id, LocalDate setDate) {
