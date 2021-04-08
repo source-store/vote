@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -27,6 +28,7 @@ import static ru.yakubov.vote.controller.SecurityUtil.authUserId;
  * GET /rest/profile/votes/in?date1=2021-03-08&date2=2021-03-10      get user vote by date (period)
  * PUT /rest/profile                                                 update
  * POST /rest/profile/vote?id={restaurantId}                         vote
+ * PUT /rest/profile/vote?id={restaurantId}                          update current vote
  * POST /rest/rest/profile/register                                  register new user
  **/
 
@@ -51,7 +53,7 @@ public class ProfileRestController extends AbstractUserController {
     // /rest/profile/votes/in?date1=2021-03-08&date2=2021-03-10      get user vote by date (period)
     @GetMapping(value = VOTES_URL + "/in", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Votes> getUserByDate(@RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1,
-                                         @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
+                                     @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
         return super.getByUserDate(authUserId(), date1, date2);
     }
 

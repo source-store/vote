@@ -31,6 +31,14 @@ public class RestErrorHandler {
         return logAndGetErrorInfo(req, e, HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ResponseBody
+    public Object IllegalArgumentExceptionError(HttpServletRequest req, Exception e) {
+        log.error("IllegalArgumentException {} {}", req.getRequestURL(), e.getMessage());
+        return logAndGetErrorInfo(req, e, HttpStatus.CONFLICT);
+    }
+
     @ExceptionHandler(FailVoteException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     @ResponseBody

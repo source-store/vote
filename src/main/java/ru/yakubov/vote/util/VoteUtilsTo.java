@@ -34,7 +34,7 @@ public class VoteUtilsTo {
     }
 
     public static VoteTo createTo(Votes votes) {
-        return new VoteTo(votes.getId(), votes.getDate(), votes.getUser().getId(), votes.getRestaurant().getId());
+        return (votes == null) ? null : new VoteTo(votes.getId(), votes.getDate(), votes.getUser().getId(), votes.getRestaurant().getId());
     }
 
     public static User createUserFromTo(UserTo userTo) {

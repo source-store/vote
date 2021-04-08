@@ -57,7 +57,8 @@ public class VoteService {
     }
 
     public Votes getByUserOneDate(int id, LocalDate setDate) {
-        return repository.getByUserOneDate(id, setDate);
+        Votes votes = repository.getByUserOneDate(id, setDate);
+        return votes;
     }
 
     @Transactional

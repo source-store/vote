@@ -3,6 +3,7 @@ package ru.yakubov.vote.controller.user;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 import ru.yakubov.vote.model.User;
 import ru.yakubov.vote.model.Votes;
 import ru.yakubov.vote.service.UserService;
@@ -50,7 +51,9 @@ public abstract class AbstractUserController {
 
     protected VoteTo getCurrentVote(int id) {
         log.info("getCurrentVote userId {} Date {}", id, LocalDate.now());
-        return VoteUtilsTo.createTo(voteService.getByUserOneDate(id, LocalDate.now()));
+        Votes votes = voteService.getByUserOneDate(id, LocalDate.now());
+        Assert.notNull(votes, "User not vote today");
+        return VoteUtilsTo.createTo(votes);
     }
 
     protected User createFromTo(UserTo userTo) {
