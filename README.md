@@ -119,9 +119,13 @@ REST API
 |menu for all restaurants for the period | GET      | /rest/menus/in?date1={date1}&date2={date2}   |              | 200           | List<Menu>   |  USER    |
 |all menu items of restaurant from date  | GET      | /rest/menus?{id}&date1={date1}&date2={date2} |              | 200           | List<Menu>   |  USER    |
 
+##for example JSON
+Menu
 
-### curl samples
-#### admin samples
+
+
+## curl samples
+### AdminVoteRestController samples
 
 get all users \
 `curl -u admin2@yandex.ru:password2 http://localhost:8080/vote/rest/admin/profiles`
@@ -141,7 +145,7 @@ delete user (user id = 50003)\
 update user (user id = 50003)\
 `curl -X PUT -d "{ \"name\": \"User22\", \"email\": \"user22@an2dex.ru\", \"password\": \"password\", \"enabled\": \"true\", \"roles\": [\"USER\", \"ADMIN\"]}" -H "Content-Type:application/json" http://localhost:8080/vote/rest/admin/profiles/50002 -u admin2@yandex.ru:password2`
 
-#### user samples
+### ProfileVoteRestController samples
 
 get current user profile\
 `curl -u user2@yandex.ru:password4 http://localhost:8080/vote/rest/profile`
@@ -164,3 +168,62 @@ update current vote\
 register new user\
 `curl -X POST -d "{ \"name\": \"User22\", \"email\": \"user22@an2dex.ru\", \"password\": \"password4\"}" -H "Content-Type:application/json"  "http://localhost:8080/vote/rest/profile/register"`
 
+### AdminRestaurantRestController samples
+
+get all restaurants\
+`curl -u admin2@yandex.ru:password2 http://localhost:8080/vote/rest/admin/restaurants`
+
+get restaurant\
+`curl -u admin2@yandex.ru:password2 http://localhost:8080/vote/rest/admin/restaurants/50006`
+
+create restaurant\
+`curl -s -X POST -d "{ \"name\": \"NAME test\", \"address\": \"ADDRESS test\"}" -H "Content-Type:application/json" "http://localhost:8080/vote/rest/admin/restaurants" --user admin2@yandex.ru:password2`
+
+delete restaurant\
+`curl -s -X DELETE "http://localhost:8080/vote/rest/admin/restaurants/100000" --user admin2@yandex.ru:password2`
+
+update restaurant\
+`curl -s -X PUT -d "{ \"name\": \"NAME test\", \"address\": \"ADDRESS222 test\"}" -H "Content-Type:application/json" "http://localhost:8080/vote/rest/admin/restaurants/50006" --user admin2@yandex.ru:password2`
+
+### RestaurantRestController samples
+
+get all restaurants\
+`curl -u user2@yandex.ru:password4 http://localhost:8080/vote/rest/restaurants`
+
+get restaurant\
+`curl -u user2@yandex.ru:password4 http://localhost:8080/vote/rest/restaurants/50007`
+
+### AdminMenuRestController samples
+
+get menu for all restaurants for the period\
+`curl -u admin2@yandex.ru:password2 "http://localhost:8080/vote/rest/admin/menus/in?date1=2021-03-08&date2=2021-03-10"`
+
+get all menu items of restaurant from date\
+`curl -u admin2@yandex.ru:password2 "http://localhost:8080/vote/rest/admin/menus?id=50006&date1=2021-03-08&date2=2021-03-10"`
+
+get menu item\
+`curl -u admin2@yandex.ru:password2 "http://localhost:8080/vote/rest/admin/menus/50012"`
+
+create menu item\
+`curl -s -X POST -d "{ \"restaurant\": {\"id\": 50005},\"date\": [2021, 3, 18],\"description\": \"m446re7u11\", \"price\": 5000 }" -H "Content-Type:application/json" "http://localhost:8080/vote/rest/admin/menus/" --user admin2@yandex.ru:password2`
+
+delete menu item\
+`curl -s -X DELETE "http://localhost:8080/vote/rest/admin/menus/50012" --user admin2@yandex.ru:password2`
+
+update menu item\
+`curl -s -X PUT -d "{ \"restaurant\": {\"id\": 50005},\"date\": [2021, 3, 18],\"description\": \"m4re7u11\", \"price\": 5000 }" -H "Content-Type:application/json" "http://localhost:8080/vote/rest/admin/menus/50011" --user admin2@yandex.ru:password2`
+
+
+### MenuRestController samples
+
+get menu for today\
+`curl -u user2@yandex.ru:password4 "http://localhost:8080/vote/rest/menus/today"`
+
+get menu item\
+`curl -u user2@yandex.ru:password4 "http://localhost:8080/vote/rest/menus/50014"`
+
+get menu for all restaurants for the period\
+`curl -u user2@yandex.ru:password4 "http://localhost:8080/vote/rest/menus/in?date1=2021-03-08&date2=2021-03-10"`
+
+get menu for all restaurants for the period\
+`curl -u user2@yandex.ru:password4 "http://localhost:8080/vote/rest/menus?id=50006&date1=2021-03-08&date2=2021-03-10"`
