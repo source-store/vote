@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "menus", uniqueConstraints = {@UniqueConstraint(columnNames = {"date", "description", "restaurant_id"}, name = "menus_unique_date_description_restaurant_idx")})
+@Table(name = "menus", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "date", "description"}, name = "menus_unique_restaurant_date_description_idx")})
 public class Menu extends AbstractBaseEntity {
 
 

@@ -13,7 +13,7 @@
 
 
     <jdbc:initialize-database data-source="dataSource" enabled="${database.init}">
-        <jdbc:script encoding="utf-8" location="${jdbc.initLocation}" separator=";;"/>
+        <jdbc:script encoding="utf-8" location="${jdbc.initLocation}" separator=";"/>
         <jdbc:script encoding="utf-8" location="classpath:db/populateDB.sql" separator=";"/>
     </jdbc:initialize-database>
 
