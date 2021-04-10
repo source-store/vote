@@ -16,8 +16,8 @@ import static ru.yakubov.vote.controller.RestUrlPattern.ROOT_REST_URL;
 /**
  * GET    /rest/menus/today                                   get menu for today
  * GET    /rest/menus/{id}                                    get menu item
- * GET    /rest/menus/in?date1={date1}&date2={date2}          get menu for all restaurants for the period
- * GET    /rest/menus?id={id}&date1={date1}&date2={date2}     get all menu items of restaurant from date
+ * GET    /rest/menus/in?beginDate={beginDate}&endDate={endDate}          get menu for all restaurants for the period
+ * GET    /rest/menus?id={id}&beginDate={beginDate}&endDate={endDate}     get all menu items of restaurant from date
  */
 
 
@@ -44,19 +44,19 @@ public class MenuRestController extends AbstractMenuRestController {
         return super.get(id);
     }
 
-    // /rest/menus/in?date1={date1}&date2={date2}          get menu for all restaurants for the period
+    // /rest/menus/in?beginDate={beginDate}&endDate={endDate}          get menu for all restaurants for the period
     @GetMapping(value = "/in", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Menu> GetAllByDate(@RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1,
-                                   @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
-        return super.GetAllByDate(date1, date2);
+    public List<Menu> GetAllByDate(@RequestParam("beginDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate beginDate,
+                                   @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        return super.GetAllByDate(beginDate, endDate);
     }
 
-    // /rest/menus?id={id}&date1={date1}&date2={date2}     get all menu items of restaurant from date
+    // /rest/menus?id={id}&beginDate={beginDate}&endDate={endDate}     get all menu items of restaurant from date
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Menu> GetAllByRestaurantIdAndDate(@RequestParam("id") int id,
-                                                  @RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1,
-                                                  @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
-        return super.GetAllByRestaurantIdAndDate(id, date1, date2);
+                                                  @RequestParam("beginDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate beginDate,
+                                                  @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        return super.GetAllByRestaurantIdAndDate(id, beginDate, endDate);
     }
 
 }

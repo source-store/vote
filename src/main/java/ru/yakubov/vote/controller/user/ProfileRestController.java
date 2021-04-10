@@ -23,7 +23,7 @@ import static ru.yakubov.vote.controller.SecurityUtil.authUserId;
 /**
  * GET /rest/profile                                                 get current user profile
  * GET /rest/profile/vote                                            get current user vote
- * GET /rest/profile/votes/in?date1=2021-03-08&date2=2021-03-10      get user vote by date (period)
+ * GET /rest/profile/votes/in?beginDate=2021-03-08&endDate=2021-03-10      get user vote by date (period)
  * PUT /rest/profile                                                 update
  * POST /rest/profile/vote?id={restaurantId}                         vote
  * PUT /rest/profile/vote?id={restaurantId}                          update current vote
@@ -44,15 +44,15 @@ public class ProfileRestController extends AbstractUserController {
 
     // /rest/profile/vote                                            get current user vote
     @GetMapping(value = VOTE_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-    public VoteTo getCurrentVote() {
-        return super.getCurrentVote(authUserId());
+    public VoteTo getTodayVote() {
+        return super.getTodayVote(authUserId());
     }
 
-    // /rest/profile/votes/in?date1=2021-03-08&date2=2021-03-10      get user vote by date (period)
+    // /rest/profile/votes/in?beginDate=2021-03-08&endDate=2021-03-10      get user vote by date (period)
     @GetMapping(value = VOTES_URL + "/in", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<VoteTo> getUserByDate(@RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1,
-                                      @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
-        return super.getByUserDate(authUserId(), date1, date2);
+    public List<VoteTo> getUserVoteByPeriod(@RequestParam("beginDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate beginDate,
+                                      @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        return super.getUserVoteByPeriod(authUserId(), beginDate, endDate);
     }
 
     // /rest/profile                                                 update
@@ -60,30 +60,6 @@ public class ProfileRestController extends AbstractUserController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@RequestBody UserTo userTo) {
         super.updateFromTo(userTo, authUserId());
-    }
-
-    // /rest/profile/vote?id={restaurantId}                         vote
-    @PostMapping(value = VOTE_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.CREATED)
-    public ResponseEntity<VoteTo> createVoteWithLocation(@RequestParam("id") int id) {
-        VoteTo votesCreateTo = super.createVote(authUserId(), id);
-
-        URI uriOfNewUser = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL + VOTE_URL).buildAndExpand().toUri();
-
-        return ResponseEntity.created(uriOfNewUser).body(votesCreateTo);
-    }
-
-    // /rest/profile/vote?id={restaurantId}                         vote
-    @PutMapping(value = VOTE_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.CREATED)
-    public ResponseEntity<VoteTo> updateVoteWithLocation(@RequestParam("id") int id) {
-        VoteTo votesCreateTo = super.updateVote(authUserId(), id);
-
-        URI uriOfNewUser = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL + VOTE_URL).buildAndExpand().toUri();
-
-        return ResponseEntity.created(uriOfNewUser).body(votesCreateTo);
     }
 
     // /rest/rest/profile/register                                  register new user

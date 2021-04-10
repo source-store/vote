@@ -10,7 +10,6 @@ import ru.yakubov.vote.RestaurantTestData;
 import ru.yakubov.vote.TestUtil;
 import ru.yakubov.vote.UserTestData;
 import ru.yakubov.vote.controller.AbstractControllerTest;
-import ru.yakubov.vote.controller.Restaurant.AdminRestaurantRestController;
 import ru.yakubov.vote.controller.json.JsonUtil;
 import ru.yakubov.vote.model.Restaurants;
 import ru.yakubov.vote.service.RestaurantService;

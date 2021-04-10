@@ -24,14 +24,14 @@ public class AbstractMenuRestController {
         return service.get(id);
     }
 
-    public List<Menu> GetAllByDate(LocalDate date1, LocalDate date2) {
-        log.info("GetAllByDate date1 {}  date2 {}", date1, date2);
-        return service.GetAllByDate(date1, date2);
+    public List<Menu> GetAllByDate(LocalDate beginDate, LocalDate endDate) {
+        log.info("GetAllByDate beginDate {}  endDate {}", beginDate, endDate);
+        return service.GetAllByDate(beginDate, endDate);
     }
 
-    public List<Menu> GetAllByRestaurantIdAndDate(int id, LocalDate date1, LocalDate date2) {
-        log.info("GetAllByRestaurantIdAndDate  RestaurantId {} date1 {}  date2 {}", id, date1, date2);
-        return service.GetAllByRestaurantIdAndDate(id, date1, date2);
+    public List<Menu> GetAllByRestaurantIdAndDate(int id, LocalDate beginDate, LocalDate endDate) {
+        log.info("GetAllByRestaurantIdAndDate  RestaurantId {} beginDate {}  endDate {}", id, beginDate, endDate);
+        return service.GetAllByRestaurantIdAndDate(id, beginDate, endDate);
     }
 
 

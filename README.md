@@ -76,7 +76,7 @@ VoteTo {"id":intId,"date":"YYYY-MM-DD","userId":intId,"restaurantId":intId}
 |:--------------------------|:------:|----------------------------------------------------|:------------:|:-------------:|:------------:|:----------:|
 |current user profile       | GET    | /rest/profile                                      |              | 200           | User         |  USER      |
 |current user vote          | GET    | /rest/profile/vote                                 |              | 200           | VoteTo       |  USER      |
-|user vote by date (period) | GET    | /rest/profile/votes/in?date1={date1}&date2={date2} |              | 200           | List(VoteTo) |  USER      |
+|user vote by date (period) | GET    | /rest/profile/votes/in?beginDate={beginDate}&endDate={endDate} |              | 200           | List(VoteTo) |  USER      |
 |update current user        | PUT    | /rest/profile                                      | UserTo       | 204           |              |  USER      |
 |vote                       | POST   | /rest/profile/vote?id={restaurantId}               |              | 201           | VoteTo       |  USER      |
 |update current vote        | PUT    | /rest/profile/vote?id={restaurantId}               |              | 201           | VoteTo       |  USER      |
@@ -107,8 +107,8 @@ VoteTo {"id":intId,"date":"YYYY-MM-DD","userId":intId,"restaurantId":intId}
 
 |                                            |*Method* | *URL*                                              | *Body(JSON)* |*Code response*| *Body(JSON)* |  *Access* |
 |:-------------------------------------------|:-------:|----------------------------------------------------|:------------:|:-------------:|:------------:|:---------:|
-|get menu for all restaurants for the period | GET     | /rest/admin/menus/in?date1={date1}&date2={date2}   |              | 200           | List(Menu)   |  ADMIN    |
-|get all menu items of restaurant from date  | GET     | /rest/admin/menus?{id}&date1={date1}&date2={date2} |              | 200           | List(Menu)   |  ADMIN    |
+|get menu for all restaurants for the period | GET     | /rest/admin/menus/in?beginDate={beginDate}&endDate={endDate}   |              | 200           | List(Menu)   |  ADMIN    |
+|get all menu items of restaurant from date  | GET     | /rest/admin/menus?{id}&beginDate={beginDate}&endDate={endDate} |              | 200           | List(Menu)   |  ADMIN    |
 |menu item                                   | GET     | /rest/admin/menus/{id}                             |              | 200           | Menu         |  ADMIN    |
 |create menu item                            | POST    | /rest/admin/menus/                                 | Menu         | 201           | Menu         |  ADMIN    |
 |delete menu item                            | DELETE  | /rest/admin/menus/{id}                             |              | 204           |              |  ADMIN    |
@@ -121,9 +121,18 @@ VoteTo {"id":intId,"date":"YYYY-MM-DD","userId":intId,"restaurantId":intId}
 |:---------------------------------------|:--------:|----------------------------------------------|:------------:|:-------------:|:------------:|:--------:|
 |menu for today                          | GET      | /rest/menus/today                            |              | 200           | List<Menu>   |  USER    |
 |menu item                               | GET      | /rest/menus/{id}                             |              | 200           | Menu         |  USER    |
-|menu for all restaurants for the period | GET      | /rest/menus/in?date1={date1}&date2={date2}   |              | 200           | List<Menu>   |  USER    |
-|all menu items of restaurant from date  | GET      | /rest/menus?{id}&date1={date1}&date2={date2} |              | 200           | List<Menu>   |  USER    |
+|menu for all restaurants for the period | GET      | /rest/menus/in?beginDate={beginDate}&endDate={endDate}   |              | 200           | List<Menu>   |  USER    |
+|all menu items of restaurant from date  | GET      | /rest/menus?{id}&beginDate={beginDate}&endDate={endDate} |              | 200           | List<Menu>   |  USER    |
 
+
+**VoteRestController (Role USER)**
+
+|                                    |*Method*  | *URL*                                                  | *Body(JSON)* |*Code response*| *Body(JSON)*     | *Access* |
+|:-----------------------------------|:--------:|--------------------------------------------------------|:------------:|:-------------:|:----------------:|:--------:|
+|result vote current date            | GET      | /rest/votes                                            |              | 200           | List<VoteResult> |  USER    |
+|result vote by period               | GET      | /rest/votes/in?beginDate=YYYY-MM-DD&endDate=YYYY-MM-DD |              | 200           | List<VoteResult> |  USER    |
+|vote                                | POST     | /rest/votes?id={restaurantId}                          |              | 200           | VoteTo           |  USER    |
+|vote update                         | PUT      | /rest/votes?id={restaurantId}                          |              | 200           | VoteTo           |  USER    |
 
 
 ## curl samples
@@ -156,16 +165,10 @@ get current user vote\
 `curl -u user2@yandex.ru:password4 http://localhost:8080/vote/rest/profile/vote`
 
 get user vote by date (period)\
-`curl -u user2@yandex.ru:password4 "http://localhost:8080/vote/rest/profile/votes/in?date1=2021-03-08&date2=2021-03-10"`
+`curl -u user2@yandex.ru:password4 "http://localhost:8080/vote/rest/profile/votes/in?beginDate=2021-03-08&endDate=2021-03-10"`
 
 update current user\
 `curl -X PUT -d "{ \"name\": \"User22\", \"email\": \"user22@an2dex.ru\", \"password\": \"password4\"}" -H "Content-Type:application/json" http://localhost:8080/vote/rest/profile -u user2@yandex.ru:password4`
-
-vote\
-`curl -X POST -u user2@yandex.ru:password4 "http://localhost:8080/vote/rest/profile/vote?id=50007"`
-
-update current vote\
-`curl -X PUT -u user2@yandex.ru:password4 "http://localhost:8080/vote/rest/profile/vote?id=50007"`
 
 register new user\
 `curl -X POST -d "{ \"name\": \"User22\", \"email\": \"user22@an2dex.ru\", \"password\": \"password4\"}" -H "Content-Type:application/json"  "http://localhost:8080/vote/rest/profile/register"`
@@ -198,10 +201,10 @@ get restaurant\
 ### AdminMenuRestController samples
 
 get menu for all restaurants for the period\
-`curl -u admin2@yandex.ru:password2 "http://localhost:8080/vote/rest/admin/menus/in?date1=2021-03-08&date2=2021-03-10"`
+`curl -u admin2@yandex.ru:password2 "http://localhost:8080/vote/rest/admin/menus/in?beginDate=2021-03-08&endDate=2021-03-10"`
 
 get all menu items of restaurant from date\
-`curl -u admin2@yandex.ru:password2 "http://localhost:8080/vote/rest/admin/menus?id=50006&date1=2021-03-08&date2=2021-03-10"`
+`curl -u admin2@yandex.ru:password2 "http://localhost:8080/vote/rest/admin/menus?id=50006&beginDate=2021-03-08&endDate=2021-03-10"`
 
 get menu item\
 `curl -u admin2@yandex.ru:password2 "http://localhost:8080/vote/rest/admin/menus/50012"`
@@ -225,7 +228,23 @@ get menu item\
 `curl -u user2@yandex.ru:password4 "http://localhost:8080/vote/rest/menus/50014"`
 
 get menu for all restaurants for the period\
-`curl -u user2@yandex.ru:password4 "http://localhost:8080/vote/rest/menus/in?date1=2021-03-08&date2=2021-03-10"`
+`curl -u user2@yandex.ru:password4 "http://localhost:8080/vote/rest/menus/in?beginDate=2021-03-08&endDate=2021-03-10"`
 
 get menu for all restaurants for the period\
-`curl -u user2@yandex.ru:password4 "http://localhost:8080/vote/rest/menus?id=50006&date1=2021-03-08&date2=2021-03-10"`
+`curl -u user2@yandex.ru:password4 "http://localhost:8080/vote/rest/menus?id=50006&beginDate=2021-03-08&endDate=2021-03-10"`
+
+
+### VoteRestController samples
+
+get result vote current date\
+`curl -u user2@yandex.ru:password4 "http://localhost:8080/vote/rest/votes"`
+
+get result vote by period\
+`curl -u user2@yandex.ru:password4 "http://localhost:8080/vote/rest/votes/in?beginDate=2021-03-08&endDate=2021-03-10"`
+
+create vote\
+`curl -X POST -u user2@yandex.ru:password4 "http://localhost:8080/vote/rest/votes?restaurantid=50007"`
+
+update current vote\
+`curl -X PUT -u user2@yandex.ru:password4 "http://localhost:8080/vote/rest/votes?restaurantid=50007"`
+

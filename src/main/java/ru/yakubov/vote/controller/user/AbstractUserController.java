@@ -44,12 +44,12 @@ public abstract class AbstractUserController {
         service.create(user);
     }
 
-    protected List<VoteTo> getByUserDate(int id, LocalDate beginDate, LocalDate endDate) {
+    protected List<VoteTo> getUserVoteByPeriod(int id, LocalDate beginDate, LocalDate endDate) {
         log.info("getByUserDat userId {} beginDate {}  endDate {}", id, beginDate, endDate);
         return voteService.getByUserDate2(id, beginDate, endDate);
     }
 
-    protected VoteTo getCurrentVote(int id) {
+    protected VoteTo getTodayVote(int id) {
         log.info("getCurrentVote userId {} Date {}", id, LocalDate.now());
         Votes votes = voteService.getByUserOneDate(id, LocalDate.now());
         Assert.notNull(votes, "User not vote today");
@@ -63,13 +63,4 @@ public abstract class AbstractUserController {
         return service.create(user);
     }
 
-    protected VoteTo createVote(int userId, int restautantId) {
-        log.info("createVote userId {} restautantId {}", userId, restautantId);
-        return voteService.vote(userId, restautantId);
-    }
-
-    protected VoteTo updateVote(int userId, int restautantId) {
-        log.info("updateVote userId {} restautantId {}", userId, restautantId);
-        return voteService.updateVote(userId, restautantId);
-    }
 }

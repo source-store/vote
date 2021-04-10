@@ -85,10 +85,10 @@ class ProfileRestControllerTest extends AbstractControllerTest {
 
     }
 
-    //GET /rest/profile/votes/in?date1=2021-03-08&date2=2021-03-10     get user vote by date (period)
+    //GET /rest/profile/votes/in?beginDate=2021-03-08&endDate=2021-03-10     get user vote by date (period)
     @Test
     void getUserByDate() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + VOTES_URL + "/in?date1=2021-03-08&date2=2021-03-10")
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + VOTES_URL + "/in?beginDate=2021-03-08&endDate=2021-03-10")
                 .with(userHttpBasic(UserTestData.user1)))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -110,60 +110,6 @@ class ProfileRestControllerTest extends AbstractControllerTest {
 
         assertEquals(service.get(UserTestData.USER_ID1).getName(), "Update NAME");
     }
-
-    //POST /rest/profile/{restaurantId}    vote
-    @Test
-    void createVoteWithLocation() throws Exception {
-
-        ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.post(REST_URL + VOTE_URL + "?id=" + RestaurantTestData.RESTAURANT_ID4)
-                .contentType(APPLICATION_JSON)
-                .with(userHttpBasic(UserTestData.user1)))
-                .andDo(print())
-                .andExpect(status().isCreated());
-
-        VoteTo created = TestUtil.readFromJsonResultActions(actions, VoteTo.class);
-        Integer id = created.getId();
-        Votes getVotes = voteService.get(id);
-
-        assertEquals(getVotes.getUser().getId(), UserTestData.user1.getId());
-        assertEquals(getVotes.getRestaurant().getId(), RestaurantTestData.RESTAURANT_ID4);
-    }
-
-    //POST /rest/profile/{restaurantId}    vote
-    @Test
-    void updateVoteWithLocation() throws Exception {
-
-        Votes vote = new Votes(LocalDate.now());
-        vote.setRestaurant(RestaurantTestData.restaurant3);
-        vote.setUser(UserTestData.user1);
-        VoteTo createService = voteService.create(vote);
-
-        if (LocalTime.now().isAfter(VOTE_DEADLINE)) {
-            ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.put(REST_URL + VOTE_URL + "?id=" + RestaurantTestData.RESTAURANT_ID4)
-                    .contentType(APPLICATION_JSON)
-                    .with(userHttpBasic(UserTestData.user1)))
-                    .andDo(print())
-                    .andExpect(status().isConflict());
-
-        } else {
-
-            Votes getService = voteService.getByUserOneDate(UserTestData.USER_ID1, LocalDate.now());
-            assertEquals(createService.getRestaurantId(), getService.getRestaurant().getId());
-
-            ResultActions actions = mockMvc.perform(MockMvcRequestBuilders.put(REST_URL + VOTE_URL + "?id=" + RestaurantTestData.RESTAURANT_ID4)
-                    .contentType(APPLICATION_JSON)
-                    .with(userHttpBasic(UserTestData.user1)))
-                    .andDo(print())
-                    .andExpect(status().isCreated());
-
-            VoteTo createRest = TestUtil.readFromJsonResultActions(actions, VoteTo.class);
-
-            assertEquals(createService.getUserId(), createRest.getUserId());
-            assertEquals(RestaurantTestData.RESTAURANT_ID4, createRest.getRestaurantId());
-        }
-
-    }
-
 
     //POST /rest/profile/register                         register new user
     @Test

@@ -8,21 +8,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.yakubov.vote.controller.RestUrlPattern;
 import ru.yakubov.vote.model.VoteResult;
 import ru.yakubov.vote.service.VoteService;
+import ru.yakubov.vote.to.VoteTo;
 
+import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
 
+import static ru.yakubov.vote.controller.RestUrlPattern.VOTE_URL;
+import static ru.yakubov.vote.controller.SecurityUtil.authUserId;
+
 /**
  * GET /rest/votes                                         get result vote current date
- * GET /rest/votes/in?date1=YYYY-MM-DD&date2=YYYY-MM-DD    get result vote by period
+ * GET /rest/votes/in?beginDate=YYYY-MM-DD&endDate=YYYY-MM-DD    get result vote by period
  **/
 
 @RestController
@@ -36,16 +41,52 @@ public class VoteRestController {
 
     // /rest/votes                                         get result vote current date
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<VoteResult> getResultCurdate() {
-        log.info("getResultCurdate ");
+    public List<VoteResult> getResultToday() {
+        log.info("getResultToday ");
         return voteService.getResultDate(LocalDate.now(), LocalDate.now());
     }
 
-    // /rest/votes/in?date1=YYYY-MM-DD&date2=YYYY-MM-DD    get result vote by period
+    // /rest/votes/in?beginDate=YYYY-MM-DD&endDate=YYYY-MM-DD    get result vote by period
     @GetMapping(value = "/in", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<VoteResult> getResultDatePeriod(@RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1,
-                                                @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
-        log.info("getResultDatePeriod beginDate {}  endDate {}", date1, date2);
-        return voteService.getResultDate(date1, date2);
+    public List<VoteResult> getResultDatePeriod(@RequestParam("beginDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate beginDate,
+                                                @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        log.info("getResultDatePeriod beginDate {}  endDate {}", beginDate, endDate);
+        return voteService.getResultDate(beginDate, endDate);
     }
+
+    // /rest/votes?id={restaurantId}                         vote
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public ResponseEntity<VoteTo> createVoteWithLocation(@RequestParam("restaurantid") int restaurantId) {
+        VoteTo votesCreateTo = createVote(authUserId(), restaurantId);
+
+        URI uriOfNewUser = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(REST_URL + VOTE_URL).buildAndExpand().toUri();
+
+        return ResponseEntity.created(uriOfNewUser).body(votesCreateTo);
+    }
+
+    // /rest/votes?id={restaurantId}                         vote
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public ResponseEntity<VoteTo> updateVoteWithLocation(@RequestParam("restaurantid") int restaurantId) {
+        VoteTo votesCreateTo = updateVote(authUserId(), restaurantId);
+
+        URI uriOfNewUser = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(REST_URL + VOTE_URL).buildAndExpand().toUri();
+
+        return ResponseEntity.created(uriOfNewUser).body(votesCreateTo);
+    }
+
+    protected VoteTo createVote(int userId, int restautantId) {
+        log.info("createVote userId {} restautantId {}", userId, restautantId);
+        return voteService.vote(userId, restautantId);
+    }
+
+    protected VoteTo updateVote(int userId, int restautantId) {
+        log.info("updateVote userId {} restautantId {}", userId, restautantId);
+        return voteService.updateVote(userId, restautantId);
+    }
+
+
 }

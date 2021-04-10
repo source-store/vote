@@ -2,7 +2,7 @@ package ru.yakubov.vote;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ru.yakubov.vote.controller.Restaurant.RestaurantRestController;
+import ru.yakubov.vote.controller.restaurant.RestaurantRestController;
 import ru.yakubov.vote.controller.user.AdminRestController;
 import ru.yakubov.vote.model.Restaurants;
 import ru.yakubov.vote.model.User;

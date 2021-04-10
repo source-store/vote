@@ -41,20 +41,20 @@ public class AdminMenuRestControllerTest extends AbstractControllerTest {
         cacheManager.getCache("menus").clear();
     }
 
-    //GET    /admin/menus/in?date1={date1}&date2={date2}       get menu for all restaurants for the period
+    //GET    /admin/menus/in?beginDate={beginDate}&endDate={endDate}       get menu for all restaurants for the period
     @Test
     void GetAllByDate() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/in?date1=2021-01-01&&date2=2021-03-11")
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/in?beginDate=2021-01-01&&endDate=2021-03-11")
                 .with(userHttpBasic(UserTestData.admin1)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON));
     }
 
-    //GET    /admin/menus?id={id}&date1={date1}&date2={date2}      get all menu items of restaurant from date
+    //GET    /admin/menus?id={id}&beginDate={beginDate}&endDate={endDate}      get all menu items of restaurant from date
     @Test
     void GetAllByRestaurantIdAndDate() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "?id=50005&date1=2021-01-01&&date2=2021-03-11")
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "?id=50005&beginDate=2021-01-01&&endDate=2021-03-11")
                 .with(userHttpBasic(UserTestData.admin1)))
                 .andExpect(status().isOk())
                 .andDo(print())

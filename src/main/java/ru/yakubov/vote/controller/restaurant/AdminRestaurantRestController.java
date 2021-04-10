@@ -1,4 +1,4 @@
-package ru.yakubov.vote.controller.Restaurant;
+package ru.yakubov.vote.controller.restaurant;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

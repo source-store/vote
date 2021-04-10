@@ -21,8 +21,8 @@ import static ru.yakubov.vote.util.ValidationUtil.assureIdConsistent;
 import static ru.yakubov.vote.util.ValidationUtil.checkNew;
 
 /**
- * GET    /rest/admin/menus/in?date1={date1}&date2={date2}           get menu for all restaurants for the period
- * GET    /rest/admin/menus?id={id}&date1={date1}&date2={date2}      get all menu items of restaurant from date
+ * GET    /rest/admin/menus/in?beginDate={beginDate}&endDate={endDate}           get menu for all restaurants for the period
+ * GET    /rest/admin/menus?id={id}&beginDate={beginDate}&endDate={endDate}      get all menu items of restaurant from date
  * GET    /rest/admin/menus/{id}                                     get menu item
  * POST   /rest/admin/menus/                                         create menu item
  * DELETE /rest/admin/menus/{id}                                     delete menu item
@@ -38,19 +38,19 @@ public class AdminMenuRestController extends AbstractMenuRestController {
         super(service);
     }
 
-    // /rest/admin/menus/in?date1={date1}&date2={date2}           get menu for all restaurants for the period
+    // /rest/admin/menus/in?beginDate={beginDate}&endDate={endDate}           get menu for all restaurants for the period
     @GetMapping(value = "/in", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Menu> GetAllByDate(@RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1,
-                                   @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
-        return super.GetAllByDate(date1, date2);
+    public List<Menu> GetAllByDate(@RequestParam("beginDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate beginDate,
+                                   @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        return super.GetAllByDate(beginDate, endDate);
     }
 
-    // /rest/admin/menus?id={id}&date1={date1}&date2={date2}      get all menu items of restaurant from date
+    // /rest/admin/menus?id={id}&beginDate={beginDate}&endDate={endDate}      get all menu items of restaurant from date
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Menu> GetAllByRestaurantIdAndDate(@RequestParam("id") int id,
-                                                  @RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date1,
-                                                  @RequestParam("date2") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date2) {
-        return super.GetAllByRestaurantIdAndDate(id, date1, date2);
+                                                  @RequestParam("beginDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate beginDate,
+                                                  @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        return super.GetAllByRestaurantIdAndDate(id, beginDate, endDate);
     }
 
     // /rest/admin/menus/{id}                                     get menu item

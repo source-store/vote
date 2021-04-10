@@ -20,10 +20,6 @@ public class DataJpaMenuRepository {
     }
 
     public Menu save(Menu menu) {
-        //проверку на наличие обновляемой записи надо составить
-        if (!menu.isNew() && get(menu.getId()) == null) {
-            return null;
-        }
         menu.setRestaurant(crudRestaurantRepository.getOne(menu.getRestaurant().id()));
         return crudMenuRepository.save(menu);
     }
