@@ -29,7 +29,7 @@ As a result, provide a link to github repository. It should contain the code, RE
 
 NOTE:
 ====
-system for storing historical data is implemented by means of a DBMS. historical data is stored in tables prefixed with *SHADOW_*
+system for storing historical data is implemented by means of a DBMS.
 
 
 Two roles are *administrator* (ADMIN) and *user* (USER).
